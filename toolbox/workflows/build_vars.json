@@ -6,7 +6,7 @@
         },
         {
             "name": "i2util",
-            "deps": [ "i2util" ]
+            "deps": []
         },
         {
             "name": "owamp",
