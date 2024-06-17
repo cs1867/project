@@ -15,8 +15,23 @@
         {
             "name": "pscheduler",
             "deps": [ "i2util", "owamp" ]
+        },
+        {
+            "name": "perl-shared",
+            "deps": [ ]
+        },
+        {
+            "name": "host-metrics", 
+            "deps": [ "minor-packages", "perl-shared", "pscheduler" ]
+        },
+        {
+            "name": "psconfig",
+            "deps": [  "minor-packages", "pscheduler" ]
+        },
+        {
+            "name": "elmond",
+            "deps": [  "minor-packages", "pscheduler" ]
         }
-
     ],
     "buildids": {
     }
