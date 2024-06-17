@@ -29,4 +29,4 @@ sudo chmod 644 /etc/yum.repos.d/build_artifacts_RPMS.repo
 ls -al /etc/yum.repos.d/build_artifacts_RPMS.repo
 cat /etc/yum.repos.d/build_artifacts_RPMS.repo
 echo "make pscheduler"
-###make
+make
