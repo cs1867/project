@@ -1,0 +1,36 @@
+{
+  "repos": [
+    {
+      "name": "perl-shared",
+      "deps": []
+    },
+    {
+      "name": "host-metrics",
+      "deps": [
+        "minor-packages",
+        "perl-shared",
+        "pscheduler"
+      ]
+    },
+    {
+      "name": "psconfig",
+      "deps": [
+        "minor-packages",
+        "pscheduler"
+      ]
+    },
+    {
+      "name": "elmond",
+      "deps": [
+        "minor-packages",
+        "pscheduler"
+      ]
+    }
+  ],
+  "buildids": {
+    "minor-packages": "9557179770",
+    "i2util": "9557289711",
+    "owamp": "9557303434",
+    "pscheduler": "9557334985"
+  }
+}
