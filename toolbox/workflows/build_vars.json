@@ -37,8 +37,12 @@
             "deps": [ "minor-packages" ]
         },
         {
+            "name": "grafana", 
+            "deps": [ "minor-packages" ]
+        },
+        {
             "name": "archive", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler" ]
+            "deps": [ "minor-packages", "perl-shared", "pscheduler", "elmond", "logstash", "host-metrics", "psconfig" ]
         }
     ],
     "buildids": {
