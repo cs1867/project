@@ -33,16 +33,20 @@
             "deps": [  "minor-packages", "pscheduler" ]
         },
         {
-            "name": "logstash", 
+            "name": "grafana", 
             "deps": [ "minor-packages" ]
         },
         {
-            "name": "grafana", 
+            "name": "logstash", 
             "deps": [ "minor-packages" ]
         },
         {
             "name": "archive", 
             "deps": [ "minor-packages", "perl-shared", "pscheduler", "elmond", "logstash", "host-metrics", "psconfig" ]
+        },
+        {
+            "name": "ls-registration-daemon", 
+            "deps": [ "minor-packages",   "pscheduler"  ]
         }
     ],
     "buildids": {
