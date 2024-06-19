@@ -31,6 +31,14 @@
         {
             "name": "elmond",
             "deps": [  "minor-packages", "pscheduler" ]
+        },
+        {
+            "name": "logstash", 
+            "deps": [ "minor-packages" ]
+        },
+        {
+            "name": "archive", 
+            "deps": [ "minor-packages", "perl-shared", "pscheduler" ]
         }
     ],
     "buildids": {
