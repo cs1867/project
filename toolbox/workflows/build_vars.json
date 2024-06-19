@@ -47,6 +47,9 @@
         {
             "name": "ls-registration-daemon", 
             "deps": [ "minor-packages",   "pscheduler"  ]
+        },        {
+            "name": "psconfig-web", 
+            "deps": [ "minor-packages",   "pscheduler"  ]
         }
     ],
     "buildids": {
