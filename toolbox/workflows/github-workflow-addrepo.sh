@@ -20,6 +20,12 @@ sudo dnf config-manager --add-repo . --setopt=gpgcheck=0
 echo " list yum repos II "
 ls -al /etc/yum.repos.d/
 ##install -y 'https://perfsonar-dev3.grnoc.iu.edu/
+echo "insall prod repo for deps"
+echo "grep for dnf processes"
+sudo ps aux | grep dnf
+echo "clean dnf"
+sudo dnf clean all
+echo "try to insall the prod repo"
 sudo dnf --nogpgcheck -y install http://linux.mirrors.es.net/perfsonar/el8/x86_64/5/packages/perfsonar-repo-0.11-1.noarch.rpm
 cd /build
 echo " echo gpgcheck and cat file "
@@ -30,4 +36,4 @@ sudo chmod 644 /etc/yum.repos.d/build_artifacts_RPMS.repo
 ls -al /etc/yum.repos.d/build_artifacts_RPMS.repo
 cat /etc/yum.repos.d/build_artifacts_RPMS.repo
 echo "make "
-make
+#make
