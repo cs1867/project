@@ -47,9 +47,14 @@
         {
             "name": "ls-registration-daemon", 
             "deps": [ "minor-packages",   "pscheduler" ,"perl-shared" ]
-        },        {
+        },        
+        {
             "name": "psconfig-web", 
-            "deps": [ "minor-packages",   "pscheduler"  ]
+            "deps": [ "minor-packages",   "pscheduler",  "psconfig" ]
+        },
+        {
+            "name": "sca-auth", 
+            "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
         }
     ],
     "buildids": {
