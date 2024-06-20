@@ -34,7 +34,7 @@
         },
         {
             "name": "grafana", 
-            "deps": [ "minor-packages" ]
+            "deps": [ "minor-packages", "psconfig" ]
         },
         {
             "name": "logstash", 
