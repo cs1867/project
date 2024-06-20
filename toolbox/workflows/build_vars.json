@@ -38,7 +38,7 @@
         },
         {
             "name": "logstash", 
-            "deps": [ "minor-packages" ]
+            "deps": [ "minor-packages", "psconfig" ]
         },
         {
             "name": "archive", 
