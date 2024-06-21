@@ -59,6 +59,10 @@
         {
             "name": "pstracetree", 
             "deps": [ ]
+        },
+        {
+            "name": "microdep", 
+            "deps": [ ]
         }
     ],
     "buildids": {
