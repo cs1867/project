@@ -55,6 +55,10 @@
         {
             "name": "sca-auth", 
             "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
+        },
+        {
+            "name": "pstracetree", 
+            "deps": [ ]
         }
     ],
     "buildids": {
