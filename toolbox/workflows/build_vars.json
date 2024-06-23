@@ -66,7 +66,7 @@
         },
         {
             "name": "toolkit", 
-            "deps": [ "minor-packages", "perl-shared", "archive", "grafana", "ls-registration-daemon", "pscheduler", "owamp" ]
+            "deps": [ "minor-packages", "perl-shared", "archive", "grafana", "ls-registration-daemon", "pscheduler", "owamp", "psconfig"  ]
         },
         {
             "name": "bundles", 
