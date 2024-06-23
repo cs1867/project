@@ -1,0 +1,37 @@
+{
+  "repos": [
+    {
+      "name": "toolkit",
+      "deps": [
+        "minor-packages",
+        "perl-shared",
+        "archive",
+        "grafana",
+        "ls-registration-daemon",
+        "pscheduler",
+        "owamp"
+      ]
+    },
+    {
+      "name": "bundles",
+      "deps": []
+    }
+  ],
+  "buildids": {
+    "minor-packages": "9625256102",
+    "i2util": "9627310068",
+    "owamp": "9627320099",
+    "pscheduler": "9627341868",
+    "perl-shared": "9627470431",
+    "host-metrics": "9627473293",
+    "psconfig": "9627494673",
+    "elmond": "9627518976",
+    "grafana": "9627538138",
+    "logstash": "9627562417",
+    "archive": "9627579994",
+    "ls-registration-daemon": "9627625557",
+    "psconfig-web": "9627637754",
+    "sca-auth": "9627673309",
+    "pstracetree": "9627711771",
+    "microdep": "9627714696"
+}
