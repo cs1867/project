@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "toolkit",
-      "deps": [ "bundles", "owamp", "ls-registration-daemon", "psconfig", "grafana", "pscheduler", "perl-shared" ]
+      "deps": [ "bundles", "owamp", "ls-registration-daemon", "psconfig", "grafana", "pscheduler", "archive" ]
     }
   ],
   "buildids": {
