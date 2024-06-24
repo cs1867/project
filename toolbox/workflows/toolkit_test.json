@@ -2,15 +2,7 @@
   "repos": [
     {
       "name": "toolkit",
-      "deps": [
-        "minor-packages",
-        "perl-shared",
-        "archive",
-        "grafana",
-        "ls-registration-daemon",
-        "pscheduler",
-        "owamp"
-      ]
+      "deps": [ "minor-packages",  "pscheduler" ,"perl-shared" ]
     },
     {
       "name": "bundles",
