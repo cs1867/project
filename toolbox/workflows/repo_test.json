@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "bundles",
-      "deps": []
+      "deps": [ "perl-shared", "archive" ]
     }
   ],
   "buildids": {
