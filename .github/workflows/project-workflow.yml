@@ -12,8 +12,8 @@ on:
   workflow_run:
     workflows: "Gather artifacts for push to repo"
     branches: 'github-workflow'
-    #types:
-    #  - completed      
+    types:
+      - completed      
  
 jobs:
        
@@ -25,8 +25,7 @@ jobs:
     steps:
         - name: Check out Repo
           uses: actions/checkout@v4
-          with:
-            ref: 5.2.0
+
             
         - name: Fetch workflow script from projects
           env:
