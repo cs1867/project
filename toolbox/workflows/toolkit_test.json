@@ -10,21 +10,21 @@
     }
   ],
   "buildids": {
-    "minor-packages": "9625256102",
-    "i2util": "9627310068",
-    "owamp": "9627320099",
-    "pscheduler": "9627341868",
-    "perl-shared": "9627470431",
-    "host-metrics": "9627473293",
-    "psconfig": "9627494673",
-    "elmond": "9627518976",
-    "grafana": "9627538138",
-    "logstash": "9627562417",
-    "archive": "9627579994",
-    "ls-registration-daemon": "9627625557",
-    "psconfig-web": "9627637754",
-    "sca-auth": "9627673309",
-    "pstracetree": "9627711771",
-    "microdep": "9627714696"
+    "minor-packages": "9634807024",
+    "i2util": "9634873001",
+    "owamp": "9634879876",
+    "pscheduler": "9634898173",
+    "perl-shared": "9635000716",
+    "host-metrics": "9635002847",
+    "psconfig": "9635021704",
+    "elmond": "9635037124",
+    "grafana": "9635049113",
+    "logstash": "9635081232",
+    "archive": "9635112851",
+    "ls-registration-daemon": "9635180041",
+    "psconfig-web": "9635206551",
+    "sca-auth": "9635246602",
+    "pstracetree": "9635287804",
+    "microdep": "9635290183"
   }
 }
