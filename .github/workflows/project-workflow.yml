@@ -63,3 +63,9 @@ jobs:
             done < deps.txt
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
+
+        - name: Pretty-print BUILD_VARS_JSON
+          run: |      
+            pwd
+            ls -al 
+            
