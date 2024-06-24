@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "bundles",
-      "deps": [ "perl-shared", "archive", "owamp", "pscheduler", "host-metrics" ]
+      "deps": [ "perl-shared", "archive", "owamp", "pscheduler", "host-metrics", "ls-registration-daemon" ]
     }
   ],
   "buildids": {
