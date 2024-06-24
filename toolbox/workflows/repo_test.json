@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "toolkit",
-      "deps": [ "bundles" ]
+      "deps": [ "bundles", "owamp", "pscheduler", "ls-registration-daemon" ]
     }
   ],
   "buildids": {
