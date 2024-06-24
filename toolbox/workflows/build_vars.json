@@ -67,12 +67,13 @@
         },
         {
             "name": "bundles", 
-            "deps": [ "perl-shared", "archive", "owamp", "pscheduler", "host-metrics", "ls-registration-daemon", "psconfig" ]
+            "deps": [ "perl-shared", "archive", "owamp", "pscheduler", 
+                "host-metrics", "ls-registration-daemon", "psconfig" ]
         },
         {
             "name": "toolkit", 
-            "deps": [ "minor-packages", "perl-shared", "archive", "grafana", 
-                "ls-registration-daemon", "pscheduler", "owamp", "psconfig"  ]
+            "deps": [ "bundles", "owamp", "ls-registration-daemon", "psconfig", 
+                "grafana", "pscheduler", "archive", "minor-packages" ]
         },
         {
             "name": "project", 
