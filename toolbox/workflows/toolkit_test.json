@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "toolkit",
-      "deps": [ "minor-packages",  "pscheduler" ,"perl-shared" ]
+      "deps": [ "pscheduler" ,"perl-shared" ]
     },
     {
       "name": "bundles",
