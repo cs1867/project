@@ -1,8 +1,8 @@
 {
   "repos": [
     {
-      "name": "bundles",
-      "deps": [ "perl-shared", "archive", "owamp", "pscheduler", "host-metrics", "ls-registration-daemon", "psconfig" ]
+      "name": "toolkit",
+      "deps": [   ]
     }
   ],
   "buildids": {
@@ -21,6 +21,7 @@
     "psconfig-web": "9635206551",
     "sca-auth": "9635246602",
     "pstracetree": "9635287804",
-    "microdep": "9635290183"
+    "microdep": "9635290183",
+    "bundles": "9649169064"
   }
 }
