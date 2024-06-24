@@ -42,7 +42,8 @@
         },
         {
             "name": "archive", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", "elmond", "logstash", "host-metrics", "psconfig" ]
+            "deps": [ "minor-packages", "perl-shared", "pscheduler", 
+                "elmond", "logstash", "host-metrics", "psconfig" ]
         },
         {
             "name": "ls-registration-daemon", 
@@ -66,11 +67,19 @@
         },
         {
             "name": "toolkit", 
-            "deps": [ "minor-packages", "perl-shared", "archive", "grafana", "ls-registration-daemon", "pscheduler", "owamp", "psconfig"  ]
+            "deps": [ "minor-packages", "perl-shared", "archive", "grafana", 
+                "ls-registration-daemon", "pscheduler", "owamp", "psconfig"  ]
         },
         {
             "name": "bundles", 
             "deps": [ ]
+        },
+        {
+            "name": "project", 
+            "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
+                "perl-shared", "host-metrics", "psconifg", "elmond", "grafana",
+                "logstash", "archive", "ls-registration-daemon", "psconfig-web",
+                "sca-auth", "pstracetree", "microdep", "toolkit", "bundles" ]
         }
     ],
     "buildids": {
