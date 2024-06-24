@@ -66,13 +66,13 @@
             "deps": [ ]
         },
         {
+            "name": "bundles", 
+            "deps": [ ]
+        },
+        {
             "name": "toolkit", 
             "deps": [ "minor-packages", "perl-shared", "archive", "grafana", 
                 "ls-registration-daemon", "pscheduler", "owamp", "psconfig"  ]
-        },
-        {
-            "name": "bundles", 
-            "deps": [ ]
         },
         {
             "name": "project", 
