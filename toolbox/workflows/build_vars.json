@@ -76,6 +76,10 @@
                 "grafana", "pscheduler", "archive", "minor-packages" ]
         },
         {
+            "name": "perfsonar-repo",
+            "deps": []
+        },
+        {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
                 "perl-shared", "host-metrics", "psconifg", "elmond", "grafana",
