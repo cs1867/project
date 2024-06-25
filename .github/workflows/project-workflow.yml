@@ -55,8 +55,9 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
-        - name: Pretty-print BUILD_VARS_JSON
+        - name: list files
           run: |      
             pwd
             ls -al 
+            echo "Misson accomplished!!"
             
