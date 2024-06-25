@@ -58,10 +58,6 @@
             "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
         },
         {
-            "name": "pstracetree", 
-            "deps": [ ]
-        },
-        {
             "name": "microdep", 
             "deps": [ ]
         },
