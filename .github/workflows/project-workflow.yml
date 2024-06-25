@@ -59,5 +59,14 @@ jobs:
           run: |      
             pwd
             ls -al 
+
+        - name: Capture end date and time
+          id: end_time
+          run: echo "end_time=$(date -u)" >> $GITHUB_ENV
+        
+        - name: Add and display end time in BUILD_VARS_JSON
+          run: |
+            updated_json=$(echo '${{ github.event.inputs.BUILD_VARS_JSON }}' | jq '.buildstats += {"end_time": "${{ env.end_time }}"}')
+            echo "$updated_json"
             echo "Misson accomplished!!"
             
