@@ -71,7 +71,7 @@ jobs:
         - name: list files
           run: |      
             pwd
-            ls -al 
+            ls -al artifacts
 
         - name: Capture end date and time
           id: end_time
