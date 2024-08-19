@@ -30,4 +30,6 @@ cd /build
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
- 
+
+echo "Run make"
+make
