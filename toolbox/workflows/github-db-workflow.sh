@@ -18,7 +18,7 @@ sudo apt install -y dpkg-dev
 dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 
 echo "Add local repository"
-echo "deb [trusted=yes] file:///$(pwd) ./" | sudo tee /etc/apt/sources.list.d/local-repo.list
+echo "deb [trusted=yes] file://$(pwd) ./" | sudo tee /etc/apt/sources.list.d/local-repo.list
 
 echo "Update APT and list repositories again"
 sudo apt update
