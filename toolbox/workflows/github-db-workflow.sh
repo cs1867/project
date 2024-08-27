@@ -31,6 +31,8 @@ pwd
 
 ls -al
 
+diff -ru paris-traceroute-1.0-orig/configure.ac paris-traceroute-1.0/configure.ac
+
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
