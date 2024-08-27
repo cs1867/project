@@ -27,6 +27,10 @@ sudo apt-cache policy
 echo "Change directory back to build"
 cd /build/pscheduler/paris-traceroute
 
+pwd 
+
+ls -al
+
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
