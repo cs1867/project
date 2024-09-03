@@ -3,6 +3,9 @@ name: project-workflow
 on: 
   workflow_dispatch:
     inputs: 
+      BUILD_BRANCH: 
+        description: 'Branch to build'
+        required: true
       OS:
         description: 'OS to build on'
         required: true
