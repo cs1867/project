@@ -69,7 +69,8 @@
         {
             "name": "toolkit", 
             "deps": [  "owamp", "ls-registration-daemon", "psconfig", 
-                "grafana", "pscheduler", "archive", "minor-packages", "bundles" ]
+                "grafana", "pscheduler", "archive", "minor-packages", "bundles",
+                 "logstash", "host-metrics", "perl-shared", "host-metrics" ]
         },
         {
             "name": "perfsonar-repo",
