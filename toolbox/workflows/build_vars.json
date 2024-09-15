@@ -70,7 +70,7 @@
             "name": "toolkit", 
             "deps": [  "owamp", "ls-registration-daemon", "psconfig", 
                 "grafana", "pscheduler", "archive", "minor-packages", "bundles",
-                 "logstash", "perl-shared" ]
+                 "logstash", "perl-shared", "host-metrics", "elmond" ]
         },
         {
             "name": "perfsonar-repo",
