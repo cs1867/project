@@ -32,7 +32,7 @@ echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
 
-echo "Run unibuild make"
+echo "Run unibuild"
 unibuild  build
 #mkdir ./unibuild-repo
 #unibuild gather ./unibuild-repo
