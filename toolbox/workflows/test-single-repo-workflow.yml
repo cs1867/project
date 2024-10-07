@@ -1,5 +1,5 @@
 # this file can be used to test a single repo build and avoid 
-# having to build all prevouse repos in the flow
+# having to build all prevous repos in the flow
 # this requires to update the test-data.json with the repo that 
 # needs to be tested and valid run ids of any dependancies
 
