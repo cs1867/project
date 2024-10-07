@@ -28,10 +28,10 @@ jobs:
      runs-on: ubuntu-latest
 
      steps:
-        - name: Check out Repo
-          uses: actions/checkout@v4
-          with:
-           ref: github-workflow
+       # - name: Check out Repo
+        #  uses: actions/checkout@v4
+        #  with:
+        #   ref: github-workflow
 
 
         - name: Fetch build_vars.json from projects
