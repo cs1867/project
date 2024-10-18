@@ -64,7 +64,7 @@
         {
             "name": "bundles", 
             "deps": [ "perl-shared", "archive", "owamp", "pscheduler", 
-                "host-metrics", "ls-registration-daemon", "psconfig" ]
+                "host-metrics", "ls-registration-daemon" ]
         },
         {
             "name": "toolkit", 
