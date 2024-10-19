@@ -19,19 +19,19 @@
         {
             "name": "perl-shared",
             "deps": [ ]
-        },
-        {
-            "name": "elmond",
-            "deps": [  "minor-packages", "pscheduler" ]
-        },
+        },  
         {
             "name": "ls-registration-daemon", 
-            "deps": [ "minor-packages",   "pscheduler" ,"perl-shared" ]
+            "deps": [ "minor-packages", "pscheduler" , "perl-shared" ]
         },
         {
             "name": "bundles", 
             "deps": [ "perl-shared", "owamp", "pscheduler", 
                   "ls-registration-daemon" ]
+        },
+        {
+            "name": "elmond",
+            "deps": [  "minor-packages", "pscheduler", "bundles" ]
         },
         {
             "name": "psconfig",
