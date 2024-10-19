@@ -21,13 +21,8 @@
             "deps": [ ]
         },  
         {
-            "name": "ls-registration-daemon", 
-            "deps": [ "minor-packages", "pscheduler" , "perl-shared" ]
-        },
-        {
             "name": "bundles", 
-            "deps": [ "perl-shared", "owamp", "pscheduler", 
-                  "ls-registration-daemon" ]
+            "deps": [ "perl-shared", "owamp", "pscheduler" ]
         },
         {
             "name": "elmond",
