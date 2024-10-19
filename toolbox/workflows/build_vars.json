@@ -21,16 +21,25 @@
             "deps": [ ]
         },
         {
+            "name": "elmond",
+            "deps": [  "minor-packages", "pscheduler" ]
+        },
+        {
+            "name": "ls-registration-daemon", 
+            "deps": [ "minor-packages",   "pscheduler" ,"perl-shared" ]
+        },
+        {
+            "name": "bundles", 
+            "deps": [ "perl-shared", "owamp", "pscheduler", 
+                  "ls-registration-daemon" ]
+        },
+        {
             "name": "psconfig",
             "deps": [  "minor-packages", "pscheduler" ]
         },
         {
             "name": "host-metrics", 
             "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
-        },
-        {
-            "name": "elmond",
-            "deps": [  "minor-packages", "pscheduler" ]
         },
         {
             "name": "grafana", 
@@ -44,11 +53,7 @@
             "name": "archive", 
             "deps": [ "minor-packages", "perl-shared", "pscheduler", 
                 "elmond", "logstash", "host-metrics", "psconfig" ]
-        },
-        {
-            "name": "ls-registration-daemon", 
-            "deps": [ "minor-packages",   "pscheduler" ,"perl-shared" ]
-        },        
+        },       
         {
             "name": "psconfig-web", 
             "deps": [ "minor-packages",   "pscheduler",  "psconfig" ]
