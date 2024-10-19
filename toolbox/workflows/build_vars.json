@@ -21,55 +21,8 @@
             "deps": [ ]
         },  
         {
-            "name": "bundles", 
-            "deps": [ "perl-shared", "owamp", "pscheduler" ]
-        },
-        {
-            "name": "elmond",
-            "deps": [  "minor-packages", "pscheduler", "bundles" ]
-        },
-        {
             "name": "psconfig",
             "deps": [  "minor-packages", "pscheduler" ]
-        },
-        {
-            "name": "host-metrics", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
-        },
-        {
-            "name": "grafana", 
-            "deps": [ "minor-packages", "psconfig", "pscheduler"  ]
-        },
-        {
-            "name": "logstash", 
-            "deps": [ "minor-packages", "psconfig" ]
-        },
-        {
-            "name": "archive", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", 
-                "elmond", "logstash", "host-metrics", "psconfig" ]
-        },       
-        {
-            "name": "psconfig-web", 
-            "deps": [ "minor-packages",   "pscheduler",  "psconfig" ]
-        },
-        {
-            "name": "sca-auth", 
-            "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
-        },
-        {
-            "name": "microdep", 
-            "deps": [ ]
-        },
-        {
-            "name": "toolkit", 
-            "deps": [  "owamp", "ls-registration-daemon", "psconfig", 
-                "grafana", "pscheduler", "archive", "minor-packages", "bundles",
-                 "logstash", "perl-shared", "host-metrics", "elmond" ]
-        },
-        {
-            "name": "perfsonar-repo",
-            "deps": []
         },
         {
             "name": "project", 
