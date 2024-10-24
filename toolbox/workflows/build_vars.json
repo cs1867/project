@@ -19,7 +19,11 @@
         {
             "name": "perl-shared",
             "deps": [ ]
-        },  
+        },
+        {
+            "name": "bundles", 
+            "deps": [ ]
+        },
         {
             "name": "psconfig",
             "deps": [  "minor-packages", "pscheduler" ]
