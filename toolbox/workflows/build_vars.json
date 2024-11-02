@@ -21,12 +21,12 @@
             "deps": [ ]
         },
         {
-            "name": "bundles", 
-            "deps": [ "owamp", "pscheduler"]
+            "name": "ls-registration-daemon", 
+            "deps": [ ]
         },
         {
             "name": "psconfig",
-            "deps": [  "minor-packages", "pscheduler" ]
+            "deps": [   "pscheduler" ]
         },
         {
             "name": "project", 
