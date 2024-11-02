@@ -22,7 +22,7 @@
         },
         {
             "name": "bundles", 
-            "deps": [ ]
+            "deps": [ "owamp", "pscheduler"]
         },
         {
             "name": "psconfig",
