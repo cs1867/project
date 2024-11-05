@@ -36,7 +36,7 @@ sudo echo "gpgcheck=0" >> /etc/yum.repos.d/build_artifacts_RPMS.repo
 sudo chmod 644 /etc/yum.repos.d/build_artifacts_RPMS.repo
 ls -al /etc/yum.repos.d/build_artifacts_RPMS.repo
 cat /etc/yum.repos.d/build_artifacts_RPMS.repo
-echo "make host-metrics"
+echo "make and skip install"
 unibuild  make
 mkdir ./unibuild-repo
 unibuild gather ./unibuild-repo
