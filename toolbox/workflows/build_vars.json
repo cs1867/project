@@ -22,7 +22,7 @@
         },
         {
             "name": "ls-registration-daemon", 
-            "deps": [ "perl-shared" ]
+            "deps": [ "perl-shared", "pscheduler" ]
         },
         {
             "name": "psconfig",
