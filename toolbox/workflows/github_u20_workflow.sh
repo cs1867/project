@@ -24,15 +24,17 @@ echo "Update APT and list repositories again"
 sudo apt update
 sudo apt-cache policy
 
+echo "Install perl-shared package"
+sudo dpkg -i perl-shared*.deb
+
 echo "Change directory back to build"
 cd /build/
 
- 
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
 
 echo "Run unibuild"
-unibuild  build
+#unibuild  build
 #mkdir ./unibuild-repo
 #unibuild gather ./unibuild-repo
