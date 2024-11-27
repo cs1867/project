@@ -1,5 +1,4 @@
-# Removed psconfig from bundles.  seems to be building fine but want to note in case issues
-
+ 
 {
     "repos": [
         {
