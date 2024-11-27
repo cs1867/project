@@ -34,8 +34,15 @@
         },
         {
             "name": "elmond",
-            "deps": [  "minor-packages", "pscheduler" ]
+            "deps": [  "perl-shared",  "pscheduler" ]
         },
+        {
+            "name": "grafana", 
+            "deps": [ "perl-shared",  "pscheduler"  ]
+        },
+        {
+            "name": "logstash", 
+            "deps": [ "minor-packages", "psconfig" ]
         {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
