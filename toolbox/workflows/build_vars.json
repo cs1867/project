@@ -1,3 +1,6 @@
+#still need: logstash, archiver, toolkit, bundles
+#not sure if I need sca-auth and psconfig-web
+
 {
     "repos": [
         {
