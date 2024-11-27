@@ -26,7 +26,7 @@
         },
         {
             "name": "psconfig",
-            "deps": [   "pscheduler" ]
+            "deps": [  "perl-shared",  "pscheduler" ]
         },
         {
             "name": "project", 
