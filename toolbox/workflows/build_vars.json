@@ -41,12 +41,8 @@
             "deps": [  "perl-shared", "pscheduler", "psconfig" ]
         },
         {
-            "name": "psconfig-web", 
-            "deps": [ "minor-packages",   "pscheduler",  "psconfig" ]
-        },
-        {
             "name": "sca-auth", 
-            "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
+            "deps": [  "pscheduler",  "psconfig" ]
         },
         {
             "name": "project", 
