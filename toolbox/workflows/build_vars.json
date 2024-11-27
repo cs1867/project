@@ -41,8 +41,12 @@
             "deps": [  "perl-shared", "pscheduler", "psconfig" ]
         },
         {
-            "name": "logstash", 
-            "deps": [ "minor-packages", "psconfig" ]
+            "name": "psconfig-web", 
+            "deps": [ "minor-packages",   "pscheduler",  "psconfig" ]
+        },
+        {
+            "name": "sca-auth", 
+            "deps": [ "minor-packages",  "pscheduler",  "psconfig" ]
         },
         {
             "name": "project", 
