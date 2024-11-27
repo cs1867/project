@@ -29,6 +29,14 @@
             "deps": [  "perl-shared",  "pscheduler" ]
         },
         {
+            "name": "host-metrics", 
+            "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
+        },
+        {
+            "name": "elmond",
+            "deps": [  "minor-packages", "pscheduler" ]
+        },
+        {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
                 "perl-shared", "host-metrics", "psconfig", "elmond", "grafana",
