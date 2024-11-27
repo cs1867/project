@@ -38,11 +38,12 @@
         },
         {
             "name": "grafana", 
-            "deps": [ "perl-shared",  "pscheduler"  ]
+            "deps": [  "perl-shared", "pscheduler", "psconfig" ]
         },
         {
             "name": "logstash", 
             "deps": [ "minor-packages", "psconfig" ]
+        },
         {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
