@@ -11,6 +11,7 @@ ls -al /etc/apt/sources.list.d/
 
 echo "List available repositories"
 sudo apt update
+echo "apt-cache policy"
 sudo apt-cache policy
 
 echo "Create repository"
