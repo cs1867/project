@@ -41,11 +41,6 @@
             "deps": [  "perl-shared", "pscheduler", "psconfig" ]
         },
         {
-            "name": "archive", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", 
-                "elmond", "logstash", "host-metrics", "psconfig" ]
-        },
-        {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
                 "perl-shared", "host-metrics", "psconfig", "elmond", "grafana",
