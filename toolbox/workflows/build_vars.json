@@ -30,7 +30,7 @@
         },
         {
             "name": "host-metrics", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
+            "deps": [  "perl-shared", "pscheduler", "psconfig" ]
         },
         {
             "name": "elmond",
