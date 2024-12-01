@@ -45,7 +45,7 @@
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
                 "perl-shared", "host-metrics", "psconfig", "elmond", "grafana",
                 "logstash", "archive", "ls-registration-daemon", "psconfig-web",
-                "sca-auth", "toolkit", "bundles", "toolkit" ]
+                "sca-auth", "toolkit", "bundles" ]
         }
     ],
     "buildids": {
