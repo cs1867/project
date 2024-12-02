@@ -1,4 +1,5 @@
 echo "Run the Debian GitHub workflow script"
+sudo apt install --only-upgrade iperf3
 
 echo "Change directory to artifact DEBs"
 cd artifacts/DEBS
