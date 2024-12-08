@@ -26,27 +26,27 @@
         },
         {
             "name": "psconfig",
-            "deps": [  "perl-shared",  "pscheduler" ]
+            "deps": [ "perl-shared",  "pscheduler" ]
         },
         {
             "name": "host-metrics", 
-            "deps": [  "perl-shared", "pscheduler", "psconfig" ]
+            "deps": [ "perl-shared", "pscheduler", "psconfig" ]
         },
         {
             "name": "elmond",
-            "deps": [  "perl-shared",  "pscheduler" ]
+            "deps": [ "perl-shared",  "pscheduler" ]
         },
         {
             "name": "grafana", 
-            "deps": [  "perl-shared", "pscheduler", "psconfig" ]
+            "deps": [ "perl-shared", "pscheduler", "psconfig" ]
         },
         {
             "name": "logstash", 
-            "deps": [  "perl-shared", "pscheduler", "psconfig", "minor-packages" ]
+            "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
         },
         {
             "name": "archive", 
-            "deps": [  "perl-shared", "pscheduler", "psconfig", "minor-packages", "logstash" ]
+            "deps": [ "perl-shared", "pscheduler", "psconfig", "minor-packages", "logstash" ]
         },
         {
             "name": "project", 
