@@ -42,7 +42,7 @@
         },
         {
             "name": "logstash", 
-            "deps": [ "minor-packages", "perl-shared", "pscheduler", "psconfig" ]
+            "deps": [ "minor-packages", "psconfig", "perl-shared", "pscheduler" ]
         },
         {
             "name": "archive", 
