@@ -1,6 +1,9 @@
 echo "Run the Debian GitHub workflow script"
 sudo apt install --only-upgrade iperf3
 
+dpkg -l | grep iperf3
+
+
 echo "Change directory to artifact DEBs"
 cd artifacts/DEBS
 
@@ -29,14 +32,15 @@ sudo apt-cache policy
 echo "Install perl-shared package"
 sudo dpkg -i perl-shared*.deb
 
-echo "Change directory back to build"
-cd /build/
+#echo "Change directory back to build"
+#cd /build/
+apt-cache search opensearch
 
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
 
 echo "Run unibuild"
-unibuild  build
+#unibuild  build
 #mkdir ./unibuild-repo
 #unibuild gather ./unibuild-repo
