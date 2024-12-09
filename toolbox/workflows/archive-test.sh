@@ -1,5 +1,4 @@
-echo "Run the Debian GitHub workflow script"
-sudo apt install --only-upgrade iperf3
+ 
  
 
 echo "List available repositories"
@@ -7,19 +6,10 @@ sudo apt update
 echo "apt-cache policy"
 sudo apt-cache policy
 
-echo "Create repository"
-sudo apt install -y dpkg-dev
-dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 
-echo "Add local repository"
-echo "deb [trusted=yes] file://$(pwd) ./" | sudo tee /etc/apt/sources.list.d/local-repo.list
-
-echo "Update APT and list repositories again"
-sudo apt update
-sudo apt-cache policy
 
 echo "Install perl-shared package"
-ls   artifacts/minor-packages/opensearch*
+ls   artifacts/minor-packages/opensearch*.x86_64.deb
 #sudo dpkg -i artifacts/minor-packages/opensearch-2.17.1.x86_64.deb
 
 
