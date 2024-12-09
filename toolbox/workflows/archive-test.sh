@@ -14,7 +14,7 @@ sudo dpkg -i artifacts/minor-packages/opensearch-2*.x86_64.deb
 
 sudo apt-get install -f
 
-
+echo "install_demo_configuration.log"
 cat /var/log/opensearch/install_demo_configuration.log
 
  
