@@ -19,7 +19,8 @@ sudo apt update
 sudo apt-cache policy
 
 echo "Install perl-shared package"
-sudo dpkg -i artifacts/minor-packages/opensearch-2.17.1.x86_64.deb
+ls   artifacts/minor-packages/opensearch*
+#sudo dpkg -i artifacts/minor-packages/opensearch-2.17.1.x86_64.deb
 
 
  
