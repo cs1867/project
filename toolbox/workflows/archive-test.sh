@@ -1,11 +1,11 @@
+echo "Run the Debian GitHub workflow script"
+sudo apt install --only-upgrade iperf3
  
-echo "Change directory to artifact DEBs"
-cd artifacts/DEBS
 
-#echo "List available repositories"
-#sudo apt update
-#echo "apt-cache policy"
-#sudo apt-cache policy
+echo "List available repositories"
+sudo apt update
+echo "apt-cache policy"
+sudo apt-cache policy
 
 #echo "Create repository"
 #sudo apt install -y dpkg-dev
