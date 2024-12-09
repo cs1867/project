@@ -12,6 +12,7 @@ echo "Install perl-shared package"
 ls   artifacts/minor-packages/opensearch-2*.x86_64.deb
 sudo dpkg -i artifacts/minor-packages/opensearch-2*.x86_64.deb
 
+echo "outpupt from apt-get install -f "
 sudo apt-get install -f
 
 echo "install_demo_configuration.log"
