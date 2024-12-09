@@ -1,17 +1,8 @@
 echo "Run the Debian GitHub workflow script"
 sudo apt install --only-upgrade iperf3
 
-dpkg -l | grep iperf3
-
-
 echo "Change directory to artifact DEBs"
 cd artifacts/DEBS
-
-echo "List DEB directory"
-ls
-
-echo "List APT sources"
-ls -al /etc/apt/sources.list.d/
 
 echo "List available repositories"
 sudo apt update
@@ -32,9 +23,8 @@ sudo apt-cache policy
 echo "Install perl-shared package"
 sudo dpkg -i perl-shared*.deb
 
-#echo "Change directory back to build"
-#cd /build/
-apt-cache search opensearch
+echo "Change directory back to build"
+cd /build/
 
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
