@@ -19,7 +19,7 @@ sudo apt update
 sudo apt-cache policy
 
 echo "Install perl-shared package"
-sudo dpkg -i perl-shared*.deb
+sudo dpkg -i opensearch*.deb
 
 #echo "Change directory back to build"
 #cd /build/
