@@ -31,6 +31,6 @@ ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
 
 echo "Run unibuild"
-unibuild  make
+unibuild  build
 #mkdir ./unibuild-repo
 #unibuild gather ./unibuild-repo
