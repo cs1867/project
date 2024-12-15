@@ -49,10 +49,6 @@
             "deps": [ "perl-shared", "pscheduler", "psconfig", "minor-packages", "logstash" ]
         },
         {
-            "name": "perfsonar-repo",
-            "deps": []
-        },
-        {
             "name": "bundles", 
             "deps": [ "perl-shared", "archive", "owamp", "pscheduler", 
                 "host-metrics", "ls-registration-daemon" ]
@@ -67,7 +63,7 @@
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
                 "perl-shared", "host-metrics", "psconfig", "elmond", "grafana",
-                "logstash", "archive", "ls-registration-daemon", "psconfig-web",
+                "logstash", "archive", "ls-registration-daemon",
                 "sca-auth", "toolkit", "bundles" ]
         }
     ],
