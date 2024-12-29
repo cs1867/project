@@ -92,6 +92,12 @@ jobs:
             pwd
             ls -al artifacts
 
+        - uses: actions/upload-artifact@v3
+          with:
+           name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
+           path: artifacts
+           retention-days: 5
+
         - name: Capture end date and time
           id: end_time
           run: echo "end_time=$(date -u)" >> $GITHUB_ENV
