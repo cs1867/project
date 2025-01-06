@@ -62,9 +62,9 @@
         {
             "name": "project", 
             "deps": [ "minor-packages", "i2util", "owamp", "pscheduler", 
-                "perl-shared", "host-metrics", "psconfig", "elmond", "grafana",
-                "logstash", "archive", "ls-registration-daemon",
-                "sca-auth", "toolkit", "bundles" ]
+                "perl-shared", "ls-registration-daemon", "host-metrics", "psconfig",
+                "elmond", "grafana", "logstash", "archive",
+                 "toolkit", "bundles" ]
         }
     ],
     "buildids": {
