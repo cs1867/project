@@ -1,6 +1,10 @@
 {
     "repos": [
         {
+            "name": "project",
+            "deps": []
+        },
+        {
             "name": "minor-packages",
             "deps": []
         },
