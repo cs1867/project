@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "20 21 * * *" 
   push:    
-    branches: [ 'github-workflow' ]  
+    branches: [ 'master' ]  
   workflow_run:
     workflows: "create workflow pass runid"  
     branches: [ 'github-workflow' ] 
@@ -21,7 +21,8 @@ jobs:
   build-minor-packages: 
      strategy:  
       matrix:
-          os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ] 
+          os: [  'ol8' ] 
+          # os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
 
      runs-on: ubuntu-latest
 
@@ -68,20 +69,7 @@ jobs:
           run: |
             jq '.buildstats += { "OS": "${{ matrix.os }}", "BUILD_BRANCH": "${{ env.BUILD_BRANCH }}", "BUILD_TYPE": "${{ env.BUILD_TYPE }}", "start_time": "${{ env.start_time }}", "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' build-vars.json > updated_build-vars.json
             mv updated_build-vars.json build-vars.json
-            
-        - name: Display build-vars.json
-          run: cat build-vars.json
 
-        - name: run docker oneshot builder
-          run: |
-           echo " run the oneshot"
-           curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - . '${{ matrix.os }}'
- 
-        - uses: actions/upload-artifact@v4
-          with:
-            name: ${{ github.event.repository.name }}-${{ matrix.os }}
-            path: unibuild-repo
-            retention-days: 5
 
         - name: update build-vars.json
           run: |
@@ -105,6 +93,7 @@ jobs:
           run: |
             jq '.buildstats += {"${{ github.event.repository.name }}-end": "${{ env.end_time }}"}' build-vars.json > updated_build-vars.json
             mv updated_build-vars.json build-vars.json
+            
         - name: Set build-vars.json as workflow variable
           id: set_build-vars
           run: |
@@ -112,18 +101,18 @@ jobs:
            echo "BUILD_VARS_JSON=${BUILD_VARS_JSON}" >> $GITHUB_ENV
            echo "BUILD_VARS_JSON=${BUILD_VARS_JSON}"
            
-        - name: Pass Workflow
-          if: env.BUILD_TYPE == 'FULL'
-          uses: actions/github-script@v6
-          with:
-           github-token: ${{ secrets.GIT_ACTIONS }}
-           script: |
-             await github.rest.actions.createWorkflowDispatch({
-               owner: 'cs1867',
-               repo:  '${{ env.NEXTREPO}}',
-               workflow_id: '${{ env.NEXTREPO }}-workflow.yml',
-               ref: 'github-workflow',
-              inputs: {
-                 BUILD_VARS_JSON: '${{ env.BUILD_VARS_JSON}}'
-               }
-             })
+    #    - name: Pass Workflow
+    #      if: env.BUILD_TYPE == 'FULL'
+    #      uses: actions/github-script@v6
+    #      with:
+    #       github-token: ${{ secrets.GIT_ACTIONS }}
+    #       script: |
+    #         await github.rest.actions.createWorkflowDispatch({
+    #           owner: 'cs1867',
+    #           repo:  '${{ env.NEXTREPO}}',
+    #           workflow_id: '${{ env.NEXTREPO }}-workflow.yml',
+    #           ref: 'github-workflow',
+    #          inputs: {
+    #             BUILD_VARS_JSON: '${{ env.BUILD_VARS_JSON}}'
+     #          }
+     #        })
