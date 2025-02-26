@@ -18,7 +18,7 @@ env:
  
 jobs:
  
-  build-minor-packages: 
+  iniate-perfsonar-build: 
      strategy:  
       matrix:
           os: [  'ol8' ] 
@@ -40,11 +40,6 @@ jobs:
           id: start_time
           run: echo "start_time=$(date -u)" >> $GITHUB_ENV
 
-        - name: Check out Repo
-          uses: actions/checkout@v4
-          with:
-           ref: ${{ env.BUILD_BRANCH }}
-
         - name: Fetch build-vars.json from projects
           env:
              github-token: ${{ secrets.GIT_ACTIONS }}
@@ -63,13 +58,11 @@ jobs:
                 cp project/toolbox/workflows/bulid-vars-db.json build-vars.json
                 ;;
             esac
-             
-             
+                          
         - name: Add start time to build-vars.json
           run: |
             jq '.buildstats += { "OS": "${{ matrix.os }}", "BUILD_BRANCH": "${{ env.BUILD_BRANCH }}", "BUILD_TYPE": "${{ env.BUILD_TYPE }}", "start_time": "${{ env.start_time }}", "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' build-vars.json > updated_build-vars.json
             mv updated_build-vars.json build-vars.json
-
 
         - name: update build-vars.json
           run: |
