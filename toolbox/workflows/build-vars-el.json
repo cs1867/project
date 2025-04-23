@@ -23,7 +23,7 @@
         },
         {
             "name": "perl-shared",
-            "deps": [ ]
+            "deps": [ "pscheduler"]
         },
         {
             "name": "psconfig",
