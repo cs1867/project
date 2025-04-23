@@ -35,6 +35,9 @@ cat /etc/apt/sources.list.d/local-repo.list
 
 echo "check jq version"
 dpkg -l jq
+dpkg -i /build/artifacts/jq_1.7.1~20250423165546-3_amd64.deb
+dpkg -l jq
+
 
 
 echo "Run unibuild"
