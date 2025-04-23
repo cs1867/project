@@ -36,6 +36,8 @@ cat /etc/apt/sources.list.d/local-repo.list
 echo "check jq version"
 sudo dpkg -l jq
 sudo apt install --only-upgrade jq
+sudo apt install  jq
+
 sudo dpkg -l jq
 
 
