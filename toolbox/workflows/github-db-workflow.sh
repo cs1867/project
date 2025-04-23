@@ -1,4 +1,5 @@
 echo "Run the Debian GitHub workflow script"
+dpkg -l jq
 
 echo "Change directory to artifact DEBs"
 cd artifacts/
@@ -31,6 +32,10 @@ cd /build/
 echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
+
+echo "check jq version"
+dpkg -l jq
+
 
 echo "Run unibuild"
 unibuild  build
