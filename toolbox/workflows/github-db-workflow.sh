@@ -35,7 +35,7 @@ cat /etc/apt/sources.list.d/local-repo.list
 
 echo "check jq version"
 sudo dpkg -l jq
-sudo dpkg -i /build/artifacts/jq_1.7.1~20250423165546-3_amd64.deb
+sudo apt install --only-upgrade jq
 sudo dpkg -l jq
 
 
