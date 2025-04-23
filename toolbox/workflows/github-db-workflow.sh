@@ -1,7 +1,7 @@
 echo "Run the Debian GitHub workflow script"
 
 echo "Change directory to artifact DEBs"
-cd artifacts/DEBS
+cd artifacts/
 
 echo "List DEB directory"
 ls
