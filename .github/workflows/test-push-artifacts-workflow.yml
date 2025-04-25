@@ -13,11 +13,10 @@ jobs:
 
     steps:
 
-    - name: Set up SSH
-      run: |
-       ls
-       mkdir -p ~/.ssh
-       chmod 600 ~/.ssh/id_rsa
-       ls ~/.ssh
+       - name: Set up SSH
+         run: |
+           ls
+           mkdir -p /artifacts
+           ls
  
       
