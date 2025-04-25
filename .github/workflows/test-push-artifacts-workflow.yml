@@ -16,7 +16,7 @@ jobs:
        - name: Set up SSH
          run: |
            ls
-           mkdir -p /artifacts
+           mkdir -p artifacts
            ls
  
       
