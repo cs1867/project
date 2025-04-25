@@ -1,0 +1,22 @@
+name: test-push-artifacts-workflow
+
+on:
+  push:
+    branches: 
+      - master
+env:  
+  BUILD_OS: el9 
+
+jobs:
+  pscheduler-daemon:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Set up SSH
+      run: |
+       mkdir -p ~/.ssh
+       chmod 600 ~/.ssh/id_rsa
+       ls ~/.ssh
+ 
+      
