@@ -8,7 +8,7 @@ env:
   BUILD_OS: el9 
 
 jobs:
-  pscheduler-daemon:
+  test-push-artifacts-workflow:
     runs-on: ubuntu-latest
 
     steps:
