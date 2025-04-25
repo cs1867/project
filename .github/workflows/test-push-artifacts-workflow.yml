@@ -19,4 +19,12 @@ jobs:
             echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             cat  ~/.ssh/id_rsa
+            mkdir -p artifact
+            echo "test" > ./artifact-folder/test
+            cat ./artifact-folder/test
+
+       - name: Copy artifact to server
+         run: |
+           scp -r ./artifact-folder/test ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}://
+
        
