@@ -43,6 +43,6 @@ sudo dpkg -l jq
 
 
 echo "Run unibuild"
-#unibuild  build
-#mkdir ./unibuild-repo
-#unibuild gather ./unibuild-repo
+unibuild  build
+mkdir ./unibuild-repo
+unibuild gather ./unibuild-repo
