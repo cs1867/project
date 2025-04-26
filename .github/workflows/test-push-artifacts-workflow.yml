@@ -16,7 +16,7 @@ jobs:
        - name: Set up SSH
          run: |
             mkdir -p ~/.ssh
-            echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+            touch  ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             cat  ~/.ssh/id_rsa
             mkdir -p artifact
