@@ -31,8 +31,6 @@ jobs:
            key: ${{ secrets.SERVER_SSH_KEY }}
            known_hosts: ${{ secrets.SERVER_HOST }}
 
-       - name: Adding known hosts
-         run: ssh-keyscan -H ${{ secrets.SERVER_HOST }}  >> ~/.ssh/known_hosts
     
        - name: Copy artifact to server
          run: |
