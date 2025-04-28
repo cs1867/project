@@ -3,7 +3,7 @@ name: test-push-artifacts-workflow
 on:
   push:
     branches: 
-      - master
+      - master 
 env:  
   BUILD_OS: el9 
 
