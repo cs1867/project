@@ -19,6 +19,8 @@ jobs:
             cat > ~/.ssh/id_rsa <<EOF
             ${{ secrets.SERVER_SSH_KEY }}
             EOF
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
  
  
        
