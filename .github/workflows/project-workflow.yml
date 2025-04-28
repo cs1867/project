@@ -97,7 +97,21 @@ jobs:
            name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
            path: artifacts
            retention-days: 5
+        - name: Set up SSH
+          run: |
+            mkdir -p ~/.ssh
+            
+        - name: Install SSH Key
+          uses: shimataro/ssh-key-action@v2
+          with:
+            key: ${{ secrets.SERVER_SSH_KEY }}
+            known_hosts: ${{ secrets.SERVER_HOST }}
 
+    
+        - name: Copy artifact to server
+          run: |
+            rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifact/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm
+       
         - name: Capture end date and time
           id: end_time
           run: echo "end_time=$(date -u)" >> $GITHUB_ENV
