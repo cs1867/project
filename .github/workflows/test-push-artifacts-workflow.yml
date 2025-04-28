@@ -25,6 +25,6 @@ jobs:
 
        - name: Copy artifact to server
          run: |
-           scp -r ./artifact/test ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}://
+           scp -r ./artifact/test ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:
 
        
