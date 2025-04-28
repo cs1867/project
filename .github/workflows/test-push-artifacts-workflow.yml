@@ -24,11 +24,16 @@ jobs:
        - name: Set up SSH
          run: |
             mkdir -p ~/.ssh
-            cat > ~/.ssh/id_rsa <<EOF
-            ${{ secrets.SERVER_SSH_KEY }}
-            EOF
-            chmod 600 ~/.ssh/id_rsa
- 
+            
+       - name: Install SSH Key
+         uses: shimataro/ssh-key-action@v2
+         with:
+           key: ${{ secrets.SERVER_SSH_KEY }}
+           known_hosts: 'download.ps.ns.internet2.edu'
+
+       - name: Adding Known Hosts
+         run: ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+    
        - name: Copy artifact to server
          run: |
            scp ./artifact/test.txt ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/
