@@ -34,6 +34,6 @@ jobs:
     
        - name: Copy artifact to server
          run: |
-           scp  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./artifact/test.txt ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/
+           scp  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 48108 ./artifact/test.txt csacco@$163.253.37.188:/home/distro/
  
        
