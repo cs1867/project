@@ -21,7 +21,9 @@ jobs:
   iniate-perfsonar-build: 
      strategy:  
       matrix:
-          os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
+          os: [  'el9', 'u22' ]
+          #os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
+
 
      runs-on: ubuntu-latest
 
