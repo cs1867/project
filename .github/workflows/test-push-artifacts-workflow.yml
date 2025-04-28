@@ -34,6 +34,9 @@ jobs:
     
        - name: Copy artifact to server
          run: |
-           scp  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${{ secrets.SERVER_PORT }} ./artifact/test.txt distro@${{ secrets.SERVER_HOST }}:/home/distro/
+           rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifact/test.txt distro@${{ secrets.SERVER_HOST }}:/home/distro/
+      # - name: Copy artifact to server
+      #   run: |
+      #     scp  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${{ secrets.SERVER_PORT }} ./artifact/test.txt distro@${{ secrets.SERVER_HOST }}:/home/distro/
  
        
