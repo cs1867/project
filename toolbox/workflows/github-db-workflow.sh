@@ -33,12 +33,13 @@ echo "Display repository file"
 ls -al /etc/apt/sources.list.d/local-repo.list
 cat /etc/apt/sources.list.d/local-repo.list
 
-echo "check jq version"
-sudo dpkg -l jq
-sudo apt install --only-upgrade jq
-sudo apt install  jq
 
-sudo dpkg -l jq
+##  took this out to see if owamp would build
+#echo "check jq version"
+#sudo dpkg -l jq
+#sudo apt install --only-upgrade jq
+#sudo apt install  jq
+#sudo dpkg -l jq
 
 
 
