@@ -14,7 +14,8 @@ on:
 env: 
   RUN_ID: ${{ github.run_id }} 
   BUILD_BRANCH: '5.2.0'
-  BUILD_TYPE: 'FULL' 
+  BUILD_TYPE: 'FULL'
+  BUILD_REPO: 'nightly'
  
 jobs:
  
@@ -62,7 +63,7 @@ jobs:
                           
         - name: Add start time to build-vars.json
           run: |
-            jq '.buildstats += { "OS": "${{ matrix.os }}", "BUILD_BRANCH": "${{ env.BUILD_BRANCH }}", "BUILD_TYPE": "${{ env.BUILD_TYPE }}", "start_time": "${{ env.start_time }}", "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' build-vars.json > updated_build-vars.json
+            jq '.buildstats += { "OS": "${{ matrix.os }}", "BUILD_BRANCH": "${{ env.BUILD_BRANCH }}", "BUILD_TYPE": "${{ env.BUILD_TYPE }}", "BUILD_REPO": "${{ env.BUILD_REPO }}", "start_time": "${{ env.start_time }}", "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' build-vars.json > updated_build-vars.json
             mv updated_build-vars.json build-vars.json
 
         - name: update build-vars.json
