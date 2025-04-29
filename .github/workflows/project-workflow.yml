@@ -119,6 +119,7 @@ jobs:
             'd11'|'d12'|'u20'|'u22'|'u24')  
                rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/debian/${{ env.BUILD_REPO }}/${{ env.BUILD_OS }}
             ;;
+            esac 
 
         - name: Capture end date and time
           id: end_time
