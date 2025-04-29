@@ -110,10 +110,14 @@ jobs:
     
         - name: Copy artifact to server
           run: |
-            pwd
-            ls -al artifacts
-            rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/nightly/${{ env.BUILD_OS }}
-       
+            case "${{ env.BUILD_OS }}" in
+            'ol8'|'el9')
+              rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/${{ env.BUILD_REPO }}/nightly/${{ env.BUILD_OS }}
+            ;;
+            'd11'|'d12'|'u20'|'u22'|'u24')  
+               rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/debian/${{ env.BUILD_REPO }}/${{ env.BUILD_OS }}
+            ;;
+
         - name: Capture end date and time
           id: end_time
           run: echo "end_time=$(date -u)" >> $GITHUB_ENV
