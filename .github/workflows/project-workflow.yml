@@ -110,7 +110,9 @@ jobs:
     
         - name: Copy artifact to server
           run: |
-            rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifact/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm
+            pwd
+            ls -al artifacts
+            rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro
        
         - name: Capture end date and time
           id: end_time
