@@ -22,8 +22,7 @@ jobs:
   iniate-perfsonar-build: 
      strategy:  
       matrix:
-          os: [  'd12', 'u20' ]
-          #os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
+          os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
 
 
 
