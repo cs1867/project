@@ -114,7 +114,9 @@ jobs:
           run: |
             case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
-              rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${{ env.BUILD_OS }}
+              OS_DIR="${{ env.BUILD_OS }}"
+              [ "$OS_DIR" = "ol8" ] && OS_DIR="el8"
+              rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${OS_DIR}
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
                rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/debian/${{ env.BUILD_REPO }}/${{ env.BUILD_OS }}
