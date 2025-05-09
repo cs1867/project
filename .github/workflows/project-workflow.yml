@@ -89,13 +89,6 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
-        - name: Install createrepo
-          run: sudo dnf install -y createrepo
-
-        - name: Build repodata locally
-          run: |
-           createrepo artifacts/RPMS
-
         - name: list files
           run: |      
             pwd
@@ -106,6 +99,7 @@ jobs:
            name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
            path: artifacts
            retention-days: 5
+           
         - name: Set up SSH
           run: |
             mkdir -p ~/.ssh
@@ -123,6 +117,8 @@ jobs:
             'ol8'|'el9')
               OS_DIR="${{ env.BUILD_OS }}"
               [ "$OS_DIR" = "ol8" ] && OS_DIR="el8"
+              sudo dnf install -y createrepo
+              createrepo artifacts/RPMS
               rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${OS_DIR}
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
