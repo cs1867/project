@@ -89,6 +89,13 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
+        - name: Install createrepo
+          run: sudo dnf install -y createrepo
+
+        - name: Build repodata locally
+          run: |
+           createrepo artifacts/RPMS
+
         - name: list files
           run: |      
             pwd
