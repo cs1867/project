@@ -132,6 +132,7 @@ jobs:
             'ol8'|'el9')
               OS_DIR="${{ env.BUILD_OS }}"
               [ "$OS_DIR" = "ol8" ] && OS_DIR="el8"
+              curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh . '${{ env.BUILD_OS }}'  
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${OS_DIR}
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
