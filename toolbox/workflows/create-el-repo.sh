@@ -7,8 +7,7 @@ echo " ls rpm dir"
 mkdir unibuild-repo
 ls
 pwd
-which unibuild
-
+ 
 
 echo "create the repo "
 unibuild gather ./unibuild-repo
