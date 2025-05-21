@@ -1,14 +1,11 @@
 #!/bin/sh -e
  
 echo "Create a repo to be uploaded "
-echo " change dir to artifact RPM"
-cd artifacts/RPMS
+cd artifacts 
 echo " ls rpm dir"
-mkdir unibuild-repo
 ls
 pwd
- 
+sudo dnf -y install createrepo
 
-echo "create the repo "
-unibuild gather ./unibuild-repo
-ls -al ./unibuild-repo
+createrepo RPMS
+ls -al RPMS
