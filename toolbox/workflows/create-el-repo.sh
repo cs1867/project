@@ -6,9 +6,10 @@ cd artifacts/RPMS
 echo " ls rpm dir"
 mkdir unibuild-repo
 ls
+pwd
+which unibuild
 
 
 echo "create the repo "
-mkdir unibuild-repo
 unibuild gather ./unibuild-repo
 ls -al ./unibuild-repo
