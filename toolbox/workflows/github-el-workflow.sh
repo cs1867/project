@@ -29,6 +29,8 @@ sudo chmod 644 /etc/yum.repos.d/build_artifacts_RPMS.repo
 ls -al /etc/yum.repos.d/build_artifacts_RPMS.repo
 cat /etc/yum.repos.d/build_artifacts_RPMS.repo
 echo "make "
+echo "find java home "
+sudo find /usr/lib/jvm -type d -name "jdk*"
 echo $JAVA_HOME
 
 ##make
