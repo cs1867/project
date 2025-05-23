@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs: 
       BUILD_VARS_JSON:
-        description: 'Build var json file'
+        description: 'Build var json file' 
         required: true
   workflow_run:
     workflows: "Gather artifacts for push to repo"
