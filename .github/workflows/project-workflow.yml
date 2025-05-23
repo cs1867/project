@@ -131,7 +131,16 @@ jobs:
             case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
               OS_DIR="${{ env.BUILD_OS }}"
-              [ "$OS_DIR" = "ol8" ] && OS_DIR="el8"
+              if [ "$OS_DIR" = "ol8" ]; then
+                el_version="el8"
+                OS_DIR="el8"
+             else
+               el_version="el9"
+             fi
+             cat <<EOF > repo.env
+            el_version=$el_version
+            git_branch=${{ env.BUILD_BRANCH }}
+               
               curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh "${{ env.BUILD_OS }}" "${{$BUILD_BRANCH}}" . '${{ env.BUILD_OS }}'  
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${OS_DIR}
             ;;
