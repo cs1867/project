@@ -128,9 +128,9 @@ jobs:
     
         - name: Copy artifact to server
           run: |
-            case "${{ env.BUILD_OS }}" in
+            case "${ env.BUILD_OS }" in
             'ol8'|'el9')
-              OS_DIR="${{ env.BUILD_OS }}"
+              OS_DIR="${ env.BUILD_OS }"
               if [ "$OS_DIR" = "ol8" ]; then
                 el_version="el8"
                 OS_DIR="el8"
@@ -142,9 +142,9 @@ jobs:
             git_branch=${{ env.BUILD_BRANCH }}
             cat <<EOF > repo.env
             el_version=$el_version
-            git_branch="${{ env.BUILD_BRANCH }}"
+            git_branch=$BUILD_BRANCH
             EOF
-              curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh "${{ env.BUILD_OS }}" "${{$BUILD_BRANCH}}" . '${{ env.BUILD_OS }}'  
+              curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh "$BUILD_OS" "$BUILD_BRANCH" . "$BUILD_OS"  
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/${OS_DIR}
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
