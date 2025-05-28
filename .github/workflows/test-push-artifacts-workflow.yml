@@ -5,7 +5,7 @@ on:
     branches: 
       - master 
 env: 
-  BUILD_OS: el9 
+  BUILD_OS: el9  
 
 jobs: 
   test-push-artifacts-workflow:
