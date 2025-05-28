@@ -23,7 +23,7 @@ jobs:
          run: |
             case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
-              OS_DIR="${ env.BUILD_OS }"
+              OS_DIR=case "${{ env.BUILD_OS }}" in
               if [ "$OS_DIR" = "ol8" ]; then
                 el_version="el8"
                 OS_DIR="el8"
