@@ -3,8 +3,12 @@
 
  
 echo "Create a repo to be uploaded "
+
+ls
+pwd
+
 cd artifacts 
-echo " ls rpm dir"
+echo " ls artifacts"
 ls
 pwd
 
