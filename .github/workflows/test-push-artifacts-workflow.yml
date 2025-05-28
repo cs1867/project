@@ -39,7 +39,7 @@ jobs:
             ;;
             esac 
             echo "what we want /nightly/ol/8/x86_64/perfsonar"
-            echo "what version ${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar"
+            echo "what version /${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar"
  
        
        
