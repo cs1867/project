@@ -30,7 +30,7 @@ jobs:
                el_version="el9"
              fi
 
-              echo el_version  
+              echo $el_version  
              ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
               echo "deb ubuntu"
