@@ -28,14 +28,13 @@ jobs:
                 OS_DIR="el8"
              else
                el_version="el9"
-             fi
-
-              echo "what version "$el_version  
+             fi  
              ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
               echo "deb ubuntu"
             ;;
             esac 
+            echo "what version "$el_version
 
        
        
