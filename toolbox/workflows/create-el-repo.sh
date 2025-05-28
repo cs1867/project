@@ -1,6 +1,5 @@
 #!/bin/sh -e
-BUILD_OS="$1"
-BUILD_BRANCH="$2"
+ 
 
  
 echo "Create a repo to be uploaded "
@@ -8,10 +7,17 @@ cd artifacts
 echo " ls rpm dir"
 ls
 pwd
+
+# File to read the variables from
+file="variables.txt"
+
+# Read the variables from the file
+source $file
+
 sudo dnf -y install createrepo
 
 LOCAL_PATH="/repo/nightly/el/"
 
-final_cache_path="$LOCAL_PATH$BUILD_OS/.cache"
-sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d $LOCAL_PATH/${BUILD_OS}/x86_64/perfsonar/$BUILD_BRANCH 
+final_cache_path="/$repo/$os_dir/$el_version/.cache"
+sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d /$repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch 
 ls -al RPMS
