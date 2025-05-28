@@ -24,9 +24,11 @@ jobs:
             case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
               if [ "${{ env.BUILD_OS }}" = "ol8" ]; then
+                echo "el8"
                 el_version="el8"
                 OS_DIR="el8"
              else
+               echo "el9"
                el_version="el9"
              fi  
              ;;
