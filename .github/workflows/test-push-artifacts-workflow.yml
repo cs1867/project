@@ -34,7 +34,8 @@ jobs:
               echo "deb ubuntu"
             ;;
             esac 
-            echo "what version "$el_version
+            echo "what version " $el_version
+            echo "what version "  el_version
 
        
        
