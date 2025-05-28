@@ -30,7 +30,6 @@ jobs:
              else
                el_version="el9"
              fi
-             cat <<EOF > repo.env
             el_version=$el_version
             git_branch=${{ env.BUILD_BRANCH }}
             cat <<EOF > repo.env
