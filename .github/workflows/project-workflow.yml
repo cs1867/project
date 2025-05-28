@@ -140,7 +140,7 @@ jobs:
                os_dir="el"
              fi
               curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh "${{ env.BUILD_OS }}" "${{ env.BUILD_BRANCH }}" . "${{ env.BUILD_OS }}"  
-              rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar"
+              rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
                rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/debian/${{ env.BUILD_REPO }}/${{ env.BUILD_OS }}
