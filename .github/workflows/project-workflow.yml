@@ -128,7 +128,7 @@ jobs:
     
         - name: Copy artifact to server
           run: |
-            case "${ env.BUILD_OS }" in
+            case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
               OS_DIR="${ env.BUILD_OS }"
               if [ "$OS_DIR" = "ol8" ]; then
