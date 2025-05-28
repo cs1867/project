@@ -1,22 +1,20 @@
 #!/bin/sh -e
- 
-
+file="/build/variables.txt"
+# Read the variables from the file
+source $file
  
 echo "Create a repo to be uploaded "
-
+echo " ls in create repo"
 ls
 pwd
+cat variables.txt
 
 cd artifacts 
+echo " *********. "
 echo " ls artifacts"
 ls
 pwd
 
-# File to read the variables from
-file="variables.txt"
-
-# Read the variables from the file
-source $file
 
 sudo dnf -y install createrepo
 
