@@ -25,18 +25,20 @@ jobs:
             'ol8'|'el9')
               if [ "${{ env.BUILD_OS }}" = 'ol8' ]; then
                 echo "el8"
-                el_version="el8"
-                OS_DIR="el8"
+                el_version="8"
+                OS_DIR="ol"
              else
                echo "el9"
-               el_version="el9"
+               el_version="9"
+               os_dir="el"
              fi  
              ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
               echo "deb ubuntu"
             ;;
             esac 
-            echo "what version $el_version"
+            echo "what we want /nightly/ol/8/x86_64/perfsonar"
+            echo "what version $os_dir/$el_version"
  
        
        
