@@ -19,6 +19,30 @@ jobs:
          run: |
            mkdir -p artifact
            echo "This is rsync test file" > artifact/test.txt
- 
+       - name: Copy artifact to server
+         run: |
+            case "${ env.BUILD_OS }" in
+            'ol8'|'el9')
+              OS_DIR="${ env.BUILD_OS }"
+              if [ "$OS_DIR" = "ol8" ]; then
+                el_version="el8"
+                OS_DIR="el8"
+             else
+               el_version="el9"
+             fi
+             cat <<EOF > repo.env
+            el_version=$el_version
+            git_branch=${{ env.BUILD_BRANCH }}
+            cat <<EOF > repo.env
+            el_version=$el_version
+            git_branch=$BUILD_BRANCH
+            EOF
+              echo el_version  
+             ;;
+            'd11'|'d12'|'u20'|'u22'|'u24')  
+              echo "deb ubuntu"
+            ;;
+            esac 
+
        
        
