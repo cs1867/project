@@ -26,7 +26,7 @@ jobs:
               if [ "${{ env.BUILD_OS }}" = 'ol8' ]; then
                 echo "el8"
                 el_version="8"
-                OS_DIR="ol"
+                os_dir="ol"
              else
                echo "el9"
                el_version="9"
