@@ -144,7 +144,7 @@ jobs:
               # Write variables to the file
               file="variables.txt"
               echo "repo=$repo" > $file
-              echo "build_branch="${{ env.BUILD_BRANCH }}" >> $file
+              echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
               echo "el_version=$el_version" >> $file
               echo "os_dir=$os_dir" >> $file
 
