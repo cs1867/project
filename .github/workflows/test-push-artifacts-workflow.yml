@@ -5,7 +5,7 @@ on:
     branches: 
       - master 
 env: 
-  BUILD_OS: ol8
+  BUILD_OS: el8
   BUILD_REPO: nightly
 
 jobs: 
@@ -25,9 +25,9 @@ jobs:
             case "${{ env.BUILD_OS }}" in
             'ol8'|'el9')
               if [ "${{ env.BUILD_OS }}" = 'ol8' ]; then
-                echo "el8"
+                echo "ol8"
                 el_version="8"
-                os_dir="ol"
+                os_dir="el"
              else
                echo "el9"
                el_version="9"
