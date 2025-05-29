@@ -14,7 +14,7 @@ echo " what dir pwd"
 pwd
 echo
 echo
-echo 'cat variables.txt:"
+echo "cat variables.txt:"
 cat variables.txt
 
 cd artifacts 
