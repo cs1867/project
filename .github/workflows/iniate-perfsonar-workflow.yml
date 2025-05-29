@@ -3,7 +3,7 @@ name: iniate-perfsonar-workflow
 on:
   schedule:
     - cron: "20 21 * * *"
-  push:
+  push: 
     branches: [ 'master' ]
   workflow_run:
     workflows: "create workflow pass runid"  
