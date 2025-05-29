@@ -35,8 +35,10 @@ sudo dnf -y install createrepo
 
 LOCAL_PATH="/repo/nightly/el/"
 
-final_cache_path="/$repo/$os_dir/$el_version/.cache"
-echo "sudo l create repo"
+final_cache_path="$repo/$os_dir/$el_version/.cache"
+echo "sudo create repo"
+echo "final cache path $final_cache_path"
+mkdir $final_cache_path
 sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d RPMS
 ##sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d $repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch
 echo "ls the RPMS"
