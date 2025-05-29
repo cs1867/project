@@ -148,8 +148,9 @@ jobs:
               echo "el_version=$el_version" >> $file
               echo "os_dir=$os_dir" >> $file
 
- 
-              curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh . "${{ env.BUILD_OS }}"  
+              echo "run the curl"
+              curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh . "${{ env.BUILD_OS }}" 
+              echo " run rsync to the host server"
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
