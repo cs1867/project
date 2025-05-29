@@ -8,14 +8,27 @@ source $file
 echo "Create a repo to be uploaded "
 echo " ls in create repo"
 ls
+echo
+echo
+echo " what dir pwd"
 pwd
+echo
+echo
+echo 'cat variables.txt:"
 cat variables.txt
 
 cd artifacts 
 echo " *********. "
 echo " ls artifacts"
 ls
+echo
+echo
+echo " what dir pwd"
 pwd
+echo
+echo
+echo "ls the RPMS"
+ls -al RPMS
 
 echo "dnf install create repo"
 sudo dnf -y install createrepo
@@ -24,7 +37,8 @@ LOCAL_PATH="/repo/nightly/el/"
 
 final_cache_path="/$repo/$os_dir/$el_version/.cache"
 echo "sudo l create repo"
-sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d $repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch
+sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d RPMS
+##sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d $repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch
 echo "ls the RPMS"
 ls -al RPMS
 
