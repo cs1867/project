@@ -17,13 +17,15 @@ echo " ls artifacts"
 ls
 pwd
 
-
+echo "dnf install create repo"
 sudo dnf -y install createrepo
 
 LOCAL_PATH="/repo/nightly/el/"
 
 final_cache_path="/$repo/$os_dir/$el_version/.cache"
-sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d /$repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch 
+echo "sudo l create repo"
+sudo createrepo --update --simple-md-filenames -c $final_cache_path -p -d $repo/$os_dir/$el_version/x86_64/perfsonar/$build_branch
+echo "ls the RPMS"
 ls -al RPMS
 
 
