@@ -1,4 +1,4 @@
-name: Pre Build Setup
+Pre Build Setup
 
 on:
   workflow_call:
@@ -31,7 +31,10 @@ jobs:
           modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq --arg start_time "$start_time" '.buildstats += { "i2util-start": $start_time }')
           compact_json=$(echo "$modified_json" | jq -c '.')
 
+          # Export to job environment (for use within this job)
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
+
+          # Export as step output (so next step can read it)
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_OUTPUT
 
       - name: Extract build vars and set outputs
@@ -47,6 +50,7 @@ jobs:
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
 
+          # Export as job outputs for downstream jobs
           echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
