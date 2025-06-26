@@ -4,7 +4,7 @@ on:
   schedule:  
     - cron: "20 21 * * *"
   push:  
-    branches: [ 'master' ]  
+    branches: [ 'master' ]
   workflow_run:     
     workflows: "create workflow pass runid"
     branches: [ 'github-workflow' ]
