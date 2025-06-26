@@ -1,4 +1,4 @@
-Pre Build Setup
+name: Pre Build Setup
 
 on:
   workflow_call:
