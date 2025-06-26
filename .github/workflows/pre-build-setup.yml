@@ -27,9 +27,9 @@ jobs:
       - name: Add start time to build_vars.json
         id: update_json
         run: |
-          modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq '.buildstats += { "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' )
-          echo "BUILD_VARS_JSON=$modified_json" >> $GITHUB_ENV
+          modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq '.buildstats += { "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }')
           echo "::set-output name=BUILD_VARS_JSON::$modified_json"
+          echo "BUILD_VARS_JSON=$modified_json" >> $GITHUB_ENV
 
       - name: Extract build vars and set outputs
         id: set_outputs
@@ -39,14 +39,14 @@ jobs:
           BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
           BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
 
-          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
-          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
-          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
-
           echo "::set-output name=BUILD_VARS_JSON::$BUILD_VARS_JSON"
           echo "::set-output name=BUILD_OS::$BUILD_OS"
           echo "::set-output name=BUILD_BRANCH::$BUILD_BRANCH"
           echo "::set-output name=BUILD_TYPE::$BUILD_TYPE"
+
+          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
+          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
+          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
 
       - name: Checkout Repo
         uses: actions/checkout@v4
