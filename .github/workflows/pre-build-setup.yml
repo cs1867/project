@@ -13,6 +13,11 @@ on:
 jobs:
   pre_build_setup:
     runs-on: ubuntu-latest
+    outputs:
+      BUILD_VARS_JSON: ${{ steps.set_outputs.outputs.BUILD_VARS_JSON }}
+      BUILD_OS: ${{ steps.set_outputs.outputs.BUILD_OS }}
+      BUILD_BRANCH: ${{ steps.set_outputs.outputs.BUILD_BRANCH }}
+      BUILD_TYPE: ${{ steps.set_outputs.outputs.BUILD_TYPE }}
     steps:
 
       - name: Capture start date and time
@@ -20,20 +25,28 @@ jobs:
         run: echo "start_time=$(date -u)" >> $GITHUB_ENV
 
       - name: Add start time to build_vars.json
+        id: update_json
         run: |
           modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq '.buildstats += { "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' )
-          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+          echo "BUILD_VARS_JSON=$modified_json" >> $GITHUB_ENV
+          echo "::set-output name=BUILD_VARS_JSON::$modified_json"
 
-      - name: Extract build vars from input JSON
-        id: extract_build_vars
+      - name: Extract build vars and set outputs
+        id: set_outputs
         run: |
-          BUILD_OS=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.OS' )
-          BUILD_BRANCH=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH' )
-          BUILD_TYPE=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE' )
+          BUILD_VARS_JSON="${{ steps.update_json.outputs.BUILD_VARS_JSON }}"
+          BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
+          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
+          BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
+
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
+
+          echo "::set-output name=BUILD_VARS_JSON::$BUILD_VARS_JSON"
+          echo "::set-output name=BUILD_OS::$BUILD_OS"
+          echo "::set-output name=BUILD_BRANCH::$BUILD_BRANCH"
+          echo "::set-output name=BUILD_TYPE::$BUILD_TYPE"
 
       - name: Checkout Repo
         uses: actions/checkout@v4
