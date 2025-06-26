@@ -31,16 +31,13 @@ jobs:
           modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq --arg start_time "$start_time" '.buildstats += { "i2util-start": $start_time }')
           compact_json=$(echo "$modified_json" | jq -c '.')
 
-          # Export to job environment (for use within this job)
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
-
-          # Export as step output (so next step can read it)
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_OUTPUT
 
       - name: Extract build vars and set outputs
         id: set_outputs
         run: |
-          BUILD_VARS_JSON="${{ steps.update_json.outputs.BUILD_VARS_JSON }}"
+          BUILD_VARS_JSON='${{ steps.update_json.outputs.BUILD_VARS_JSON }}'
 
           BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
           BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
@@ -49,8 +46,8 @@ jobs:
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
 
-          # Export as job outputs for downstream jobs
           echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
@@ -61,7 +58,7 @@ jobs:
         with:
           ref: ${{ env.BUILD_BRANCH }}
 
-      - name: Print final build vars (debug)
+      - name: Print final build variables (debug)
         run: |
           echo "==== FINAL BUILD_VARS_JSON ===="
           echo "$BUILD_VARS_JSON" | jq .
