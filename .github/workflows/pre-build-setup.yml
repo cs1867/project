@@ -67,3 +67,11 @@ jobs:
           echo "BUILD_OS=$BUILD_OS"
           echo "BUILD_BRANCH=$BUILD_BRANCH"
           echo "BUILD_TYPE=$BUILD_TYPE"
+
+      - name: Print job outputs for debug
+        run: |
+         echo "About to export these job outputs:"
+         echo "BUILD_VARS_JSON=${{ steps.set_outputs.outputs.BUILD_VARS_JSON }}"
+         echo "BUILD_OS=${{ steps.set_outputs.outputs.BUILD_OS }}"
+         echo "BUILD_BRANCH=${{ steps.set_outputs.outputs.BUILD_BRANCH }}"
+         echo "BUILD_TYPE=${{ steps.set_outputs.outputs.BUILD_TYPE }}"
