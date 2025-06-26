@@ -57,7 +57,7 @@ jobs:
         with:
           ref: ${{ env.BUILD_BRANCH }}
 
-      - name: Print final build variables (debug)
+      - name: Print final build vars (debug)
         run: |
           echo "==== FINAL BUILD_VARS_JSON ===="
           echo "$BUILD_VARS_JSON" | jq .
