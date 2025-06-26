@@ -1,0 +1,61 @@
+name: Finalize Build and Pass Workflow
+
+on:
+  workflow_call:
+    inputs:
+      BUILD_VARS_JSON:
+        required: true
+        type: string
+    secrets:
+      GIT_ACTIONS:
+        required: true
+
+jobs:
+  finalize_build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Delete current repo from build_vars.json
+        run: |
+          modified_json=$(echo "${{ inputs.BUILD_VARS_JSON }}" | jq 'del(.repos[0])')
+          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+
+      - name: Look up NEXTREPO
+        id: extract_repo_name
+        run: |
+          NEXTREPO=$(echo "$BUILD_VARS_JSON" | jq -r '.repos[0].name')
+          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_ENV
+
+      - name: Add GitHub Run ID to buildids
+        run: |
+          GITHUB_RUN_ID=${{ github.run_id }}
+          modified_json=$(echo "$BUILD_VARS_JSON" | jq --arg run_id "$GITHUB_RUN_ID" '.buildids."${{ github.event.repository.name }}" = $run_id')
+          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+
+      - name: Capture end date and time
+        id: end_time
+        run: echo "end_time=$(date -u)" >> $GITHUB_ENV
+
+      - name: Add end time to build_vars.json
+        run: |
+          modified_json=$(echo "$BUILD_VARS_JSON" | jq '.buildstats += { "${{ github.event.repository.name }}-end": "${{ env.end_time }}" }' )
+          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+
+      - name: Trigger Next Repo Workflow
+        if: env.BUILD_TYPE == 'FULL'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GIT_ACTIONS }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'cs1867',
+              repo: '${{ env.NEXTREPO }}',
+              workflow_id: '${{ env.NEXTREPO }}-workflow.yml',
+              ref: 'github-workflow',
+              inputs: {
+                BUILD_VARS_JSON: '${{ env.BUILD_VARS_JSON }}'
+              }
+            })
