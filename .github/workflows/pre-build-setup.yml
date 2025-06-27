@@ -53,5 +53,7 @@ jobs:
          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
 
+         echo "Step output BUILD_OS will be: $BUILD_OS"
+         echo "github output"
          cat "$GITHUB_OUTPUT"
 
