@@ -5,7 +5,7 @@ on:
     inputs:
       input_number:
         required: true
-        type: number
+        type: number 
       BUILD_VARS_JSON:
         required: true
         type: string
