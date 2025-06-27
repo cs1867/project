@@ -34,12 +34,12 @@ jobs:
         run: |
           echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
 
-      - name: Get build vars from input file
-        id: extract-build-vars
-        run: |
-          op=$(( ${{ inputs.input_number }} + 4 ))
-          echo "op=$op" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
+     # - name: Get build vars from input file
+     ##   id: extract-build-vars
+     #   run: |
+     #     op=$(( ${{ inputs.input_number }} + 4 ))
+     #     echo "op=$op" >> $GITHUB_OUTPUT
+     #     cat $GITHUB_OUTPUT
           ##op=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
 
           
