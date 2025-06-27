@@ -39,5 +39,8 @@ jobs:
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_OS v=$BUILD_OS"
-          echo $GITHUB_OUTPUT
+
+      - name: See what’s inside GITHUB_OUTPUT file
+        run: |
+          cat $GITHUB_OUTPUT
 
