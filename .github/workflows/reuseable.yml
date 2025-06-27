@@ -13,6 +13,9 @@ on:
       result:
         description: "Result after adding 1"
         value: ${{ jobs.add-one.outputs.result }}
+      BUILD_OS:
+        description: "OS version to build"
+        value: ${{ jobs.add-one.outputs.BUILD_OS }}
 
 jobs:
   add-one:
@@ -34,5 +37,6 @@ jobs:
         run: |
           BUILD_OS=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
+          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_OS=$BUILD_OS"
 
