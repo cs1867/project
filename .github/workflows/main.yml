@@ -1,0 +1,16 @@
+name: Main Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-reusable:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      input_number: 1
+
+  show-result:
+    runs-on: ubuntu-latest
+    needs: call-reusable
+    steps:
+      - run: echo "Result from reusable workflow: ${{ needs.call-reusable.outputs.result }}"
