@@ -28,11 +28,13 @@ jobs:
       - name: Add start time to build_vars.json
         id: update_json
         run: |
-          start_time=$(date -u)
-          modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq --arg start_time "$start_time" '.buildstats += { "i2util-start": $start_time }')
-          compact_json=$(echo "$modified_json" | jq -c '.')
-          echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
-          echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_OUTPUT
+         start_time=$(date -u)
+         modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq --arg start_time "$start_time" '.buildstats += { "i2util-start": $start_time }')
+         compact_json=$(echo "$modified_json" | jq -c '.')
+
+         echo "BUILD_VARS_JSON<<EOF" >> $GITHUB_OUTPUT
+         echo "$compact_json" >> $GITHUB_OUTPUT
+         echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Extract build vars and set outputs
         id: set_outputs
@@ -46,9 +48,4 @@ jobs:
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
-
-          # Optional: Debug echo
-          echo "Pre-Build Outputs:"
-          echo "BUILD_OS=$BUILD_OS"
-          echo "BUILD_BRANCH=$BUILD_BRANCH"
-          echo "BUILD_TYPE=$BUILD_TYPE"
+ 
