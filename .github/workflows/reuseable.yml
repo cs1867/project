@@ -1,0 +1,23 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      input_number:
+        required: true
+        type: number
+    outputs:
+      result:
+        description: "Result after adding 1"
+        value: ${{ jobs.add-one.outputs.result }}
+
+jobs:
+  add-one:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.add.outputs.result }}
+    steps:
+      - id: add
+        run: |
+          result=$(( ${{ inputs.input_number }} + 1 ))
+          echo "result=$result" >> $GITHUB_OUTPUT
