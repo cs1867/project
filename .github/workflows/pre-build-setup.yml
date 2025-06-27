@@ -32,16 +32,13 @@ jobs:
           compact_json=$(echo "$modified_json" | jq -c '.')
 
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
-          echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
 
-          # Set step output using new method
-          echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_STEP_SUMMARY
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_OUTPUT
 
       - name: Extract build vars and set outputs
         id: set_outputs
         run: |
-         BUILD_VARS_JSON="$BUILD_VARS_JSON"
+         BUILD_VARS_JSON='${{ steps.update_json.outputs.BUILD_VARS_JSON }}'
 
          BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
