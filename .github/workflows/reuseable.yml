@@ -37,9 +37,10 @@ jobs:
       - name: Get build vars from input file
         id: extract-build-vars
         run: |
-          op=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
+          op="el9"
           echo "op=$op" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
+          ##op=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
 
           
         
