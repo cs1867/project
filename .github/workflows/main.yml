@@ -3,12 +3,13 @@ name: Main Workflow
 on:
   push:  
     branches: [ 'master' ] 
-
+env:
+  ANIMAL: "Dogs"
 jobs: 
   call-reusable: 
     uses: cs1867/project/.github/workflows/reuseable.yml@master
     with:
-      input_string: "Dogs"
+      input_string: ${{ env.ANIMAL }}
 
   show-result:
     runs-on: ubuntu-latest
