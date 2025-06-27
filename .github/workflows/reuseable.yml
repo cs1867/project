@@ -41,6 +41,8 @@ jobs:
           echo "lets see results"
           echo "BUILD_OS=$BUILD_OS"
           echo "check github output"
+          result=$(( $BUILD_OS))
+          echo "result=$result" >> $GITHUB_OUTPUT
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
         #  echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
