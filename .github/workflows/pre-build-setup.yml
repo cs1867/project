@@ -39,13 +39,14 @@ jobs:
       - name: Extract build vars and set outputs
         id: set_outputs
         run: |
-          BUILD_VARS_JSON="${{ steps.update_json.outputs.BUILD_VARS_JSON }}"
-          BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
-          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
-          BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
+         BUILD_VARS_JSON="${{ steps.update_json.outputs.BUILD_VARS_JSON }}"
 
-          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
-          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
-          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
+         BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
+         BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
+         BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
+
+         echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
+         echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
+         echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
+         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
  
