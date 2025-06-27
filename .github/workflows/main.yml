@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-reusable:
-    uses: cs1867/project/.github/workflows/reusable.yml
+    uses: cs1867/project/.github/workflows/reusable.yml@master
     with:
       input_string: "Dogs"
 
