@@ -38,7 +38,7 @@ jobs:
         id: extract-build-vars
         run: |
           BUILD_OS=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
-          ehco "lets see results"
+          echo "lets see results"
           echo "BUILD_OS=$BUILD_OS"
           echo "check github output"
           cat $GITHUB_OUTPUT
