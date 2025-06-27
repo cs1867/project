@@ -5,10 +5,20 @@ on:
     branches: [ 'master' ]
 
 jobs:
+
+  set-vars:
+    runs-on: ubuntu-latest
+    outputs:
+      animal: ${{ steps.set.outputs.animal }}
+    steps:
+      - id: set
+        run: echo "animal=Dogs" >> $GITHUB_OUTPUT
+        
   call-reusable:
     uses: cs1867/project/.github/workflows/reuseable.yml@master
+    needs: set-vars
     with:
-      input_string: "Dogs"
+      input_string: ${{ needs.set-vars.outputs.animal }}
 
   show-result:
     runs-on: ubuntu-latest
