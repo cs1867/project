@@ -6,6 +6,9 @@ on:
       input_number:
         required: true
         type: number
+      BUILD_VARS_JSON:
+        required: true
+        type: string
     outputs:
       result:
         description: "Result after adding 1"
@@ -21,3 +24,15 @@ jobs:
         run: |
           result=$(( ${{ inputs.input_number }} + 1 ))
           echo "result=$result" >> $GITHUB_OUTPUT
+
+      - name: Echo BUILD_VARS_JSON
+        run: |
+          echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
+
+      - name: Get build vars from input file
+        id: extract-build-vars
+        run: |
+          BUILD_OS=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_OS' )
+          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
+          echo "BUILD_OS=$BUILD_OS"
+
