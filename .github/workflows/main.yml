@@ -1,19 +1,25 @@
 name: Main Workflow
 
 on:
-  push:  
-    branches: [ 'master' ] 
-env:
-  ANIMAL: "Dogs"
-jobs: 
-  call-reusable: 
-    uses: cs1867/project/.github/workflows/reuseable.yml@master
+  workflow_dispatch:
+
+jobs:
+  set-vars:
+    runs-on: ubuntu-latest
+    outputs:
+      animal: ${{ steps.set.outputs.animal }}
+    steps:
+      - id: set
+        run: echo "animal=Dogs" >> $GITHUB_OUTPUT
+
+  call-reusable:
+    uses: ./.github/workflows/reusable.yml
+    needs: set-vars
     with:
-      input_string: ${{ env.ANIMAL }}
+      input_string: ${{ needs.set-vars.outputs.animal }}
 
   show-result:
     runs-on: ubuntu-latest
     needs: call-reusable
     steps:
-      - run: |
-         echo "Final Result: ${{ needs.call-reusable.outputs.result }}"
+      - run: echo "Final Result: ${{ needs.call-reusable.outputs.result }}"
