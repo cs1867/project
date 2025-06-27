@@ -22,7 +22,8 @@ jobs:
 
       - name: Capture start date and time
         id: start_time
-        run: echo "start_time=$(date -u)" >> $GITHUB_ENV
+        run: |
+          echo "start_time=$(date -u)" >> $GITHUB_ENV
 
       - name: Add start time to build_vars.json
         id: update_json
@@ -30,49 +31,24 @@ jobs:
           start_time=$(date -u)
           modified_json=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq --arg start_time "$start_time" '.buildstats += { "i2util-start": $start_time }')
           compact_json=$(echo "$modified_json" | jq -c '.')
-
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_ENV
-
           echo "BUILD_VARS_JSON=$compact_json" >> $GITHUB_OUTPUT
 
       - name: Extract build vars and set outputs
         id: set_outputs
         run: |
-         BUILD_VARS_JSON='${{ steps.update_json.outputs.BUILD_VARS_JSON }}'
+          BUILD_VARS_JSON="${{ steps.update_json.outputs.BUILD_VARS_JSON }}"
+          BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
+          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
+          BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
 
-         BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
-         BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
-         BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
+          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
+          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
+          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
 
-         echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
-         echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
-         echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
-
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-         echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
-         echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
-         echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
-
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ env.BUILD_BRANCH }}
-
-      - name: Print final build variables (debug)
-        run: |
-          echo "==== FINAL BUILD_VARS_JSON ===="
-          echo "$BUILD_VARS_JSON" | jq .
-          echo
-          echo "==== FINAL ENV VARIABLES ===="
+          # Optional: Debug echo
+          echo "Pre-Build Outputs:"
           echo "BUILD_OS=$BUILD_OS"
           echo "BUILD_BRANCH=$BUILD_BRANCH"
           echo "BUILD_TYPE=$BUILD_TYPE"
-
-      - name: Print job outputs for debug
-        run: |
-         echo "About to export these job outputs:"
-         echo "BUILD_VARS_JSON=${{ steps.set_outputs.outputs.BUILD_VARS_JSON }}"
-         echo "BUILD_OS=${{ steps.set_outputs.outputs.BUILD_OS }}"
-         echo "BUILD_BRANCH=${{ steps.set_outputs.outputs.BUILD_BRANCH }}"
-         echo "BUILD_TYPE=${{ steps.set_outputs.outputs.BUILD_TYPE }}"
