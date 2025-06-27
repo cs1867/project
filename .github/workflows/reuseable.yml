@@ -13,16 +13,12 @@ on:
       result:
         description: "Result after adding 1"
         value: ${{ jobs.add-one.outputs.result }}
-      op:
-        description: "OS version to build"
-        value: ${{ jobs.add-one.outputs.op }}
-
+ 
 jobs:
   add-one:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.add.outputs.result }}
-      op: ${{ steps.add.outputs.op }}
     steps:
       - id: add
         run: |
