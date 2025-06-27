@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-reusable:
-    uses:  cs1867/project/.github/.github/workflows/reusable.yml@master
+    uses: cs1867/project/.github/workflows/reuseable.yml@master
     with:
       input_number: 1
 
