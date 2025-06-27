@@ -4,7 +4,7 @@ on:
   push:  
     branches: [ 'master' ] 
 
-jobs:
+jobs: 
   call-reusable: 
     uses: cs1867/project/.github/workflows/reuseable.yml@master
     with:
