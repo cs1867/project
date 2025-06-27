@@ -1,18 +1,17 @@
 name: Main Workflow
 
 on:
-  push:
-    branches: [ 'master' ]
+  workflow_dispatch:
 
 jobs:
   call-reusable:
-    uses: cs1867/project/.github/workflows/reuseable.yml@master
+    uses: ./.github/workflows/reusable.yml
     with:
-      input_number: 1
+      input_string: "Dogs"
 
   show-result:
     runs-on: ubuntu-latest
     needs: call-reusable
     steps:
       - run: |
-         echo "Result from reusable workflow: ${{ needs.call-reusable.outputs.result }}"
+         echo "Final Result: ${{ needs.call-reusable.outputs.result }}"
