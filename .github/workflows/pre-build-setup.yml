@@ -11,7 +11,7 @@ on:
         required: true
 
 jobs:
-  pre_build_setup:
+  pre_build_setup: 
     runs-on: ubuntu-latest
     outputs:
       BUILD_VARS_JSON: ${{ steps.set_outputs.outputs.BUILD_VARS_JSON }}
