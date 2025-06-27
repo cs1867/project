@@ -40,7 +40,7 @@ jobs:
           BUILD_OS=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
           ehco "lets see results"
           echo "BUILD_OS=$BUILD_OS"
-          ehco "check github output"
+          echo "check github output"
           cat $GITHUB_OUTPUT
         #  echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
         #  echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
