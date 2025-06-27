@@ -13,9 +13,9 @@ on:
       result:
         description: "Result after adding 1"
         value: ${{ jobs.add-one.outputs.result }}
-      BUILD_OS:
+      op:
         description: "OS version to build"
-        value: ${{ jobs.add-one.outputs.BUILD_OS }}
+        value: ${{ jobs.add-one.outputs.op }}
 
 jobs:
   add-one:
@@ -24,11 +24,11 @@ jobs:
       result: ${{ steps.add.outputs.result }}
       BUILD_OS: ${{ steps.add.outputs.BUILD_OS }}
     steps:
-      #- id: add
-      #  run: |
-      #    result=$(( ${{ inputs.input_number }} + 1 ))
-      #    echo "result=$result" >> $GITHUB_OUTPUT
-      #    cat $GITHUB_OUTPUT
+      - id: add
+        run: |
+          result=$(( ${{ inputs.input_number }} + 1 ))
+          echo "result=$result" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
       - name: Echo BUILD_VARS_JSON
         run: |
@@ -37,11 +37,10 @@ jobs:
       - name: Get build vars from input file
         id: extract-build-vars
         run: |
-          result=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
-          echo "result=$result" >> $GITHUB_OUTPUT
+          op=$(echo  '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.buildstats.OS' )
+          echo "op=$op" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
-        #  echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
-        #  echo "BUILD_OS=$BUILD_OS"
+
           
         
 
