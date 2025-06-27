@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       BUILD_VARS_JSON: ${{ steps.set_outputs.outputs.BUILD_VARS_JSON }}
-      BUILD_OS: ${{ steps.set_outputs.outputs.BUILD_OS }}
+      OS: ${{ steps.set_outputs.outputs.BUILD_OS }}
       BUILD_BRANCH: ${{ steps.set_outputs.outputs.BUILD_BRANCH }}
       BUILD_TYPE: ${{ steps.set_outputs.outputs.BUILD_TYPE }}
     steps:
@@ -39,21 +39,21 @@ jobs:
         run: |
          BUILD_VARS_JSON="$BUILD_VARS_JSON"
 
-         BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
+         OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
          BUILD_TYPE=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE')
 
-         echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV
+         echo "OS=$OS" >> $GITHUB_ENV
          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
 
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-         echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
+         echo "OS=$OS" >> $GITHUB_OUTPUT
          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
 
-         echo "Step output BUILD_OS will be: $BUILD_OS"
+         echo "Step output OS will be: $OS"
          echo "github output"
          cat "$GITHUB_OUTPUT"
 
