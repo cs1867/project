@@ -42,6 +42,7 @@ jobs:
         id: set_outputs
         run: |
          BUILD_VARS_JSON="$BUILD_VARS_JSON"
+         BUILD_OS="al9"
 
          BUILD_OS=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.OS')
          BUILD_BRANCH=$(echo "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH')
