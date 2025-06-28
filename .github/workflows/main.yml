@@ -9,6 +9,8 @@ env:
   BUILD_BRANCH: '5.2.0'
   BUILD_TYPE: 'FULL'
   BUILD_REPO: 'nightly'
+  BUILD_OS: 'el8'
+  
   
 jobs:
 
@@ -16,15 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       animal: ${{ steps.set.outputs.animal }}
+      
     steps:
       - id: set
         run: echo "animal=Dogs" >> $GITHUB_OUTPUT
-        
+             
   call-reusable:
     uses: cs1867/project/.github/workflows/reuseable.yml@master
     needs: set-vars
     with:
       input_string: ${{ needs.set-vars.outputs.animal }}
+      BUILD_OS: ${{ env.BUILD_OS }}
 
   show-result:
     runs-on: ubuntu-latest
