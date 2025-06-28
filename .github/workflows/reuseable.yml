@@ -6,6 +6,9 @@ on:
       input_string:
         required: true
         type: string
+      buildos_string:
+        required: true
+        type: string
     outputs:
       result:
         description: "The modified string"
