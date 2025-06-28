@@ -13,6 +13,9 @@ on:
       result:
         description: "The modified string"
         value: ${{ jobs.append-string.outputs.result }}
+      work_os:
+        description: "Build for this OS"
+        value: ${{ jobs.append-string.outputs.work_os }}
 
 jobs:
   append-string:
