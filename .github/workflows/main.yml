@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       animal: ${{ steps.set.outputs.animal }}
-      build_os: ${{ steps.set.outputs.build_os }
+      build_os: ${{ steps.set.outputs.build_os }}
       
     steps:
       - id: set
