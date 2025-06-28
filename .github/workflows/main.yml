@@ -14,7 +14,8 @@ jobs:
       
     steps:
       - id: set
-        run: echo "animal=Dogs" >> $GITHUB_OUTPUT
+        run: |
+             echo "animal=Dogs" >> $GITHUB_OUTPUT
              echo "build_os=el8" >> $GITHUB_OUTPUT
              cat $GITHUB_OUTPUT
              
