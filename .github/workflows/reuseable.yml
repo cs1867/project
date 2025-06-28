@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.append.outputs.result }}
-      work_os: ${{ steps.append.outputs.new_os }}
+      work_os: ${{ steps.append.outputs.work_os }}
     steps:
       - id: append
         run: |
