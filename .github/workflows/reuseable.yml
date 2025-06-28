@@ -25,7 +25,7 @@ jobs:
     steps:
       - id: append
         run: |
-          new_value="${{ inputs.buildos_string }} likes cats"
+          new_value="${{ inputs.input_string }} likes cats"
           new_os="${{ inputs.buildos_string }} to el9"
           echo "result=$new_value" >> $GITHUB_OUTPUT
           echo "work_os=$new_os" >> $GITHUB_OUTPUT
