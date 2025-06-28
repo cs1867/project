@@ -39,4 +39,4 @@ jobs:
     steps:
       - run: |
          echo "Final Result: ${{ needs.call-reusable.outputs.result }}"
-         echo "Final Result: ${{ needs.call-reusable.outputs.work_os }}"
+         echo "OS Build: ${{ needs.call-reusable.outputs.work_os }}"
