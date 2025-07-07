@@ -1,5 +1,6 @@
 name: Reusable Workflow
 
+on:
   workflow_call:
     inputs:
       BUILD_VARS_JSON:
