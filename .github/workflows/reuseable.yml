@@ -6,10 +6,14 @@ on:
       BUILD_VARS_JSON:
         required: true
         type: string
+      token:
+        required: true
+        type: string
 
 jobs:
   echo-json:
     runs-on: ubuntu-latest
     steps:
       - name: Echo BUILD_VARS_JSON
-        run: echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
+        run:  |
+          echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
