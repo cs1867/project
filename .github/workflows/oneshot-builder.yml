@@ -32,35 +32,21 @@ jobs:
       
     steps:
           
-      - name: Get build vars from input file
-        id: extract-build-vars
-        run: |
-          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-          BUILD_OS=$(jq -r '.buildstats.OS' input.json)
-          BUILD_BRANCH=$(jq -r '.buildstats.BUILD_BRANCH' input.json)
-          BUILD_TYPE=$(jq -r '.buildstats.BUILD_TYPE' input.json)
-          echo "** echo results **"
-          echo "BUILD_OS=$BUILD_OS"
-          echo "BUILD_BRANCH=$BUILD_BRANCH"
-          echo "BUILD_TYPE=$BUILD_TYPE" 
-          echo " ******************"
-          echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
-          echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
-          echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
+      - name: Check out Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.call-reusable.outputs.BUILD_BRANCH }}
           
-      - name: Delete current repo and add run id
-        id: modify_json
-        run: |
-         GITHUB_RUN_ID=${{ github.run_id }}
-         REPO_NAME=${{ github.event.repository.name }}
-         START_TIME=$(date -u)
-         echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         temp_json=$(jq 'del(.repos[0])' input.json)
-         temp_json=$(echo "$temp_json" | jq --arg key "${REPO_NAME}-start" --arg value "$START_TIME" '.buildstats[$key] = $value')
-         modified_json=$(echo "$temp_json" | jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id')
-         BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+      - name: Create a temporary artifact downloads folder
+        run: mkdir aritfacts
 
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-         echo "**** next next ****"
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
-         
+      - name: run docker oneshot builder
+        run: |
+          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - . '${{ needs.call-reusable.outputs.BUILD_OS }}'  
+          
+      - uses: actions/upload-artifact@v4
+        with:
+           name: ${{ github.event.repository.name }}-${{ needs.call-reusable.outputs.BUILD_OS }}
+           path: unibuild-repo
+           retention-days: 5
+       
