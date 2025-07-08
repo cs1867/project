@@ -28,7 +28,7 @@ jobs:
       BUILD_OS: ${{ steps.extract-build-vars.outputs.BUILD_OS }}
       BUILD_BRANCH: ${{ steps.extract-build-vars.outputs.BUILD_BRANCH }}
       BUILD_TYPE: ${{ steps.extract-build-vars.outputs.BUILD_TYPE }}
-      BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
+      BUILD_VARS_JSON: ${{ steps.add_run_id.outputs.BUILD_VARS_JSON }}
       
     steps:
 
@@ -67,17 +67,9 @@ jobs:
         run: |
          GITHUB_RUN_ID=${{ github.run_id }}
          REPO_NAME=${{ github.event.repository.name }}
-         echo "REPO_NAME=$REPO_NAME"
-         
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-
-         # Properly read the contents of the file, not just echoing its name
          modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' input.json)
-
-         # Compact the JSON
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-
-         # Save as a job output
          echo "build_vars_json=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
 
          # Print to logs for visibility
