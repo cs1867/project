@@ -35,7 +35,7 @@ jobs:
          REPO_NAME=${{ github.event.repository.name }}
          END_TIME=$(date -u)
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         modified_json=$(echo "$input.json" | jq --arg key "${REPO_NAME}-start" --arg value "$END_TIME" '.buildstats[$key] = $value')
+         modified_json=$(jq --arg key "${REPO_NAME}-start" --arg value "$END_TIME" '.buildstats[$key] = $value' input.json)
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
 
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
