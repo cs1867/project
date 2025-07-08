@@ -9,7 +9,7 @@ on:
     outputs:
       BUILD_OS:
         description: "Build OS"
-        value: ${{ jobs.add-one.outputs.BUILD_OS }}
+        value: ${{ jobs.add-one.outputs.BUILD_OS }} 
       BUILD_BRANCH:
         description: "BUILD BRANCH"
         value: ${{ jobs.add-one.outputs.BUILD_BRANCH }}
