@@ -18,7 +18,7 @@ on:
         value: ${{ jobs.add-one.outputs.BUILD_TYPE }}
       BUILD_VARS_JSON:
         description: "BUILD JSON FILE"
-        value: ${{ jobs.add-one.modify_json.BUILD_VARS_JSON }}
+        value: ${{ jobs.add-one.outputs.BUILD_VARS_JSON }}
 
 jobs:
   add-one:
