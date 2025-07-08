@@ -5,7 +5,7 @@ on:
     inputs:
       BUILD_VARS_JSON:  
         required: true
-        type: string 
+        type: string
     outputs: 
       BUILD_OS:
         description: "Build OS"
