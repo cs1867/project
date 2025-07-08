@@ -48,11 +48,11 @@ jobs:
           BUILD_BRANCH=$(jq -r '.buildstats.BUILD_BRANCH' input.json)
           BUILD_TYPE=$(jq -r '.buildstats.BUILD_TYPE' input.json)
           echo "BUILD_OS=$BUILD_OS"
-          echo "BUILD_BRANCHN=$BUILD_BRANCH"
+          echo "BUILD_BRANCH=$BUILD_BRANCH"
           echo "BUILD_TYPE=$BUILD_TYPE" 
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
-          echo "BUILD_BRANCH=$BUILD_TYPE" >> $GITHUB_OUTPUT
+          echo "BUILD_TYPE"=$BUILD_TYPE" >> $GITHUB_OUTPUT
 
 
 
