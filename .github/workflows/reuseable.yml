@@ -7,9 +7,6 @@ on:
         required: true
         type: string
     outputs:
-      result:
-        description: "Result after adding 7"
-        value: ${{ jobs.add-one.outputs.result }}
       BUILD_OS:
         description: "Build OS"
         value: ${{ jobs.add-one.outputs.BUILD_OS }}
@@ -30,16 +27,11 @@ jobs:
       BUILD_TYPE: ${{ steps.extract-build-vars.outputs.BUILD_TYPE }}
       
     steps:
-      - id: add
-        run: |
-          result=$(( ${{ inputs.input_number }} + 7 ))
-          echo "result=$result" >> $GITHUB_OUTPUT
 
       - name: Echo BUILD_VARS_JSON
         run: |
           echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
           
-
       - name: Get build vars from input file
         id: extract-build-vars
         run: |
@@ -61,7 +53,7 @@ jobs:
         run: |
           modified_json=$(echo "$BUILD_VARS_JSON" | jq 'del(.repos[0])')
           BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
           echo "**** next next ****"
           echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" 
 
