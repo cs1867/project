@@ -55,7 +55,15 @@ jobs:
           echo "BUILD_OS=$BUILD_OS" >> $GITHUB_OUTPUT
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
-
+          
+      - name: Delete current repo from build
+        id: modify_json
+        run: |
+          modified_json=$(echo "$BUILD_VARS_JSON" | jq 'del(.repos[0])')
+          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
+          echo "**** next next ****"
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" 
 
 
       
