@@ -32,8 +32,8 @@ jobs:
         run: |
           echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
           BUILD_OS=$(jq -r '.buildstats.OS' input.json)
-          BUILD_BRANCH=$(jq -r '.buildstats.OS' input.json)
-          BUILD_TYPE=$(jq -r '.buildstats.OS' input.json)
+          BUILD_BRANCH=$(jq -r '.buildstats.BUILD_BRANCH' input.json)
+          BUILD_TYPE=$(jq -r '.buildstats.BUILD_TYPE' input.json)
           echo "BUILD_OS=$BUILD_OS"
           echo "BUILD_BRANCHN=$BUILD_BRANCH"
           echo "BUILD_TYPE=$BUILD_TYPE" 
