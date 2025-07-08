@@ -62,5 +62,11 @@ jobs:
          echo "**** next next ****"
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
 
+         
+      - name: Add GitHub run ID to buildids
+        id: add_run_id
+        run: |
+         echo "GITHUB_RUN_ID=${{ github.run_id }}"
+
 
       
