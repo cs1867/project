@@ -6,7 +6,7 @@ on:
       BUILD_VARS_JSON:  
         required: true
         type: string 
-    outputs:
+    outputs: 
       BUILD_OS:
         description: "Build OS"
         value: ${{ jobs.add-one.outputs.BUILD_OS }} 
