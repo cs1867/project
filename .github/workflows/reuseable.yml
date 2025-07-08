@@ -66,11 +66,20 @@ jobs:
         id: add_run_id
         run: |
          GITHUB_RUN_ID=${{ github.run_id }}
-         echo "GITHUB_RUN_ID=${{ github.run_id }}"
          REPO_NAME=${{ github.event.repository.name }}
-         modified_json=$(echo "$BUILD_VARS_JSON" | jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id')
+    
+         echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+
+         # Properly read the contents of the file, not just echoing its name
+         modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' input.json)
+
+         # Compact the JSON
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $ $GITHUB_OUTPUT
+
+         # Save as a job output
+         echo "build_vars_json=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
+
+         # Print to logs for visibility
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
 
 
