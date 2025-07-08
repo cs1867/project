@@ -13,6 +13,12 @@ on:
       BUILD_OS:
         description: "Build OS"
         value: ${{ jobs.add-one.outputs.BUILD_OS }}
+      BUILD_BRANCH:
+        description: "BUILD BRANCH"
+        value: ${{ jobs.add-one.outputs.BUILD_BRANCH }}
+      BUILD_TYPE:
+        description: "BUILD TYPE"
+        value: ${{ jobs.add-one.outputs.BUILD_TYPE }}
 
 jobs:
   add-one:
@@ -20,6 +26,8 @@ jobs:
     outputs:
       result: ${{ steps.add.outputs.result }}
       BUILD_OS: ${{ steps.extract-build-vars.outputs.BUILD_OS }}
+      BUILD_BRANCH: ${{ steps.extract-build-vars.outputs.BUILD_BRANCH }}
+      BUILD_TYPE: ${{ steps.extract-build-vars.outputs.BUILD_TYPE }}
       
     steps:
       - id: add
