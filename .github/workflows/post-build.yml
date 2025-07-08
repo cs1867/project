@@ -29,6 +29,13 @@ jobs:
           echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"  
 
 
+      - name: Look up the next repo name to build
+        id: extract_repo_name
+        run: |
+          echo "BUILD_VARS_JSON value is: $BUILD_VARS_JSON"
+          NEXTREPO=$(echo  "$BUILD_VARS_JSON" | jq -r '.repos[0].name' )
+          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_ENV  
+
       - name: Add end time
         id: modify_json
         run: |
@@ -41,3 +48,20 @@ jobs:
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
          echo "**** next next ****"
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
+
+
+         #     - name: Pass workflow  
+         if: '${{ inputs.BUILD_TYPE }}' == 'FULL'
+         uses: actions/github-script@v6
+         with:
+          github-token: ${{ secrets.GIT_ACTIONS }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+            owner: 'cs1867',
+            repo: '${{ env.NEXTREPO}}',
+            workflow_id: '${{ env.NEXTREPO}}-workflow.yml',
+            ref: 'github-workflow',
+              inputs: {
+              BUILD_VARS_JSON: '${{ inputs.BUILD_VARS_JSON }}'
+            }
+            })
