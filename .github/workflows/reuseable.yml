@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.add.outputs.result }}
+      BUILD_OS: ${{ steps.extract-build-vars.outputs.BUILD_OS }}
+      
     steps:
       - id: add
         run: |
