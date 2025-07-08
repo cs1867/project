@@ -29,12 +29,14 @@ jobs:
           echo "BUILD_VARS_JSON: ${{ inputs.BUILD_VARS_JSON }}"  
 
 
-      - name: Look up the next repo name to build
-        id: extract_repo_name
-        run: |
-          echo "BUILD_VARS_JSON value is: $BUILD_VARS_JSON"
-          NEXTREPO=$(echo  "$BUILD_VARS_JSON" | jq -r '.repos[0].name' )
-          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_ENV  
+      -  name: Look up the next repo name to build
+         id: extract_repo_name
+         run: |
+          echo "BUILD_VARS_JSON value is:"
+          echo '${{ inputs.BUILD_VARS_JSON }}'
+
+          NEXTREPO=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.repos[0].name')
+          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_ENV
 
       - name: Add end time
         id: modify_json
