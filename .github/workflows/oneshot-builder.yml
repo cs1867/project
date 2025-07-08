@@ -6,29 +6,19 @@ on:
       BUILD_VARS_JSON:
         required: true
         type: string
-    outputs: 
       BUILD_OS:
-        description: "Build OS"
-        value: ${{ jobs.prep-build.outputs.BUILD_OS }} 
-      BUILD_BRANCH:
-        description: "BUILD BRANCH"
-        value: ${{ jobs.prep-build.outputs.BUILD_BRANCH }}
+        required: true
+        type: string
       BUILD_TYPE:
-        description: "BUILD TYPE"
-        value: ${{ jobs.prep-build.outputs.BUILD_TYPE }}
-      BUILD_VARS_JSON:
-        description: "BUILD JSON FILE"
-        value: ${{ jobs.prep-build.outputs.BUILD_VARS_JSON }}
+        required: true
+        type: string
+      BUILD_BRANCH:
+        required: true
+        type: string  
 
 jobs:
   prep-build:
     runs-on: ubuntu-latest
-    outputs:
-      result: ${{ steps.add.outputs.result }}
-      BUILD_OS: ${{ steps.extract-build-vars.outputs.BUILD_OS }}
-      BUILD_BRANCH: ${{ steps.extract-build-vars.outputs.BUILD_BRANCH }}
-      BUILD_TYPE: ${{ steps.extract-build-vars.outputs.BUILD_TYPE }}
-      BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
       
     steps:
           
