@@ -10,6 +10,9 @@ on:
       result:
         description: "Result after adding 7"
         value: ${{ jobs.add-one.outputs.result }}
+      BUILD_OS:
+        description: "Build OS"
+        value: ${{ jobs.add-one.outputs.BUILD_OS }}
 
 jobs:
   add-one:
