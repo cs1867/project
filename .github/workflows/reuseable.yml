@@ -28,7 +28,7 @@ jobs:
       BUILD_OS: ${{ steps.extract-build-vars.outputs.BUILD_OS }}
       BUILD_BRANCH: ${{ steps.extract-build-vars.outputs.BUILD_BRANCH }}
       BUILD_TYPE: ${{ steps.extract-build-vars.outputs.BUILD_TYPE }}
-      BUILD_VARS_JSON: ${{ steps.add_run_id.outputs.BUILD_VARS_JSON }}
+      BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
       
     steps:
 
@@ -52,28 +52,32 @@ jobs:
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
           
-      - name: Delete current repo from build
+      - name: Delete current repo and add run id
         id: modify_json
-        run: |
-         echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         modified_json=$(jq 'del(.repos[0])' input.json)
-         BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-         echo "**** next next ****"
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
-         
-      - name: Add GitHub run ID to buildids
-        id: add_run_id
         run: |
          GITHUB_RUN_ID=${{ github.run_id }}
          REPO_NAME=${{ github.event.repository.name }}
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' input.json)
+         temp.json=$(jq 'del(.repos[0])' input.json)
+         modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' temp.json)
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-         echo "build_vars_json=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
+
+         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
+         echo "**** next next ****"
+         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
+         
+  #    - name: Add GitHub run ID to buildids
+  #      id: add_run_id
+  #      run: |
+  #       GITHUB_RUN_ID=${{ github.run_id }}
+  #       REPO_NAME=${{ github.event.repository.name }}
+  #       echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+  #       modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' input.json)
+  #       BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+  #       echo "build_vars_json=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
 
          # Print to logs for visibility
-         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
+         #echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
 
 
       
