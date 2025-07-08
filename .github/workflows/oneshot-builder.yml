@@ -21,22 +21,27 @@ jobs:
     runs-on: ubuntu-latest
       
     steps:
-          
+      - name: Show variables
+        run: |
+          echo "BUILD_OS: ${{ inputs.BUILD_OS }}"
+          echo "BUILD_TYPE: ${{ inputs.BUILD_TYPE }}"
+          echo "BUILD_BRANCH: ${{ inputs.BUILD_BRANCH }}"
+          echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"          
       - name: Check out Repo
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.call-reusable.outputs.BUILD_BRANCH }}
+          ref: ${{ inputs.BUILD_BRANCH }}"
           
       - name: Create a temporary artifact downloads folder
         run: mkdir aritfacts
 
       - name: run docker oneshot builder
         run: |
-          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - . '${{ needs.call-reusable.outputs.BUILD_OS }}'  
+          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - . '${{ inputs.BUILD_OS }}'  
           
       - uses: actions/upload-artifact@v4
         with:
-           name: ${{ github.event.repository.name }}-${{ needs.call-reusable.outputs.BUILD_OS }}
+           name: ${{ github.event.repository.name }}-${{ inputs.BUILD_OS }}
            path: unibuild-repo
            retention-days: 5
        
