@@ -9,19 +9,19 @@ on:
     outputs: 
       BUILD_OS:
         description: "Build OS"
-        value: ${{ jobs.add-one.outputs.BUILD_OS }} 
+        value: ${{ jobs.prep-build.outputs.BUILD_OS }} 
       BUILD_BRANCH:
         description: "BUILD BRANCH"
-        value: ${{ jobs.add-one.outputs.BUILD_BRANCH }}
+        value: ${{ jobs.prep-build.outputs.BUILD_BRANCH }}
       BUILD_TYPE:
         description: "BUILD TYPE"
-        value: ${{ jobs.add-one.outputs.BUILD_TYPE }}
+        value: ${{ jobs.prep-build.outputs.BUILD_TYPE }}
       BUILD_VARS_JSON:
         description: "BUILD JSON FILE"
-        value: ${{ jobs.add-one.outputs.BUILD_VARS_JSON }}
+        value: ${{ jobs.prep-build.outputs.BUILD_VARS_JSON }}
 
 jobs:
-  add-one:
+  prep-build:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.add.outputs.result }}
