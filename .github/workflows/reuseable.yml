@@ -25,9 +25,15 @@ jobs:
       - name: Echo BUILD_VARS_JSON
         run: |
           echo "BUILD_VARS_JSON is: ${{ inputs.BUILD_VARS_JSON }}"
+          
 
       - name: Get build vars from input file
         id: extract-build-vars
         run: |
           BUILD_OS=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.OS' )
+          BUILD_BRANCH=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH' )
+          BUILD_TYPE=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE' )
+          echo "BUILD_OS=$BUILD_OS"
+          echo "BUILD_BRANCHN=$BUILD_BRANCH"
+          echo "BUILD_TYPE=$BUILD_TYPE" 
       
