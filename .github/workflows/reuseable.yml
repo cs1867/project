@@ -58,8 +58,8 @@ jobs:
          GITHUB_RUN_ID=${{ github.run_id }}
          REPO_NAME=${{ github.event.repository.name }}
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         temp.json=$(jq 'del(.repos[0])' input.json)
-         modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' temp.json)
+         temp_json=$(jq 'del(.repos[0])' input.json)
+         modified_json=$(jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id' temp_json)
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
 
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
