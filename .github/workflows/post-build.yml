@@ -1,0 +1,43 @@
+name: post-build
+
+on: 
+  workflow_call:
+    inputs:
+      BUILD_VARS_JSON:
+        required: true
+        type: string
+      BUILD_OS:
+        required: true
+        type: string
+      BUILD_TYPE:
+        required: true
+        type: string
+      BUILD_BRANCH:
+        required: true
+        type: string  
+
+jobs:
+  post-build:
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Show variables
+        run: |
+          echo "BUILD_OS: ${{ inputs.BUILD_OS }}"
+          echo "BUILD_TYPE: ${{ inputs.BUILD_TYPE }}"
+          echo "BUILD_BRANCH: ${{ inputs.BUILD_BRANCH }}"
+          echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"  
+
+
+      - name: Add end time
+        id: modify_json
+        run: |
+         REPO_NAME=${{ github.event.repository.name }}
+         END_TIME=$(date -u)
+         echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+         modified_json=$(echo "$input.json" | jq --arg key "${REPO_NAME}-start" --arg value "$END_TIME" '.buildstats[$key] = $value')
+         BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
+
+         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
+         echo "**** next next ****"
+         echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
