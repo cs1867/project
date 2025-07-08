@@ -67,7 +67,8 @@ jobs:
         run: |
          GITHUB_RUN_ID=${{ github.run_id }}
          REPO_NAME=${{ github.event.repository.name }}
-    
+         echo "REPO_NAME=$REPO_NAME"
+         
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
 
          # Properly read the contents of the file, not just echoing its name
