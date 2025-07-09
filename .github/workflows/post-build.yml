@@ -54,15 +54,6 @@ jobs:
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
          echo "**** next next ****"
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
-
-      - name: Check if GIT_ACTIONS was passed
-        run: |
-         if [ -z "${{ inputs.GIT_ACTIONS }}" ]; then
-          echo "GIT_ACTIONS is empty or not passed!"
-          exit 1
-         else
-          echo "GIT_ACTIONS appears to be passed (masked)."
-         fi
          
       - name: Pass workflow  
         if: inputs.BUILD_TYPE  == 'FULL'
