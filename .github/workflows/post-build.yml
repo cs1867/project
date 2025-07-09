@@ -42,9 +42,11 @@ jobs:
       -  name: Look up the next repo name to build
          id: extract_repo_name
          run: |
+          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+          temp_json=$(jq 'del(.repos[0])' input.json)
           echo "BUILD_VARS_JSON value is:"
           echo '${{ inputs.BUILD_VARS_JSON }}'
-          NEXTREPO=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.repos[0].name')
+          NEXTREPO=$(echo "input.json" | jq -r '.repos[0].name')
           echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
           echo "NEXTREPO=$NEXTREPO"
 
