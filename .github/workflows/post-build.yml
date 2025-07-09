@@ -21,7 +21,7 @@ on:
         value: ${{ jobs.post-build.outputs.NEXTREPO }}
       BUILD_VARS_JSON:
         description: "BUILD JSON FILE"
-        value: ${{ jobs.psot-build.outputs.BUILD_VARS_JSON }}
+        value: ${{ jobs.post-build.outputs.BUILD_VARS_JSON }}
 
 jobs:
   post-build:
