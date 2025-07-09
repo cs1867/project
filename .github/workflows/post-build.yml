@@ -8,7 +8,7 @@ on:
         type: string 
       BUILD_OS:
         required: true 
-        type: string 
+        type: string
       BUILD_TYPE:
         required: true
         type: string
