@@ -14,7 +14,10 @@ on:
         type: string
       BUILD_BRANCH:
         required: true
-        type: string  
+        type: string
+      GIT_ACTIONS:
+        required: true
+        type: string
 
 jobs:
   post-build:
@@ -57,7 +60,7 @@ jobs:
         if: inputs.BUILD_TYPE  == 'FULL'
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GIT_ACTIONS }}
+          github-token: ${{ inputs.GIT_ACTIONS }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'cs1867',
