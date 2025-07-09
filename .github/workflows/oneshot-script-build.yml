@@ -1,0 +1,45 @@
+name: oneshot-script-build
+
+on: 
+  workflow_call:
+    inputs:
+      BUILD_VARS_JSON:
+        required: true
+        type: string
+      BUILD_OS:
+        required: true
+        type: string
+      BUILD_TYPE:
+        required: true
+        type: string
+      BUILD_BRANCH:
+        required: true
+        type: string  
+
+jobs:
+  prep-build:
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Show variables
+        run: |
+          echo "BUILD_OS: ${{ inputs.BUILD_OS }}"
+          echo "BUILD_TYPE: ${{ inputs.BUILD_TYPE }}"
+          echo "BUILD_BRANCH: ${{ inputs.BUILD_BRANCH }}"
+          echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"  
+          
+      - name: Check out Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.BUILD_BRANCH }}
+          
+      - name: Create a temporary artifact downloads folder
+        run: mkdir aritfacts
+
+      
+      #- uses: actions/upload-artifact@v4
+      #  with:
+      #     name: ${{ github.event.repository.name }}-${{ inputs.BUILD_OS }}
+      #     path: unibuild-repo
+      #     retention-days: 5
+       
