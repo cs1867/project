@@ -35,6 +35,16 @@ jobs:
           
       - name: Create a temporary artifact downloads folder
         run: mkdir aritfacts
+        
+      - name: Extract dependencies
+        id: extract_deps
+        run: |
+         echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+         REPO_NAME="${{ github.event.repository.name }}"
+         cat input.json | jq -r ".repos[] | select(.name == \"${REPO_NAME}\") | .deps[]" > deps.txt
+         echo "Dependencies:"
+         cat deps.txt
+            
 
       
       #- uses: actions/upload-artifact@v4
