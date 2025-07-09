@@ -58,7 +58,7 @@ jobs:
       - name: Extract NEXTREPO from modified JSON
         id: extract_repo
         run: |
-         NEXTREPO=$(jq -r '.repos[0].name' modified.json)
+         NEXTREPO=$(jq -r '.repos[0].name' final.json)
          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
          echo "NEXTREPO=$NEXTREPO"
 
