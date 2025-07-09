@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
+      NEXTREPO: ${{ steps.extract_repo_name.outputs.BUILD_VARS_JSON }}
       
     steps:
       - name: Show variables
@@ -38,7 +39,7 @@ jobs:
           echo '${{ inputs.BUILD_VARS_JSON }}'
 
           NEXTREPO=$(echo '${{ inputs.BUILD_VARS_JSON }}' | jq -r '.repos[0].name')
-          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_ENV
+          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
           echo "NEXTREPO=$NEXTREPO"
 
       - name: Add end time
