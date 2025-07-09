@@ -48,14 +48,14 @@ jobs:
           echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_OUTPUT
           echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_OUTPUT
           
-      - name: Delete current repo and add run id
+      - name: set start date and repo run id
         id: modify_json
         run: |
          GITHUB_RUN_ID=${{ github.run_id }}
          REPO_NAME=${{ github.event.repository.name }}
          START_TIME=$(date -u)
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         temp_json=$(echo "$input.json" | jq --arg key "${REPO_NAME}-start" --arg value "$START_TIME" '.buildstats[$key] = $value')
+         temp_json=$(jq --arg key "${REPO_NAME}-start" --arg value "$START_TIME" '.buildstats[$key] = $value' input.json)
          modified_json=$(echo "$temp_json" | jq --arg run_id "$GITHUB_RUN_ID" --arg repo "$REPO_NAME" '.buildids[$repo] = $run_id')
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
 
