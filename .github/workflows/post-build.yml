@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
-      NEXTREPO: ${{ steps.final.json.outputs.NEXTREPO }}
+      NEXTREPO: ${{ steps.extract_repo.outputs.NEXTREPO }}
       
     steps:
       - name: Show variables
