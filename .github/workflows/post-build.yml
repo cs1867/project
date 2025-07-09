@@ -43,9 +43,6 @@ jobs:
         id: modify_json
         run: |
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-         NEXTREPO=$(jq -r '.repos[0].name' input.json)
-         echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
-         echo "NEXTREPO=$NEXTREPO"
          jq 'del(.repos[0])' input.json > step1.json
          REPO_NAME=${{ github.event.repository.name }}
          END_TIME=$(date -u)
@@ -57,6 +54,13 @@ jobs:
 
          echo "**** Final modified JSON ****"
          echo "$BUILD_VARS_JSON" | jq .
+
+      - name: Extract NEXTREPO from modified JSON
+        id: extract_repo
+        run: |
+         NEXTREPO=$(jq -r '.repos[0].name' modified.json)
+         echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
+         echo "NEXTREPO=$NEXTREPO"
 
      # -  name: Lookup up next to build
      ##    id: extract_repo_name
