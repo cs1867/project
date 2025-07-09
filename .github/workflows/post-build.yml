@@ -19,6 +19,8 @@ on:
 jobs:
   post-build:
     runs-on: ubuntu-latest
+    outputs:
+      BUILD_VARS_JSON: ${{ steps.modify_json.outputs.BUILD_VARS_JSON }}
       
     steps:
       - name: Show variables
