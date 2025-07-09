@@ -56,7 +56,7 @@ jobs:
         if: inputs.BUILD_TYPE  == 'FULL'
         uses: actions/github-script@v6
         with:
-          github-token: ${{ inputs.GIT_ACTIONS }}
+          github-token: ${{secrets.GIT_ACTIONS }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'cs1867',
