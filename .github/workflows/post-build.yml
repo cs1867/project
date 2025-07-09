@@ -39,16 +39,16 @@ jobs:
           echo "BUILD_VARS_JSON: ${{ inputs.BUILD_VARS_JSON }}"  
 
 
-      -  name: Look up the next repo name to build
+      -  name: delete current repo and lookup up next to build
          id: extract_repo_name
          run: |
           echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-          temp_json=$(jq 'del(.repos[0])' input.json)
-          echo "BUILD_VARS_JSON value is:"
-          echo '${{ inputs.BUILD_VARS_JSON }}'
-          NEXTREPO=$(echo "input.json" | jq -r '.repos[0].name')
+          jq 'del(.repos[0])' input.json > updated.json
+          mv updated.json input.json
+          NEXTREPO=$(jq -r '.repos[0].name' input.json)
           echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
           echo "NEXTREPO=$NEXTREPO"
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
 
  
 
@@ -60,7 +60,6 @@ jobs:
          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
          modified_json=$(jq --arg key "${REPO_NAME}-end" --arg value "$END_TIME" '.buildstats[$key] = $value' input.json)
          BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
          echo "**** next next ****"
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
