@@ -7,7 +7,7 @@ on:
         required: true  
         type: string
       BUILD_OS:
-        required: true
+        required: true 
         type: string 
       BUILD_TYPE:
         required: true
