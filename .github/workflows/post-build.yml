@@ -39,17 +39,6 @@ jobs:
           echo "BUILD_VARS_JSON: ${{ inputs.BUILD_VARS_JSON }}"  
 
 
-      -  name: Lookup up next to build
-         id: extract_repo_name
-         run: |
-          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
-          NEXTREPO=$(jq -r '.repos[0].name' input.json)
-          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
-          echo "NEXTREPO=$NEXTREPO"
-          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
-
- 
-
       - name: Delete current repo and add end time
         id: modify_json
         run: |
@@ -59,13 +48,21 @@ jobs:
          END_TIME=$(date -u)
          jq --arg key "${REPO_NAME}-end" --arg value "$END_TIME" '.buildstats[$key] = $value' step1.json > final.json
 
- 
          BUILD_VARS_JSON=$(jq -c '.' final.json)
 
          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
 
          echo "**** Final modified JSON ****"
          echo "$BUILD_VARS_JSON" | jq .
+
+      -  name: Lookup up next to build
+         id: extract_repo_name
+         run: |
+          echo '${{ inputs.BUILD_VARS_JSON }}' > input.json
+          NEXTREPO=$(jq -r '.repos[0].name' input.json)
+          echo "NEXTREPO=$NEXTREPO" >> $GITHUB_OUTPUT
+          echo "NEXTREPO=$NEXTREPO"
+          echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_OUTPUT
          
      # - name: Pass workflow  
      #   if: inputs.BUILD_TYPE  == 'FULL'
