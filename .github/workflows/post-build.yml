@@ -60,11 +60,11 @@ jobs:
           github-token: ${{ secrets.GIT_ACTIONS }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
-            owner: 'cs1867',
-            repo: '${{ env.NEXTREPO}}',
-            workflow_id: '${{ env.NEXTREPO}}-workflow.yml',
-            ref: 'github-workflow',
+              owner: 'cs1867',
+              repo: '${{ env.NEXTREPO}}',
+              workflow_id: '${{ env.NEXTREPO}}-workflow.yml',
+              ref: 'github-workflow',
               inputs: {
-              BUILD_VARS_JSON: '${{ inputs.BUILD_VARS_JSON }}'
-            }
+                BUILD_VARS_JSON: '${{ inputs.BUILD_VARS_JSON }}'
+              }
             })
