@@ -15,6 +15,13 @@ on:
       BUILD_BRANCH:
         required: true
         type: string
+    outputs: 
+      NEXTREPO:
+        description: "Next repo to build"
+        value: ${{ jobs.post-build.outputs.NEXTREPO }}
+      BUILD_VARS_JSON:
+        description: "BUILD JSON FILE"
+        value: ${{ jobs.psot-build.outputs.BUILD_VARS_JSON }}
 
 jobs:
   post-build:
