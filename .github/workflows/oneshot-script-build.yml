@@ -49,7 +49,7 @@ jobs:
       - name: Download artifacts
         run: |
           mkdir -p artifacts
-          BUILD_VARS_JSON='${{ inputs.BUILD_VARS_JSON }}'
+          BUILD_VARS_JSON="${{ inputs.BUILD_VARS_JSON }}"
           while IFS= read -r repo; do
             echo "Downloading artifact for $repo"
             run_id=$(echo "$BUILD_VARS_JSON" | jq -r ".buildids[\"$repo\"]")
