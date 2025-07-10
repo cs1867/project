@@ -82,24 +82,24 @@ jobs:
 
             gh run download "$run_id" --repo cs1867/"$repo" -D artifacts/"$repo" --name "$repo-${{ inputs.BUILD_OS }}"
 
-            #artifact_path="artifacts/$repo"
-            #echo "Listing artifact path:"
-            #ls -al "$artifact_path"
+            artifact_path="artifacts/$repo"
+            echo "Listing artifact path:"
+            ls -al "$artifact_path"
 
-           #case "${{ inputs.BUILD_OS }}" in
-           # 'ol8'|'el9')
-           #   mkdir -p artifacts/RPMS
-           #   echo "Copying RPMs to artifacts/RPMS"
-           #   cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
-           # ;;
-           # 'd11'|'d12'|'u20'|'u22'|'u24')
-           #   mkdir -p artifacts/DEBS
-           #   echo "Copying DEBs to artifacts/DEBS"
-           #   cp -r "$artifact_path"/* artifacts/DEBS
-           #   echo "Listing contents of DEBS dir"
-           #   ls -al artifacts/DEBS/*
-           # ;;
-           # esac
+           case '${{ inputs.BUILD_OS }}' in
+            'ol8'|'el9')
+              mkdir -p artifacts/RPMS
+              echo "Copying RPMs to artifacts/RPMS"
+              cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
+            ;;
+            'd11'|'d12'|'u20'|'u22'|'u24')
+              mkdir -p artifacts/DEBS
+              echo "Copying DEBs to artifacts/DEBS"
+              cp -r "$artifact_path"/* artifacts/DEBS
+              echo "Listing contents of DEBS dir"
+              ls -al artifacts/DEBS/*
+            ;;
+            esac
           done < deps.txt
            
 
