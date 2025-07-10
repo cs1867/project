@@ -17,7 +17,7 @@ on:
         type: string  
 
 jobs:
-  prep-build:
+  run-oneshot:
     runs-on: ubuntu-latest
       
     steps:
@@ -26,7 +26,8 @@ jobs:
           echo "BUILD_OS: ${{ inputs.BUILD_OS }}"
           echo "BUILD_TYPE: ${{ inputs.BUILD_TYPE }}"
           echo "BUILD_BRANCH: ${{ inputs.BUILD_BRANCH }}"
-          echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"          
+          echo "JSON: ${{ inputs.BUILD_VARS_JSON }}"   
+          
       - name: Check out Repo
         uses: actions/checkout@v4
         with:
