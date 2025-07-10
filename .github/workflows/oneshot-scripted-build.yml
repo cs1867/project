@@ -1,4 +1,4 @@
-name: oneshot-script-build
+name: oneshot-scripted-build
 
 on: 
   workflow_call:
@@ -20,7 +20,7 @@ on:
         required: true
 
 jobs:
-  oneshot-script:
+  ed-build:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
