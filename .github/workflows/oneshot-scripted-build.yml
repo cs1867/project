@@ -41,17 +41,34 @@ jobs:
       - name: Fetch workflow script from projects
         env:
           github-token: ${{ secrets.GIT_ACTIONS }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          
         run: |
             git clone https://github.com/cs1867/project.git project
             case '${{ inputs.BUILD_OS }}' in
               'ol8'|'el9')
-                 cp project/toolbox/workflows/github-el-workflow.sh .
+                if [ "$REPO_NAME" = "host-metrics" ] ; then
+                  echo "Using skip.sh for $REPO_NAME on $OS"
+                  SCRIPT_NAME="github-workflow-el-skip-install.sh"
+                else
+                  echo "Using github-el-workflow.sh for $REPO_NAME on $OS"
+                  SCRIPT_NAME="github-el-workflow.sh"
+                fi
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
-                cp project/toolbox/workflows/github-db-workflow.sh .
+                if [ "$REPO_NAME" = "junk" ] ; then
+                  echo "github-workflow-ub-skip-install.sh for $REPO_NAME on $OS"
+                  SCRIPT_NAME="github-workflow-ub-skip-install.sh"
+                else
+                  echo "Using github-ub-workflow.sh for $REPO_NAME on $OS"
+                  SCRIPT_NAME="github-ub-workflow.sh"
+                fi
                 ;;
             esac
-          
+            echo "Using $SCRIPT_NAME for $REPO_NAME on $OS"
+            cp "project/toolbox/workflows/$SCRIPT_NAME" .
+
+    
       - name: Create a temporary artifact downloads folder
         run: mkdir aritfacts
         
@@ -105,14 +122,16 @@ jobs:
 
       - name: run docker oneshot builder and github-actions-workflow.sh
         run: |
-              case "${{ inputs.BUILD_OS }}" in
-                'ol8'|'el9')              
-                   curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-el-workflow.sh . '${{ inputs.BUILD_OS }}'  
-                ;;
-                'd11'|'d12'|'u20'|'u22'|'u24')                
-                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-db-workflow.sh . '${{ inputs.BUILD_OS }}'
-                ;;
-              esac
+          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "$SCRIPT_NAME"  . '${{ inputs.BUILD_OS }}'
+            
+            #  case "${{ inputs.BUILD_OS }}" in
+            #    'ol8'|'el9')              
+            #       curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "$SCRIPT_NAME"  . '${{ inputs.BUILD_OS }}'  
+            #    ;;
+            #    'd11'|'d12'|'u20'|'u22'|'u24')                
+            #     curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-db-workflow.sh . '${{ inputs.BUILD_OS }}'
+            #    ;;
+            #  esac
       
       - uses: actions/upload-artifact@v4
         with:
