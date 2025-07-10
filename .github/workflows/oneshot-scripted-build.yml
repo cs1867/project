@@ -48,24 +48,24 @@ jobs:
             case '${{ inputs.BUILD_OS }}' in
               'ol8'|'el9')
                 if [ "$REPO_NAME" = "host-metrics" ] ; then
-                  echo "Using skip.sh for $REPO_NAME on $OS"
+                  echo "Using skip.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   SCRIPT_NAME="github-workflow-el-skip-install.sh"
                 else
-                  echo "Using github-el-workflow.sh for $REPO_NAME on $OS"
+                  echo "Using github-el-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   SCRIPT_NAME="github-el-workflow.sh"
                 fi
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
                 if [ "$REPO_NAME" = "junk" ] ; then
-                  echo "github-workflow-ub-skip-install.sh for $REPO_NAME on $OS"
+                  echo "github-workflow-ub-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   SCRIPT_NAME="github-workflow-ub-skip-install.sh"
                 else
-                  echo "Using github-ub-workflow.sh for $REPO_NAME on $OS"
+                  echo "Using github-ub-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   SCRIPT_NAME="github-ub-workflow.sh"
                 fi
                 ;;
             esac
-            echo "Using $SCRIPT_NAME for $REPO_NAME on $OS"
+            echo "Using $SCRIPT_NAME for $REPO_NAME on ${{ inputs.BUILD_OS }}"
             cp "project/toolbox/workflows/$SCRIPT_NAME" .
 
     
@@ -122,7 +122,9 @@ jobs:
 
       - name: run docker oneshot builder and github-actions-workflow.sh
         run: |
-          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "$SCRIPT_NAME"  . '${{ inputs.BUILD_OS }}'
+          echo "SCRIPT_NAME is: $SCRIPT_NAME"
+          echo "BUILD_OS is: ${{ inputs.BUILD_OS }}"
+          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "$SCRIPT_NAME"  . "${{ inputs.BUILD_OS }}"
             
             #  case "${{ inputs.BUILD_OS }}" in
             #    'ol8'|'el9')              
