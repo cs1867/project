@@ -20,7 +20,7 @@ on:
         required: true
 
 jobs:
-  prep-build:
+  oneshot-script:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
