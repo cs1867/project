@@ -78,6 +78,7 @@ jobs:
           done < deps.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
+          GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
   #    - name: run docker oneshot builder and github-actions-workflow.sh
   #      run: |
