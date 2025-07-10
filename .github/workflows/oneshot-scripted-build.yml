@@ -49,22 +49,23 @@ jobs:
               'ol8'|'el9')
                 if [ "$REPO_NAME" = "host-metrics" ] ; then
                   echo "Using skip.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-workflow-el-skip-install.sh" >> $GITHUB_OUTPUT
+                  echo "SCRIPT_NAME=github-workflow-el-skip-install.sh" 
                 else
                   echo "Using github-el-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-el-workflow.sh" >> $GITHUB_OUTPUT
+                  echo "SCRIPT_NAME=github-el-workflow.sh"  
                 fi
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
                 if [ "$REPO_NAME" = "junk" ] ; then
                   echo "github-workflow-ub-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-ub-skip-workflow.sh" >> $GITHUB_OUTPUT
+                  echo "SCRIPT_NAME=github-ub-skip-workflow.sh"  
                 else
                   echo "Using github-ub-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-ub-workflow.sh" >> $GITHUB_OUTPUT
+                  echo "SCRIPT_NAME=github-ub-workflow.sh"  
                 fi
                 ;;
             esac
+            echo "SCRIPT_NAME=$SCRIPT_NAME" >> $GITHUB_OUTPUT
             echo "Using $SCRIPT_NAME for $REPO_NAME on ${{ inputs.BUILD_OS }}"
             cp "project/toolbox/workflows/$SCRIPT_NAME" .
 
