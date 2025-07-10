@@ -39,6 +39,7 @@ jobs:
           ref: ${{ inputs.BUILD_BRANCH }}
           
       - name: Fetch workflow script from projects
+        id: scriptvar
         env:
           github-token: ${{ secrets.GIT_ACTIONS }}
           REPO_NAME: ${{ github.event.repository.name }}
@@ -72,6 +73,7 @@ jobs:
             echo "SCRIPT_NAME=$SCRIPT_NAME" >> $GITHUB_OUTPUT
             echo "Using $SCRIPT_NAME for $REPO_NAME on ${{ inputs.BUILD_OS }}"
             cp "project/toolbox/workflows/$SCRIPT_NAME" .
+            ls project/toolbox/workflows
 
     
       - name: Create a temporary artifact downloads folder
@@ -129,7 +131,7 @@ jobs:
         run: |
           echo "SCRIPT_NAME is: ${{ steps.scriptvar.outputs.SCRIPT_NAME }}"
           echo "BUILD_OS is: ${{ inputs.BUILD_OS }}"
-          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "$SCRIPT_NAME"  . "${{ inputs.BUILD_OS }}"
+          curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "${{ steps.scriptvar.outputs.SCRIPT_NAME }}"  . "${{ inputs.BUILD_OS }}"
             
             #  case "${{ inputs.BUILD_OS }}" in
             #    'ol8'|'el9')              
