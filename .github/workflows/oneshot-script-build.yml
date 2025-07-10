@@ -89,20 +89,20 @@ jobs:
           done < deps.txt
            
 
-  #    - name: run docker oneshot builder and github-actions-workflow.sh
-  #      run: |
-  #            case "${{ inputs.BUILD_OS }}" in
-  #              'ol8'|'el9')              
-  #                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-el-workflow.sh . '${{ inputs.BUILD_OS }}'  
-  #              ;;
-  #              'd11'|'d12'|'u20'|'u22'|'u24')                
- #                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-db-workflow.sh . '${{ inputs.BUILD_OS }}'
-   #             ;;
-   #           esac
+      - name: run docker oneshot builder and github-actions-workflow.sh
+        run: |
+              case "${{ inputs.BUILD_OS }}" in
+                'ol8'|'el9')              
+                   curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-el-workflow.sh . '${{ inputs.BUILD_OS }}'  
+                ;;
+                'd11'|'d12'|'u20'|'u22'|'u24')                
+                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run github-db-workflow.sh . '${{ inputs.BUILD_OS }}'
+                ;;
+              esac
       
-      #- uses: actions/upload-artifact@v4
-      #  with:
-      #     name: ${{ github.event.repository.name }}-${{ inputs.BUILD_OS }}
-      #     path: unibuild-repo
-      #     retention-days: 5
+      - uses: actions/upload-artifact@v4
+        with:
+           name: ${{ github.event.repository.name }}-${{ inputs.BUILD_OS }}
+           path: unibuild-repo
+           retention-days: 5
        
