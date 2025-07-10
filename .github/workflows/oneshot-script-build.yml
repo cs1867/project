@@ -49,13 +49,14 @@ jobs:
       - name: Download artifacts
         run: |
           mkdir -p artifacts
-          BUILD_VARS_JSON="${{ inputs.BUILD_VARS_JSON }}"
+          BUILD_VARS_JSON='${{ inputs.BUILD_VARS_JSON }}'
           while IFS= read -r repo; do
-            echo "Downloading artifact for $repo"
+            echo "Downloading artifact for '$repo'"
             run_id=$(echo "$BUILD_VARS_JSON" | jq -r ".buildids[\"$repo\"]")
             echo "run id: $run_id"
+  
 
-            gh run download "$run_id" --repo cs1867/$repo -D artifacts/$repo --name "$repo-${{ inputs.BUILD_OS }}"
+            # gh run download "$run_id" --repo cs1867/$repo -D artifacts/$repo --name "$repo-${{ inputs.BUILD_OS }}"
 
             artifact_path="artifacts/$repo"
             echo "Listing artifact path:"
