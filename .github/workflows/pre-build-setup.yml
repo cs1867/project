@@ -6,7 +6,7 @@ on:
       BUILD_VARS_JSON:
         required: true
         type: string
-    secrets:
+    secrets: 
       GIT_ACTIONS:
         required: true
 
