@@ -15,10 +15,15 @@ on:
       BUILD_BRANCH:
         required: true
         type: string  
+    secrets:
+      GIT_ACTIONS:
+        required: true
 
 jobs:
   prep-build:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
       
     steps:
       - name: Show variables
@@ -82,8 +87,6 @@ jobs:
            # ;;
            # esac
           done < deps.txt
-        env:
-          GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
            
 
   #    - name: run docker oneshot builder and github-actions-workflow.sh
