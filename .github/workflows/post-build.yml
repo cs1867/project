@@ -15,6 +15,9 @@ on:
       BUILD_BRANCH:
         required: true
         type: string
+    secrets:
+      GIT_ACTIONS:
+        required: true
     outputs: 
       NEXTREPO:
         description: "Next repo to build"
