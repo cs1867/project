@@ -50,10 +50,16 @@ jobs:
         run: |
           mkdir -p artifacts
           BUILD_VARS_JSON='${{ inputs.BUILD_VARS_JSON }}'
+          echo "::debug::GH_TOKEN=${GH_TOKEN:0:4}********"
           while IFS= read -r repo; do
             echo "Downloading artifact for '$repo'"
             run_id=$(echo "$BUILD_VARS_JSON" | jq -r ".buildids[\"$repo\"]")
             echo "run id: $run_id"  
+            if [ -z "$GH_TOKEN" ]; then
+             echo "❌ GH_TOKEN is not set!"
+            else
+             echo "✅ GH_TOKEN is set (length: ${#GH_TOKEN})"
+            fi
 
             gh run download "$run_id" --repo cs1867/"$repo" -D artifacts/"$repo" --name "$repo-${{ inputs.BUILD_OS }}"
 
