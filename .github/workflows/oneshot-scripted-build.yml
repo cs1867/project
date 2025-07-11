@@ -60,6 +60,7 @@ jobs:
                   SCRIPT_NAME=github-el-workflow.sh
                  ;;
                 esac
+               ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
                 case "$REPO_NAME" in
                   logstash|archive)
