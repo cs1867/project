@@ -59,15 +59,17 @@ jobs:
                 fi
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
-                if [ "$REPO_NAME" = "logstash" ] ; then
-                  echo "github-workflow-db-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-workflow-db-skip-install.sh"  
-                  SCRIPT_NAME=github-workflow-db-skip-install.sh
-                else
+                case "$REPO_NAME" in
+                  logstash|archive)
+                    echo "github-workflow-db-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
+                    echo "SCRIPT_NAME=github-workflow-db-skip-install.sh"  
+                    SCRIPT_NAME=github-workflow-db-skip-install.sh
+                *)
                   echo "Using github-ub-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-ub-workflow.sh"  
                   SCRIPT_NAME=github-ub-workflow.sh
-                fi
+                  ;;
+                esac
                 ;;
             esac
             echo "SCRIPT_NAME=$SCRIPT_NAME" >> $GITHUB_OUTPUT
