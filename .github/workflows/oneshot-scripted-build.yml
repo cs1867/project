@@ -49,7 +49,7 @@ jobs:
             case '${{ inputs.BUILD_OS }}' in
               'ol8'|'el9')
                 case "$REPO_NAME" in
-                 host-metrics)
+                 host-metrics|psconfig-web)
                   echo "Using skip.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-workflow-el-skip-install.sh" 
                   SCRIPT_NAME=github-workflow-el-skip-install.sh
