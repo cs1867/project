@@ -64,6 +64,7 @@ jobs:
                     echo "github-workflow-db-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                     echo "SCRIPT_NAME=github-workflow-db-skip-install.sh"  
                     SCRIPT_NAME=github-workflow-db-skip-install.sh
+                    ;;
                 *)
                   echo "Using github-ub-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-ub-workflow.sh"  
