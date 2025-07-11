@@ -49,7 +49,7 @@ jobs:
             case '${{ inputs.BUILD_OS }}' in
               'ol8'|'el9')
                 case "$REPO_NAME" in
-                 host-metrics|psconfig-web|sca-auth)
+                 host-metrics|psconfig-web|sca-auth|bundles)
                   echo "Using skip.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-workflow-el-skip-install.sh" 
                   SCRIPT_NAME=github-workflow-el-skip-install.sh
@@ -63,7 +63,7 @@ jobs:
                ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
                 case "$REPO_NAME" in
-                  logstash|archive)
+                  logstash|archive|bundles|toolkit)
                     echo "github-workflow-db-skip-install.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                     echo "SCRIPT_NAME=github-workflow-db-skip-install.sh"  
                     SCRIPT_NAME=github-workflow-db-skip-install.sh
