@@ -48,16 +48,18 @@ jobs:
             git clone https://github.com/cs1867/project.git project
             case '${{ inputs.BUILD_OS }}' in
               'ol8'|'el9')
-                if [ "$REPO_NAME" = "host-metrics" ] ; then
+                case "$REPO_NAME" in
+                 host-metrics)
                   echo "Using skip.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-workflow-el-skip-install.sh" 
                   SCRIPT_NAME=github-workflow-el-skip-install.sh
-                else
+                 ;; 
+                *)
                   echo "Using github-el-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
                   echo "SCRIPT_NAME=github-el-workflow.sh"
                   SCRIPT_NAME=github-el-workflow.sh
-                fi
                  ;;
+                esac
               'd11'|'d12'|'u20'|'u22'|'u24')
                 case "$REPO_NAME" in
                   logstash|archive)
@@ -128,22 +130,14 @@ jobs:
             ;;
             esac
           done < deps.txt
-           
 
+           
       - name: run docker oneshot builder and github-actions-workflow.sh
         run: |
           echo "SCRIPT_NAME is: ${{ steps.scriptvar.outputs.SCRIPT_NAME }}"
           echo "BUILD_OS is: ${{ inputs.BUILD_OS }}"
           curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run "${{ steps.scriptvar.outputs.SCRIPT_NAME }}"  . "${{ inputs.BUILD_OS }}"
             
-            #  case "${{ inputs.BUILD_OS }}" in
-            #    'ol8'|'el9')              
-            #       curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run '${{ steps.scriptvar.outputs.SCRIPT_NAME }}'  . '${{ inputs.BUILD_OS }}'  
-            #    ;;
-            #    'd11'|'d12'|'u20'|'u22'|'u24')                
-            #     curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run '${{ steps.scriptvar.outputs.SCRIPT_NAME }}' . '${{ inputs.BUILD_OS }}'
-            #    ;;
-            #  esac
       
       - uses: actions/upload-artifact@v4
         with:
