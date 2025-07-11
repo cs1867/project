@@ -114,6 +114,12 @@ jobs:
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
             echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
             chmod 600 private.key passphrase.txt
+            ls -l private.key passphrase.txt
+            echo "===> Check private.key format"
+            head -n 5 private.key
+
+            echo "===> Check passphrase file"
+            cat passphrase.txt | wc -c
 
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
               | sh -s - --passphrase @passphrase.txt artifacts/RPMS @private.key
