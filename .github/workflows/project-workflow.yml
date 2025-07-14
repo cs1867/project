@@ -125,10 +125,10 @@ jobs:
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
               | sh -s - --passphrase "$(cat passphrase.txt)" artifacts/RPMS private.key
 
-        #    echo "Verifying signed RPMs..."
-        #    rpm --checksig artifacts/RPMS/*.rpm || true
-        #    gpg --list-keys
-        #    rpm --checksig artifacts/RPMS/*.rpm
+            echo "Verifying signed RPMs..."
+            rpm --checksig artifacts/RPMS/*.rpm || true
+            gpg --list-keys
+            rpm --checksig artifacts/RPMS/*.rpm
 
         - uses: actions/upload-artifact@v4
           with:
