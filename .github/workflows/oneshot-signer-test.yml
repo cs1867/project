@@ -53,6 +53,9 @@ jobs:
             ls -al artifacts
             echo "list artifacts RPM dir"
             ls -al artifacts/RPMS
+            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
+            | sh -s - --run create-el-repo.sh . "el9" 
+
         - name: Sign RPMs using docker-oneshot-signer
           run: |
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
