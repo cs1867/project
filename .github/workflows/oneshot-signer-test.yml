@@ -76,7 +76,9 @@ jobs:
             cat passphrase.txt | wc -c
             pwd
             ls -al
-
+            gpg --batch --import private.key
+            gpg --list-secret-keys
+            
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
             | sh -s - --passphrase  ./passphrase.txt  ./artifacts/RPMS private.key
 
