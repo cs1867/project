@@ -68,7 +68,7 @@ jobs:
             pwd
             ls -al
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
-            | sh -s - --passphrase  @passphrase.txt  ./artifacts/RPMS private.key
+            | sh -s - --passphrase  ./passphrase.txt  ./artifacts/RPMS private.key
 
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
