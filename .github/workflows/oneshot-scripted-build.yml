@@ -20,7 +20,7 @@ on:
         required: true
 
 jobs:
-  ed-build:
+  scripted-build:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GIT_ACTIONS }}
@@ -69,9 +69,9 @@ jobs:
                     SCRIPT_NAME=github-workflow-db-skip-install.sh
                     ;;
                 *)
-                  echo "Using github-ub-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
-                  echo "SCRIPT_NAME=github-ub-workflow.sh"  
-                  SCRIPT_NAME=github-ub-workflow.sh
+                  echo "Using github-db-workflow.sh for $REPO_NAME on ${{ inputs.BUILD_OS }}"
+                  echo "SCRIPT_NAME=github-db-workflow.sh"  
+                  SCRIPT_NAME=github-db-workflow.sh
                   ;;
                 esac
                 ;;
