@@ -53,6 +53,12 @@ jobs:
             ls -al artifacts
             echo "list artifacts RPM dir"
             ls -al artifacts/RPMS
+            # Write variables to the file
+             file="variables.txt"
+             echo "repo=i2util" > $file
+             echo "build_branch=5.2.0" >> $file
+             echo "el_version=9" >> $file
+             echo "os_dir=el" >> $file
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
             | sh -s - --run create-el-repo.sh . "el9" 
 
