@@ -56,7 +56,7 @@ jobs:
             # Write variables to the file
              file="variables.txt"
              echo "repo=i2util" > $file
-             echo "build_branch=5.2.0" >> $file
+             echo "build_branch=5.2.0" >> $file 
              echo "el_version=9" >> $file
              echo "os_dir=el" >> $file
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
