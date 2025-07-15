@@ -80,9 +80,20 @@ jobs:
             gpg --list-secret-keys
             ls -l passphrase.txt private.key
             
-            IMAGE_TAG=rpm \
-            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
-            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
+            if [ -d "./artifacts/RPMS/repodata" ]
+            then
+              REPO_TYPE=rpm
+              # TODO: Identify Debian repositories
+            elif false
+            then
+              REPO_TYPE=deb
+            else
+              die "${REPO_DIR_ARG}: Unable to identify repository type."
+            fi
+            
+           # IMAGE_TAG=rpm \
+           # curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
+           # | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
 
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
