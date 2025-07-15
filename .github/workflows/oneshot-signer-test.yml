@@ -1,16 +1,13 @@
 name: oneshot-signer-test
  
 on: 
-  workflow_dispatch:
-    inputs: 
-      BUILD_VARS_JSON:
-        description: 'Build var json file' 
-        required: true
-  workflow_run:
-    workflows: "Gather artifacts for push to repo"
-    branches: 'github-workflow'  
-    types:
-      - completed      
+  push:   
+    branches: [ 'github-workflow' ]   
+env: 
+  RUN_ID: ${{ github.run_id }} 
+  BUILD_BRANCH: '5.2.0'
+  BUILD_TYPE: 'FULL'
+  BUILD_REPO: 'nightly'
  
 jobs:
        
@@ -20,31 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-        - name: Capture start date and time
-          id: start_time
-          run: echo "start_time=$(date -u)" >> $GITHUB_ENV
-       
-        - name: Add start time to build_vars.json
-          run: |
-            modified_json=$(echo '${{ github.event.inputs.BUILD_VARS_JSON }}' | jq '.buildstats += { "${{ github.event.repository.name }}-start": "${{ env.start_time }}" }' )
-            BUILD_VARS_JSON=$(echo "$modified_json" | jq -c '.')
-            echo "BUILD_VARS_JSON=$BUILD_VARS_JSON" >> $GITHUB_ENV
-            echo "**** next next ****"
-            echo "BUILD_VARS_JSON=$BUILD_VARS_JSON"
-            
-            
-        - name: Get build vars from input file
-          id: extract_build_vars
-          run: |
-            BUILD_OS=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.OS' )
-            BUILD_BRANCH=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_BRANCH' )
-            BUILD_TYPE=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_TYPE' )
-            BUILD_REPO=$(echo  "$BUILD_VARS_JSON" | jq -r '.buildstats.BUILD_REPO' )
-            echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
-            echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
-            echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
-            echo "BUILD_REPO=$BUILD_REPO" >> $GITHUB_ENV
             
         - name: Check out Repo
           uses: actions/checkout@v4  
@@ -54,53 +26,23 @@ jobs:
              github-token: ${{ secrets.GIT_ACTIONS }}
           run: |
             git clone https://github.com/cs1867/project.git project
-            case "${{ env.BUILD_OS }}" in
-              'ol8'|'el9')
-                 cp project/toolbox/workflows/create-el-repo.sh .
-                 ;;
-              'd11'|'d12'|'u20'|'u22'|'u24')
-                cp project/toolbox/workflows/github-db-workflow.sh .
-                ;;
-            esac       
-            
-        - name: Extract dependencies
-          id: extract_deps
-          run: |
-            echo "$BUILD_VARS_JSON" | jq -r '.repos[] | select(.name == "${{ github.event.repository.name }}") | .deps[]' > deps.txt
-            case  "${{ env.BUILD_OS }}" in
-              'u20'|'u22'|'u24')
-                 sed -i '/minor-packages/d' deps.txt
-              ;;
-            *)
-                echo "No specific packages to remove"
-              ;;
-            esac
-            echo "Dependencies:"
-            cat deps.txt
-            
+            cp project/toolbox/workflows/create-el-repo.sh .
+         
         - name: Download artifacts
           run: |
             mkdir -p artifacts
-            while IFS= read -r repo; do
-              echo "Downloading artifact for $repo"
-              run_id=$(echo "$BUILD_VARS_JSON" | jq -r ".buildids | .[\"$repo\"]")
+             
+              echo "Downloading artifact for i2util"
+              run_id=16295432359
               echo "rund id $run_id"
-              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "$repo-${{ env.BUILD_OS  }}"  
-              artifact_path="artifacts/$repo"
+              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "i2util""  
+              artifact_path="artifacts/i2util"
               pwd
               echo "list artifact path"
               ls -al "$artifact_path"
-              case "${{ env.BUILD_OS }}" in
-                'ol8'|'el9')
-                  mkdir -p artifacts/RPMS
-                  echo "copy to the artifacts RPM dir"
-                  cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
-                 ;;
-                'd11'|'d12'|'u20'|'u22'|'u24')                
-                  ls -al artifacts/*
-                  ;;
-              esac
-            done < deps.txt
+              mkdir -p artifacts/RPMS
+              echo "copy to the artifacts RPM dir"
+              cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
@@ -109,18 +51,18 @@ jobs:
             pwd
             ls -al artifacts
             
-        - name: Sign RPMs using docker-oneshot-signer
-          run: |
-            echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
-            echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
-            chmod 600 private.key passphrase.txt
-            ls -l private.key passphrase.txt
-            pwd
-            echo "===> Check private.key format"
-            head -n 5 private.key
+       # - name: Sign RPMs using docker-oneshot-signer
+       #   run: |
+       #     echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
+       #     echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
+       #     chmod 600 private.key passphrase.txt
+       #     ls -l private.key passphrase.txt
+       #     pwd
+       #     echo "===> Check private.key format"
+       #     head -n 5 private.key
 
-            echo "===> Check passphrase file"
-            cat passphrase.txt | wc -c
+        #    echo "===> Check passphrase file"
+        #    cat passphrase.txt | wc -c
 
            # curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
            #   | sh -s - --passphrase "$(cat passphrase.txt)" artifacts/RPMS private.key
@@ -130,10 +72,10 @@ jobs:
            # gpg --list-keys
            # rpm --checksig artifacts/RPMS/*.rpm
 
-        - uses: actions/upload-artifact@v4
-          with:
-           name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
-           path: artifacts
-           retention-days: 5
+       # - uses: actions/upload-artifact@v4
+       #   with:
+       #    name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
+       #    path: artifacts
+       #    retention-days: 5
            
      
