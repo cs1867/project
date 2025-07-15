@@ -83,14 +83,15 @@ jobs:
             if [ -d "./artifacts/RPMS/repodata" ]
             then
               REPO_TYPE=rpm
-              # TODO: Identify Debian repositories
+              echo "RPM REPO FOUND"
             elif false
             then
               REPO_TYPE=deb
+              echo "DEB REPO FOUND"
             else
               die "${REPO_DIR_ARG}: Unable to identify repository type."
             fi
-            
+            echo "done"
            # IMAGE_TAG=rpm \
            # curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
            # | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
