@@ -49,8 +49,10 @@ jobs:
         - name: list files
           run: |      
             pwd
+            echo "list artifacts dir"
             ls -al artifacts
-            
+            echo "list artifacts RPM dir"
+            ls -al artifacts/RPMS
        # - name: Sign RPMs using docker-oneshot-signer
        #   run: |
        #     echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
