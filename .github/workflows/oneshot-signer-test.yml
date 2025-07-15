@@ -35,7 +35,7 @@ jobs:
               echo "Downloading artifact for i2util"
               run_id=16295432359
               echo "rund id $run_id"
-              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "i2util""  
+              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "i2util" 
               artifact_path="artifacts/i2util"
               pwd
               echo "list artifact path"
