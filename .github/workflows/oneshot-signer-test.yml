@@ -75,8 +75,9 @@ jobs:
             echo "===> Check passphrase file"
             cat passphrase.txt | wc -c
             pwd
-            ls -al
+            echo "import private key"
             gpg --batch --import private.key
+            echo "list-secret-keys"
             gpg --list-secret-keys
             ls -l passphrase.txt private.key
             
@@ -91,7 +92,9 @@ jobs:
             else
               die "${REPO_DIR_ARG}: Unable to identify repository type."
             fi
-            echo "done"
+            
+            
+            echo "Call docker oneshot signer"
                    
             curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
             | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
