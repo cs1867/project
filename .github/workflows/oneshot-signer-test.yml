@@ -75,7 +75,8 @@ jobs:
            echo "%_signature gpg" >> ~/.rpmmacros
            echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
            echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
-           echo "%__gpg_sign_cmd %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
+           echo "%__gpg_sign_cmd %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename} 2> /tmp/sign.err" >> ~/.rpmmacros
+           # echo "%__gpg_sign_cmd %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
            
            cat ~/.rpmmacros
 
@@ -87,7 +88,8 @@ jobs:
 
            echo "==> Signing RPM(s)..."
            rpm --addsign rpms/*.rpm
-
+           echo "==> GPG sign command stderr:"
+           cat /tmp/sign.err || echo "(no error output)"
            echo "==> After signing:"
            rpm --checksig rpms/*.rpm
 
