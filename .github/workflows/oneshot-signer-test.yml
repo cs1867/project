@@ -97,7 +97,7 @@ jobs:
             echo "Call docker oneshot signer"
                    
             curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
-            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS private.key
+            | sh -s - --passphrase @passphrase.txt ./artifacts/RPMS 'Test User'
            # IMAGE_TAG=rpm \
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
