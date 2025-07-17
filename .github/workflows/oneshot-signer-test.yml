@@ -57,6 +57,8 @@ jobs:
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
             echo "${{ secrets.GPG_PASSPHRASE }}" | tr -d '\r' > passphrase.txt
             chmod 600 private.key passphrase.txt
+            echo "==> Passphrase bytes (hex):"
+            xxd passphrase.txt
 
 
 
