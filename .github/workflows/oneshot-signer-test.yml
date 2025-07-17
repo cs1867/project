@@ -92,10 +92,10 @@ jobs:
               die "${REPO_DIR_ARG}: Unable to identify repository type."
             fi
             echo "done"
+                   
+            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
+            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
            # IMAGE_TAG=rpm \
-           # curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
-           # | sh -s - --passphrase passphrase.txt ./artifacts/RPMS @private.key
-
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
            # gpg --list-keys
