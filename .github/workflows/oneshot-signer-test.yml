@@ -68,80 +68,70 @@ jobs:
             KEYID=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ { print $5; exit }')
             echo "KEYID=$KEYID" >> $GITHUB_ENV
             
-        - name: Sign RPM
-          run: |
-           echo "%_gpg_name $KEYID" > ~/.rpmmacros
-           echo "%_signature gpg" >> ~/.rpmmacros
-           echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
-           echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
-           echo "%__gpg_sign_cmd /bin/sh -c 'exec %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo \"\$1\" \"\$2\"' gpg-sign" >> ~/.rpmmacros
+     #   - name: Sign RPM
+     #     run: |
+     #      echo "%_gpg_name $KEYID" > ~/.rpmmacros
+     #      echo "%_signature gpg" >> ~/.rpmmacros
+     #      echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
+     #      echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
+     #      echo "%__gpg_sign_cmd /bin/sh -c 'exec %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo \"\$1\" \"\$2\"' gpg-sign" >> ~/.rpmmacros
 
-           echo "can the key sign?"
-           gpg --list-secret-keys --with-colons
+     #      echo "can the key sign?"
+      #     gpg --list-secret-keys --with-colons
 
-           echo "==> Before signing:"
-           rpm --checksig rpms/*.rpm || true
+      #     echo "==> Before signing:"
+      #     rpm --checksig rpms/*.rpm || true
 
-           echo "==> Signing RPM(s)..."
-           rpm --addsign rpms/*.rpm
-           echo "==> GPG sign command stderr:"
-           cat /tmp/sign.err || echo "(no error output)"
-           echo "==> After signing:"
-           rpm --checksig rpms/*.rpm
+     #      echo "==> Signing RPM(s)..."
+     #      rpm --addsign rpms/*.rpm
+     #      echo "==> GPG sign command stderr:"
+     #      cat /tmp/sign.err || echo "(no error output)"
+     #      echo "==> After signing:"
+      #     rpm --checksig rpms/*.rpm
 
            
-#        - name: list files
-##          run: |      
-#            pwd
-#            echo "list artifacts dir"
-#            ls -al artifacts
-#            echo "list artifacts RPM dir"
-#            ls -al artifacts/RPMS
-#            # Write variables to the file
-#             file="variables.txt"
-#             echo "repo=i2util" > $file
-#             echo "build_branch=5.2.0" >> $file 
-#             echo "el_version=9" >> $file
-#             echo "os_dir=el" >> $file
-#            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
-#            | sh -s - --run create-el-repo.sh . "el9" 
+        - name: list files
+          run: |      
+            pwd
+            echo "list artifacts dir"
+            ls -al artifacts
+            echo "list artifacts RPM dir"
+            ls -al artifacts/RPMS
+            # Write variables to the file
+            file="variables.txt"
+            echo "repo=i2util" > $file
+            echo "build_branch=5.2.0" >> $file 
+            echo "el_version=9" >> $file
+            echo "os_dir=el" >> $file
+            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
+            | sh -s - --run create-el-repo.sh . "el9" 
 
-#        - name: Sign RPMs using docker-oneshot-signer
-#          run: |
-#            echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
-#            echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
-#            chmod 600 private.key passphrase.txt
-#            ls -l private.key passphrase.txt
-#            pwd
-#            echo "===> Check private.key format"
-#            head -n 5 private.key
+        - name: Sign RPMs using docker-oneshot-signer
+          run: |
 
-#            echo "===> Check passphrase file"
-#            cat passphrase.txt | wc -c
-#            pwd
-#            echo "import private key"
-#            gpg --batch --import private.key
-#            echo "list-secret-keys"
-#            gpg --list-secret-keys
-#            ls -l passphrase.txt private.key
+            chmod 600 private.key passphrase.txt
+            ls -l private.key passphrase.txt
+ 
+
+ 
             
-#            if [ -d "./artifacts/RPMS/repodata" ]
-#            then
-#              REPO_TYPE=rpm
-#              echo "RPM REPO FOUND"
-#            elif false
-#            then
-#              REPO_TYPE=deb
-#              echo "DEB REPO FOUND"
- #           else
-#              die "${REPO_DIR_ARG}: Unable to identify repository type."
- #           fi
+            if [ -d "./artifacts/RPMS/repodata" ]
+            then
+              REPO_TYPE=rpm
+              echo "RPM REPO FOUND"
+            elif false
+            then
+              REPO_TYPE=deb
+              echo "DEB REPO FOUND"
+           else
+              die "${REPO_DIR_ARG}: Unable to identify repository type."
+            fi
             
             
-#            echo "Call docker oneshot signer"
+            echo "Call docker oneshot signer"
                    
- #           curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
-  #          | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 'Test User'
+            curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
+            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 'Test User'
            # IMAGE_TAG=rpm \
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
