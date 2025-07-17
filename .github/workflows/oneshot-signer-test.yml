@@ -134,7 +134,6 @@ jobs:
             | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 'Test User'
           
             echo "Verifying signed RPMs..."
-            rpm --checksig artifacts/RPMS/*.rpm || true
             gpg --list-keys
             rpm --checksig artifacts/RPMS/*.rpm
 
