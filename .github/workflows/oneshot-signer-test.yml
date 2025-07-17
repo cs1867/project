@@ -91,12 +91,7 @@ jobs:
            echo "==> After signing:"
            rpm --checksig rpms/*.rpm
 
-        - name: Verify RPM signature
-          run: |
-            rpm --checksig rpms/*.rpm
-
-            
-
+           
 #        - name: list files
 ##          run: |      
 #            pwd
