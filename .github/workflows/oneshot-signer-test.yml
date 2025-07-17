@@ -123,7 +123,7 @@ jobs:
             then
               REPO_TYPE=deb
               echo "DEB REPO FOUND"
-           else
+            else
               die "${REPO_DIR_ARG}: Unable to identify repository type."
             fi
             
