@@ -45,12 +45,13 @@ jobs:
               cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
-        - name: Set up test RPM
+
+        - name: Use prebuilt RPM
           run: |
             mkdir -p rpms
-            echo "dummy" > test.txt
-            fpm -s dir -t rpm -n dummy -v 1.0 test.txt --prefix=/usr/share/doc > rpms/dummy-1.0-1.noarch.rpm
-
+            cp artifacts/RPMS/*.rpm rpms/
+            ls -al rpms
+            
         - name: Write secrets to files
           run: |
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
