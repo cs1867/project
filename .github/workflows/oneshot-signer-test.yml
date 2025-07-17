@@ -45,59 +45,92 @@ jobs:
               cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
+        - name: Set up test RPM
+          run: |
+            mkdir -p rpms
+            echo "dummy" > test.txt
+            fpm -s dir -t rpm -n dummy -v 1.0 test.txt --prefix=/usr/share/doc > rpms/dummy-1.0-1.noarch.rpm
 
-        - name: list files
-          run: |      
-            pwd
-            echo "list artifacts dir"
-            ls -al artifacts
-            echo "list artifacts RPM dir"
-            ls -al artifacts/RPMS
-            # Write variables to the file
-             file="variables.txt"
-             echo "repo=i2util" > $file
-             echo "build_branch=5.2.0" >> $file 
-             echo "el_version=9" >> $file
-             echo "os_dir=el" >> $file
-            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
-            | sh -s - --run create-el-repo.sh . "el9" 
-
-        - name: Sign RPMs using docker-oneshot-signer
+        - name: Write secrets to files
           run: |
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
             echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
             chmod 600 private.key passphrase.txt
-            ls -l private.key passphrase.txt
-            pwd
-            echo "===> Check private.key format"
-            head -n 5 private.key
 
-            echo "===> Check passphrase file"
-            cat passphrase.txt | wc -c
-            pwd
-            echo "import private key"
+
+        - name: Import GPG key
+          run: |
             gpg --batch --import private.key
-            echo "list-secret-keys"
-            gpg --list-secret-keys
-            ls -l passphrase.txt private.key
+            KEYID=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ { print $5; exit }')
+            echo "KEYID=$KEYID" >> $GITHUB_ENV
             
-            if [ -d "./artifacts/RPMS/repodata" ]
-            then
-              REPO_TYPE=rpm
-              echo "RPM REPO FOUND"
-            elif false
-            then
-              REPO_TYPE=deb
-              echo "DEB REPO FOUND"
-            else
-              die "${REPO_DIR_ARG}: Unable to identify repository type."
-            fi
+        - name: Sign RPM
+          run: |
+            echo "%_gpg_name $KEYID" > ~/.rpmmacros
+            echo "%_signature gpg" >> ~/.rpmmacros
+            echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
+            echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
+            echo "%__gpg_sign_cmd %{_gpgbin} --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
+            rpm --addsign rpms/*.rpm
+
+        - name: Verify RPM signature
+          run: |
+            rpm --checksig rpms/*.rpm
+
+            
+
+#        - name: list files
+##          run: |      
+#            pwd
+#            echo "list artifacts dir"
+#            ls -al artifacts
+#            echo "list artifacts RPM dir"
+#            ls -al artifacts/RPMS
+#            # Write variables to the file
+#             file="variables.txt"
+#             echo "repo=i2util" > $file
+#             echo "build_branch=5.2.0" >> $file 
+#             echo "el_version=9" >> $file
+#             echo "os_dir=el" >> $file
+#            curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build \
+#            | sh -s - --run create-el-repo.sh . "el9" 
+
+#        - name: Sign RPMs using docker-oneshot-signer
+#          run: |
+#            echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
+#            echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
+#            chmod 600 private.key passphrase.txt
+#            ls -l private.key passphrase.txt
+#            pwd
+#            echo "===> Check private.key format"
+#            head -n 5 private.key
+
+#            echo "===> Check passphrase file"
+#            cat passphrase.txt | wc -c
+#            pwd
+#            echo "import private key"
+#            gpg --batch --import private.key
+#            echo "list-secret-keys"
+#            gpg --list-secret-keys
+#            ls -l passphrase.txt private.key
+            
+#            if [ -d "./artifacts/RPMS/repodata" ]
+#            then
+#              REPO_TYPE=rpm
+#              echo "RPM REPO FOUND"
+#            elif false
+#            then
+#              REPO_TYPE=deb
+#              echo "DEB REPO FOUND"
+ #           else
+#              die "${REPO_DIR_ARG}: Unable to identify repository type."
+ #           fi
             
             
-            echo "Call docker oneshot signer"
+#            echo "Call docker oneshot signer"
                    
-            curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
-            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 'Test User'
+ #           curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
+  #          | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 'Test User'
            # IMAGE_TAG=rpm \
            # echo "Verifying signed RPMs..."
            # rpm --checksig artifacts/RPMS/*.rpm || true
