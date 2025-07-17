@@ -77,12 +77,6 @@ jobs:
            echo "%__gpg_sign_cmd /bin/sh -c \"%{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo '%{__signature_filename}' '%{__plaintext_filename}'\"" >> ~/.rpmmacros
 
 
-      
- 
-           # echo "%__gpg_sign_cmd %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
-           
-           cat ~/.rpmmacros
-
            echo "can the key sign?"
            gpg --list-secret-keys --with-colons
 
