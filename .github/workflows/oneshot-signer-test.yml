@@ -67,12 +67,24 @@ jobs:
             
         - name: Sign RPM
           run: |
-            echo "%_gpg_name $KEYID" > ~/.rpmmacros
-            echo "%_signature gpg" >> ~/.rpmmacros
-            echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
-            echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
-            echo "%__gpg_sign_cmd %{_gpgbin} --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
-            rpm --addsign rpms/*.rpm
+           echo "==> Setting up RPM macros"
+           echo "%_gpg_name $KEYID" > ~/.rpmmacros
+           echo "%_signature gpg" >> ~/.rpmmacros
+           echo "%_gpg_path ~/.gnupg" >> ~/.rpmmacros
+           echo "%_gpgbin /usr/bin/gpg" >> ~/.rpmmacros
+           echo "%__gpg_sign_cmd %{_gpgbin} --batch --yes --pinentry-mode loopback --passphrase-file passphrase.txt -u %{_gpg_name} -sbo %{__signature_filename} %{__plaintext_filename}" >> ~/.rpmmacros
+
+           echo "==> RPM macros set:"
+           cat ~/.rpmmacros
+
+           echo "==> Before signing:"
+           rpm --checksig rpms/*.rpm || true
+
+           echo "==> Signing RPM(s)..."
+           rpm --addsign rpms/*.rpm
+
+           echo "==> After signing:"
+           rpm --checksig rpms/*.rpm
 
         - name: Verify RPM signature
           run: |
