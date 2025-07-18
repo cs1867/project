@@ -114,21 +114,22 @@ jobs:
             echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
             echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
             chmod 600 private.key passphrase.txt
-            ls -l private.key passphrase.txt
-            pwd
-            echo "===> Check private.key format"
-            head -n 5 private.key
+            if [ -d "./artifacts/RPMS/repodata" ]
+            then
+              REPO_TYPE=rpm
+              echo "RPM REPO FOUND"
+            elif false
+            then
+              REPO_TYPE=deb
+              echo "DEB REPO FOUND"
+            else
+              die "${REPO_DIR_ARG}: Unable to identify repository type."
+            fi             
 
-            echo "===> Check passphrase file"
-            cat passphrase.txt | wc -c
+            curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
+            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
 
-           # curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-signer/main/sign \
-           #   | sh -s - --passphrase "$(cat passphrase.txt)" artifacts/RPMS private.key
 
-           # echo "Verifying signed RPMs..."
-           # rpm --checksig artifacts/RPMS/*.rpm || true
-           # gpg --list-keys
-           # rpm --checksig artifacts/RPMS/*.rpm
 
         - uses: actions/upload-artifact@v4
           with:
