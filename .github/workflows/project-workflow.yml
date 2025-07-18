@@ -118,17 +118,14 @@ jobs:
             then
               REPO_TYPE=rpm
               echo "RPM REPO FOUND"
-            elif false
+            else
             then
               REPO_TYPE=deb
               echo "DEB REPO FOUND"
-            else
-              die "${REPO_DIR_ARG}: Unable to identify repository type."
             fi             
 
             curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
             | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
-
 
 
         - uses: actions/upload-artifact@v4
