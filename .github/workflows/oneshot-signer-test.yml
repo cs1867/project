@@ -67,6 +67,7 @@ jobs:
             gpg --batch --import private.key
             KEYID=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/ { print $5; exit }')
             echo "KEYID=$KEYID" >> $GITHUB_ENV
+            echo "KEYID=$KEYID" 
             
      #   - name: Sign RPM
      #     run: |
