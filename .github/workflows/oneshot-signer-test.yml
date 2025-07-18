@@ -3,7 +3,7 @@ name: oneshot-signer-test
 on: 
   push:   
     branches: [ 'github-workflow' ]   
-env: 
+env:  
   RUN_ID: ${{ github.run_id }}  
   BUILD_BRANCH: '5.2.0'  
   BUILD_TYPE: 'FULL'
