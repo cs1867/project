@@ -118,7 +118,6 @@ jobs:
               REPO_TYPE=rpm
               echo "RPM REPO FOUND"
             else
-            then
               REPO_TYPE=deb
               echo "DEB REPO FOUND"
             fi             
