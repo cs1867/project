@@ -117,13 +117,14 @@ jobs:
             if [ -d "./artifacts/RPMS/repodata" ]; then
               REPO_TYPE=rpm
               echo "RPM REPO FOUND"
+              curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
+              | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
             else
               REPO_TYPE=deb
               echo "DEB REPO FOUND"
             fi             
 
-            curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
-            | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
+ 
 
 
         - uses: actions/upload-artifact@v4
