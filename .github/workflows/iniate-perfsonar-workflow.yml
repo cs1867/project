@@ -19,7 +19,7 @@ env:
  
 jobs:
  
-  iniate-perfsonar-build: 
+  iniate-perfsonar-build:
      strategy:  
       matrix:
           os: [  'ol8', 'el9', 'd11', 'd12', 'u20', 'u22' , 'u24' ]
