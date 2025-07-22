@@ -169,6 +169,7 @@ jobs:
               echo "run the curl"
               curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh . "${{ env.BUILD_OS }}" 
 
+              echo "Sign the rpms"
               echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
               echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
               chmod 600 private.key passphrase.txt
