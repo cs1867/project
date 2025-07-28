@@ -108,25 +108,7 @@ jobs:
           run: |      
             pwd
             ls -al artifacts
-
-
-         ##moved this code into the  Copy artifact to server sectionn
-         ##
-       # - name: Sign RPMs using docker-oneshot-signer
-       #   run: |
-       #     echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
-        ##    echo "${{ secrets.GPG_PASSPHRASE }}" > passphrase.txt
-        #    chmod 600 private.key passphrase.txt
-        #    if [ -d "./artifacts/RPMS/repodata" ]; then
-        #      REPO_TYPE=rpm
-        #      echo "RPM REPO FOUND"
-        #      curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
-        #      | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
-        #    else
-        #      REPO_TYPE=deb
-        #      echo "DEB REPO FOUND"
-        #    fi             
-
+        
         - uses: actions/upload-artifact@v4
           with:
            name: ${{ github.event.repository.name }}-${{ env.BUILD_OS }}
@@ -158,7 +140,7 @@ jobs:
                os_dir="el"
              fi
 
-              echo "do stuff with keys"
+              echo "Prep the keys"
               echo "${{ secrets.GPG_PRIVATE_KEY }}" > private.key
               echo "${{ secrets.GPG_PASSPHRASE }}" | tr -d '\r\n' > passphrase.txt
               chmod 600 private.key passphrase.txt
@@ -178,7 +160,7 @@ jobs:
               echo "el_version=$el_version" >> $file
               echo "os_dir=$os_dir" >> $file
 
-              echo "run the curl"
+              echo "Create a repo"
               curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-el-repo.sh . "${{ env.BUILD_OS }}" 
 
  
@@ -186,7 +168,7 @@ jobs:
               curl -s https://raw.githubusercontent.com/cs1867/docker-oneshot-signer/main/sign \
               | sh -s - --passphrase passphrase.txt ./artifacts/RPMS 70E4925D5082A13835293254FCA368738AB65C0C
    
-              echo " run rsync to the host server"
+              echo "Rsync to the distro servers"
               ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }} distro@${{ secrets.SERVER_HOST }} "mkdir -p /home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar/${{ env.BUILD_BRANCH }}/RPMS"
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$el_version/x86_64/perfsonar/${{ env.BUILD_BRANCH }}/RPMS
             ;;
