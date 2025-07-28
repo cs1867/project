@@ -33,7 +33,7 @@ jobs:
             mkdir -p artifacts
              
               echo "Downloading artifact for i2util"
-              run_id=16295432359
+              run_id=16571599752
               echo "rund id $run_id"
               gh run download $run_id --repo cs1867/i2util -D artifacts/i2util --name "i2util-el9" 
               artifact_path="artifacts/i2util"
