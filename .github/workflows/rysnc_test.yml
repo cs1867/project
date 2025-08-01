@@ -1,11 +1,7 @@
 name: Rsync File to Server
 
 on:
-  workflow_dispatch:
-    inputs:
-      remote_path:
-        description: 'Remote directory path on the server'
-        required: true
+ push:
 
 jobs:
   upload:
