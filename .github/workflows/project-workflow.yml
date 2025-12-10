@@ -55,20 +55,20 @@ jobs:
                 ;;
             esac       
             
-        - name: Extract dependencies
-          id: extract_deps
-          run: |
-            echo "$BUILD_VARS_JSON" | jq -r '.repos[] | select(.name == "${{ github.event.repository.name }}") | .deps[]' > deps.txt
-            case  "${{ env.BUILD_OS }}" in
-              'u20'|'u22'|'u24')
-                 sed -i '/minor-packages/d' deps.txt
-              ;;
-            *)
-                echo "No specific packages to remove"
-              ;;
-            esac
-            echo "Dependencies:"
-            cat deps.txt
+     #   - name: Extract dependencies
+     ##     id: extract_deps
+     #     run: |
+     #$       echo "$BUILD_VARS_JSON" | jq -r '.repos[] | select(.name == "${{ github.event.repository.name }}") | .deps[]' > deps.txt
+     #       case  "${{ env.BUILD_OS }}" in
+     #         'u20'|'u22'|'u24')
+     #            sed -i '/minor-packages/d' deps.txt
+     #         ;;
+     #       *)
+     #           echo "No specific packages to remove"
+     #         ;;
+     #       esac
+     #       echo "Dependencies:"
+     #       cat deps.txt
             
         - name: Download artifacts
           run: |
