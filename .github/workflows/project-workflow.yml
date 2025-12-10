@@ -1,11 +1,11 @@
 name: project-workflow
+
  
-on: 
-  workflow_dispatch:
-    inputs: 
-      BUILD_VARS_JSON:
-        description: 'Build var json file' 
-        required: true
+on:
+  push:
+    branches:
+       - "*"         
+ 
  
 jobs:
        
