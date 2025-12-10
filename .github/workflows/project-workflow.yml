@@ -72,10 +72,10 @@ jobs:
             
         - name: Download artifacts
           run: |
+            repo="i2util"
+            run_id=20111523291
             mkdir -p artifacts
-            while IFS= read -r repo; do
-              echo "Downloading artifact for $repo"
-              run_id=$(echo "$BUILD_VARS_JSON" | jq -r ".buildids | .[\"$repo\"]")
+               echo "Downloading artifact for $repo"
               echo "rund id $run_id"
               gh run download $run_id --repo perfsonar/$repo -D artifacts/$repo --name "$repo-${{ env.BUILD_OS  }}"  
               artifact_path="artifacts/$repo"
@@ -92,7 +92,6 @@ jobs:
                   ls -al artifacts/*
                   ;;
               esac
-            done < deps.txt
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
