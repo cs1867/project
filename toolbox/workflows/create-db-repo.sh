@@ -14,7 +14,11 @@ source $file
 echo "change to artifacts dir and list"
 cd artifacts
 ls -al
-cd artifacts/i2util
+cd i2util
+
+echo "***** variable check *** "
+echo $repo
+echo $os_dir
 exit
 echo "apt-get install dpkg-dev"
 sudo apt-get update
