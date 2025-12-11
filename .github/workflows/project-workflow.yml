@@ -60,7 +60,7 @@ jobs:
               pwd
               echo "list artifact path"
               ls -al "$artifact_path"
-              case "${{ env.BUILD_OS }}" in
+              case "${{ env.OS }}" in
                 'ol8'|'el9')
                   mkdir -p artifacts/RPMS
                   echo "copy to the artifacts RPM dir"
