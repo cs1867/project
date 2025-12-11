@@ -14,11 +14,12 @@ source $file
 echo "change to artifacts dir and list"
 cd artifacts
 ls -al
-
+cd artifacts/i2util
+exit
 echo "apt-get install dpkg-dev"
 sudo apt-get update
 sudo apt-get install -y dpkg-dev
-exit
+ 
 
 final_cache_path="$repo/$os_dir/"
 echo "Repo path: $final_cache_path"
