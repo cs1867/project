@@ -76,7 +76,7 @@ jobs:
             mkdir -p artifacts
                echo "Downloading artifact for $repo"
               echo "rund id $run_id"
-              gh run download $run_id --repo perfsonar/$repo -D artifacts/$repo --name "$repo-${{ env.BUILD_OS  }}"  
+              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "$repo-${{ env.BUILD_OS  }}"  
               artifact_path="artifacts/$repo"
               pwd
               echo "list artifact path"
