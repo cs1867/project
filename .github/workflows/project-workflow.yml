@@ -41,6 +41,8 @@ jobs:
                  cp project/toolbox/workflows/create-el-repo.sh .
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
+                ls -al
+                echo "copy file"
                 cp project/toolbox/workflows/create-db-repo.sh .
                 pwd 
                 ls -al 
@@ -51,7 +53,7 @@ jobs:
 
         - name: stop here   
           run: |
-            exit 0
+            exit 1
          
             
         - name: Download artifacts
