@@ -2,7 +2,8 @@
 #set -e
 
 echo "** run deb repo sh **"
-
+ls -al
+pwd
 file="/build/variables.txt"
 echo "cat variables.txt"
 cat /build/variables.txt
