@@ -4,12 +4,19 @@ name: project-workflow
 on:
   push:
     branches:
-       - "*"         
+       - "*"  
+env: 
+  RUN_ID: ${{ github.run_id }} 
+  BUILD_BRANCH: '5.2.0' 
+  BUILD_TYPE: 'FULL'
+  BUILD_REPO: 'nightly' 
+  OS: 'd11'
+  REPO: 'i2util'
+  ARTIFACT_ID: '20137205313'
  
 jobs:
        
   build-project:
-
  
     runs-on: ubuntu-latest
 
@@ -24,10 +31,6 @@ jobs:
         - name: Get build vars  
           id: extract_build_vars
           run: |
-            BUILD_OS="db11"
-            BUILD_BRANCH="5.2.4" 
-            BUILD_TYPE="FULL"
-            BUILD_REPO="nightly"
             echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
             echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
             echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
@@ -71,12 +74,11 @@ jobs:
             
         - name: Download artifacts
           run: |
-            repo="i2util"
-            run_id=20137205313
+
             mkdir -p artifacts
                echo "Downloading artifact for $repo"
               echo "rund id $run_id"
-              gh run download $run_id --repo cs1867/$repo -D artifacts/$repo --name "$repo-${{ env.BUILD_OS  }}"  
+              gh run download ${{ env.ARTIFACT_ID }} --repo cs1867/${{ env.REPO }} -D artifacts/${{ env.REPO }} --name "$repo-${{ env.BUILD_OS  }}"  
               artifact_path="artifacts/$repo"
               pwd
               echo "list artifact path"
