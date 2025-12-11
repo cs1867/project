@@ -67,8 +67,13 @@ jobs:
                   echo "copy to the artifacts RPM dir"
                   cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
                  ;;
-                'd11'|'d12'|'u20'|'u22'|'u24')                
+                'd11'|'d12'|'u20'|'u22'|'u24')  
+                  mkdir -p artifacts/debian
                   ls -al artifacts/${{ env.REPO }}/*
+                  cp artifacts/${{ env.REPO }}/* artifacts/debian
+                  echo "list the copied files"
+                  ls -al artifacts/debian
+                  exit 1
                   ;;
               esac
           env:
