@@ -54,7 +54,7 @@ jobs:
                echo "Downloading artifact for $repo"
               echo "rund id $run_id"
               gh run download ${{ env.ARTIFACT_ID }} --repo cs1867/${{ env.REPO }} -D artifacts/${{ env.REPO }} --name "${{ env.REPO }}-${{ env.OS }}"  
-              artifact_path="artifacts/$repo"
+              artifact_path="artifacts/${{ env.REPO }}"
               pwd
               echo "list artifact path"
               ls -al "$artifact_path"
@@ -97,10 +97,11 @@ jobs:
             echo "KEYID=$KEYID" 
               
             # Write variables to the file
-            echo "write variable file"
             file="variables.txt"
             echo "repo=$repo" > $file
             echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
+            echo "os_version=$os_version" >> $file
+            echo "os_dir=$os_dir" >> $file
 
             case "${{ env.OS }}" in
             'ol8'|'el9')
