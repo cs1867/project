@@ -141,6 +141,9 @@ jobs:
                 os_version="11" 
                 echo "os_version=$os_version" >> $file
                 echo "os_dir=$os_dir" >> $file
+                echo "*****"
+                cat "$file"
+                echo "*****"
                 echo "update the repo info"
                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-db-repo.sh . "${{ env.OS }}" 
                 ;;
