@@ -73,7 +73,6 @@ jobs:
                   echo "******************************"
                   echo "list the copied files"
                   ls -al artifacts/debian
-                  exit 1
                   ;;
               esac
           env:
