@@ -100,11 +100,10 @@ jobs:
             echo "KEYID=$KEYID" 
               
             # Write variables to the file
+            echo "write variables to file"
             file="variables.txt"
             echo "repo=$repo" > $file
             echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
-            echo "os_version=$os_version" >> $file
-            echo "os_dir=$os_dir" >> $file
 
             case "${{ env.OS }}" in
             'ol8'|'el9')
@@ -144,7 +143,7 @@ jobs:
                 os_version="11" 
                 echo "os_version=$os_version" >> $file
                 echo "os_dir=$os_dir" >> $file
-                echo "*****"
+                echo "** print contents of file ***"
                 cat "$file"
                 echo "*****"
                 echo "update the repo info"
