@@ -52,9 +52,8 @@ jobs:
              
         - name: Download artifacts
           run: |
-
-            mkdir -p artifacts
-               echo "Downloading artifact for $repo"
+              mkdir -p artifacts
+              echo "Downloading artifact for $repo"
               echo "rund id $run_id"
               gh run download ${{ env.ARTIFACT_ID }} --repo cs1867/${{ env.REPO }} -D artifacts/${{ env.REPO }} --name "${{ env.REPO }}-${{ env.OS }}"  
               artifact_path="artifacts/${{ env.REPO }}"
