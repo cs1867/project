@@ -100,9 +100,6 @@ jobs:
             file="variables.txt"
             echo "repo=$repo" > $file
             echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
-            echo "os_version=${{ env.OS }}" >> $file
-            echo "os_dir=$os_dir" >> $file
-
 
             case "${{ env.OS }}" in
             'ol8'|'el9')
@@ -110,10 +107,14 @@ jobs:
                 echo "ol8"
                 os_version="8"
                 os_dir="el"
+                echo "os_version=$os_version >> $file
+                echo "os_dir=$os_dir" >> $file
              else
                echo "el9"
                os_version="9"
                os_dir="el"
+               echo "os_version=$os_version >> $file
+               echo "os_dir=$os_dir" >> $file
              fi
 
               echo "Create the repo"
@@ -133,7 +134,11 @@ jobs:
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
               case "${{ env.OS }}" in
-              'd11') os_dir="debian"; os_version="11" 
+              'd11') 
+                os_dir="debian" 
+                os_version="11" 
+                echo "os_version=$os_version >> $file
+                echo "os_dir=$os_dir" >> $file
                 echo "update the repo info"
                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-db-repo.sh . "${{ env.BUILD_OS }}" 
                 ;;
