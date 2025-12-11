@@ -56,21 +56,7 @@ jobs:
                 cp project/toolbox/workflows/create-db-repo.sh .
                 ;;
             esac       
-            
-     #   - name: Extract dependencies
-     ##     id: extract_deps
-     #     run: |
-     #$       echo "$BUILD_VARS_JSON" | jq -r '.repos[] | select(.name == "${{ github.event.repository.name }}") | .deps[]' > deps.txt
-     #       case  "${{ env.BUILD_OS }}" in
-     #         'u20'|'u22'|'u24')
-     #            sed -i '/minor-packages/d' deps.txt
-     #         ;;
-     #       *)
-     #           echo "No specific packages to remove"
-     #         ;;
-     #       esac
-     #       echo "Dependencies:"
-     #       cat deps.txt
+         
             
         - name: Download artifacts
           run: |
@@ -78,7 +64,7 @@ jobs:
             mkdir -p artifacts
                echo "Downloading artifact for $repo"
               echo "rund id $run_id"
-              gh run download ${{ env.ARTIFACT_ID }} --repo cs1867/${{ env.REPO }} -D artifacts/${{ env.REPO }} --name "${{ env.REPO }}-${{ env.BUILD_OS  }}"  
+              gh run download ${{ env.ARTIFACT_ID }} --repo cs1867/${{ env.REPO }} -D artifacts/${{ env.REPO }} --name "${{ env.REPO }}-${{ env.OS }}"  
               artifact_path="artifacts/$repo"
               pwd
               echo "list artifact path"
