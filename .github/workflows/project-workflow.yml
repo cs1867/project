@@ -30,7 +30,9 @@ jobs:
             
  
         - name: Check out Repo
-          uses: actions/checkout@v4  
+          uses: actions/checkout@v4
+          with:
+            ref: master
           
         - name: Fetch workflow script from projects
           env:
