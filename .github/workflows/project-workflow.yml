@@ -3,7 +3,7 @@ name: project-workflow
 
 on:  
   push:
-    branches:
+    branches: 
        - "*"  
 env: 
   RUN_ID: ${{ github.run_id }} 
