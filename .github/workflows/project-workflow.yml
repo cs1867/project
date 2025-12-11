@@ -10,7 +10,7 @@ env:
   BUILD_BRANCH: '5.2.0' 
   BUILD_TYPE: 'FULL'
   BUILD_REPO: 'nightly' 
-  OS: 'd11'
+  OS: 'd11' 
   REPO: 'i2util'
   ARTIFACT_ID: '20137205313'
  
