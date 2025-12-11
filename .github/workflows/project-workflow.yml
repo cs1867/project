@@ -25,9 +25,6 @@ jobs:
         - name: Capture start date and time
           id: start_time
           run: echo "start_time=$(date -u)" >> $GITHUB_ENV
-    
-            
-            
  
         - name: Check out Repo
           uses: actions/checkout@v4
@@ -45,8 +42,12 @@ jobs:
                  ;;
               'd11'|'d12'|'u20'|'u22'|'u24')
                 cp project/toolbox/workflows/create-db-repo.sh .
+                pwd 
+                ls -al 
+                cat create-db-repo.sh
                 ;;
-            esac       
+            esac
+            exit 0
          
             
         - name: Download artifacts
