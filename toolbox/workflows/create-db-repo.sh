@@ -14,34 +14,25 @@ source $file
 echo "change to artifacts dir and list"
 cd artifacts
 ls -al
-cd i2util
+cd debian
 ls -al 
 
-
-
 echo "***** variable check *** "
-echo $repo
-echo "os dir"
+ echo "os dir"
 echo $os_dir
 echo "apt-get install dpkg-dev"
 sudo apt-get update
 sudo apt-get install -y dpkg-dev
  
-
-final_cache_path="$repo/$os_dir/"
-echo "Repo path: $final_cache_path"
-ls $final_cache_path
-
-echo "ls build dir"
+echo "ls  dir"
 pwd 
 ls -al  
  
-
-
 echo "Generating Packages index..."
 dpkg-scanpackages . /dev/null > Packages
 
 echo "Contents of repo directory:"
+pwd
 ls -l
 
 echo "** End create deb repo sh **"
