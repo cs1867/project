@@ -35,6 +35,7 @@ jobs:
           env:
              github-token: ${{ secrets.GIT_ACTIONS }}
           run: |
+            git clone https://github.com/cs1867/project.git project
             case "${{ env.OS }}" in
               'ol8'|'el9')
                  cp project/toolbox/workflows/create-el-repo.sh .
