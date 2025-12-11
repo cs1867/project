@@ -21,9 +21,8 @@ ls -al
 
 echo "***** variable check *** "
 echo $repo
-echo "od dir"
+echo "os dir"
 echo $os_dir
-exit
 echo "apt-get install dpkg-dev"
 sudo apt-get update
 sudo apt-get install -y dpkg-dev
@@ -34,7 +33,8 @@ echo "Repo path: $final_cache_path"
 ls $final_cache_path
 
 echo "ls build dir"
-ls -al build
+pwd 
+ls -al  
  
 
 
