@@ -97,6 +97,7 @@ jobs:
             echo "KEYID=$KEYID" 
               
             # Write variables to the file
+            echo "write variable file"
             file="variables.txt"
             echo "repo=$repo" > $file
             echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
