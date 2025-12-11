@@ -28,18 +28,7 @@ jobs:
     
             
             
-        - name: Get build vars  
-          id: extract_build_vars
-          run: |
-            echo "BUILD_OS=$BUILD_OS" >> $GITHUB_ENV 
-            echo "BUILD_BRANCH=$BUILD_BRANCH" >> $GITHUB_ENV
-            echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
-            echo "BUILD_REPO=$BUILD_REPO" >> $GITHUB_ENV
-            echo "BUILD_OS=$BUILD_OS" 
-            echo "BUILD_BRANCH=$BUILD_BRANCH"
-            echo "BUILD_TYPE=$BUILD_TYPE"
-            echo "BUILD_REPO=$BUILD_REPO"
-            
+ 
         - name: Check out Repo
           uses: actions/checkout@v4  
           
@@ -48,7 +37,7 @@ jobs:
              github-token: ${{ secrets.GIT_ACTIONS }}
           run: |
             git clone https://github.com/perfsonar/project.git project
-            case "${{ env.BUILD_OS }}" in
+            case "${{ env.OS }}" in
               'ol8'|'el9')
                  cp project/toolbox/workflows/create-el-repo.sh .
                  ;;
@@ -76,18 +65,12 @@ jobs:
                   cp "$artifact_path"/RPMS/*.rpm artifacts/RPMS
                  ;;
                 'd11'|'d12'|'u20'|'u22'|'u24')                
-                  ls -al artifacts/*
+                  ls -al artifacts/${{ env.REPO }}/*
                   ;;
               esac
           env:
             GITHUB_TOKEN: ${{ secrets.GIT_ACTIONS }}
 
-        - name: list files
-          run: |      
-            pwd
-            ls -al artifacts
-        
- 
            
         - name: Set up SSH
           run: |
@@ -117,13 +100,13 @@ jobs:
             file="variables.txt"
             echo "repo=$repo" > $file
             echo "build_branch=${{ env.BUILD_BRANCH }}" >> $file
-            echo "os_version=$os_version" >> $file
+            echo "os_version=${{ env.OS }}" >> $file
             echo "os_dir=$os_dir" >> $file
 
 
-            case "${{ env.BUILD_OS }}" in
+            case "${{ env.OS }}" in
             'ol8'|'el9')
-              if [ "${{ env.BUILD_OS }}" = 'ol8' ]; then
+              if [ "${{ env.OOS }}" = 'ol8' ]; then
                 echo "ol8"
                 os_version="8"
                 os_dir="el"
@@ -149,7 +132,7 @@ jobs:
               rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${{ secrets.SERVER_PORT }}" ./artifacts/RPMS/ distro@${{ secrets.SERVER_HOST }}:/home/distro/distro/rpm/${{ env.BUILD_REPO }}/$os_dir/$os_version/x86_64/perfsonar/${{ env.BUILD_BRANCH }}/RPMS
             ;;
             'd11'|'d12'|'u20'|'u22'|'u24')  
-              case "${{ env.BUILD_OS }}" in
+              case "${{ env.OS }}" in
               'd11') os_dir="debian"; os_version="11" 
                 echo "update the repo info"
                 curl -s https://raw.githubusercontent.com/perfsonar/docker-oneshot-builder/main/build | sh -s - --run create-db-repo.sh . "${{ env.BUILD_OS }}" 
