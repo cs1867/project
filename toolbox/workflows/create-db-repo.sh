@@ -31,6 +31,12 @@ ls -al
 echo "Generating Packages index..."
 dpkg-scanpackages . /dev/null > Packages
 
+echo "Generating compressed Packages.gz..."
+gzip -9c Packages > Packages.gz
+
+echo "Generating Release file..."
+apt-ftparchive release . > Release
+
 echo "Contents of repo directory:"
 pwd
 ls -l
