@@ -15,9 +15,13 @@ echo "change to artifacts dir and list"
 cd artifacts
 ls -al
 cd i2util
+ls -al 
+
+
 
 echo "***** variable check *** "
 echo $repo
+echo "od dir"
 echo $os_dir
 exit
 echo "apt-get install dpkg-dev"
